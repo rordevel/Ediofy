@@ -1,0 +1,8 @@
+$(".tab-content #latest, .tab-content #top").html('')
+$("<%=j render 'group_content', group_content: @group_content, group: @group %>").appendTo($(".comment-section .tab-content #latest"));
+$("<%=j render 'group_content', group_content: @group_top_content, group: @group %>").appendTo($(".comment-section .tab-content #top"));
+
+
+
+$(".comment-section .tab-content #playlists").html('')
+$("<%=j render 'group_content', group_content: @group_playlists, group: @group %>").appendTo($(".comment-section .tab-content #playlists"));

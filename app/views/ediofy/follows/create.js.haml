@@ -1,0 +1,4 @@
+- if current_user.follows_selected?
+  $(".follows-container-#{@user.id}").html("#{j manage_follow_link(@user)}");
+- else
+  $("#user-container-#{@user.id}").html("#{j render('ediofy/follows/follow', :user => @user)}");

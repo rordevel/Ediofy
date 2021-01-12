@@ -1,0 +1,16 @@
+.university-info
+  %h1.name
+  - if @university.abbreviation.present?
+    %h2.alt= @university.abbreviation
+  - if current_user.present?
+    - if current_user.university_group.present?
+      - if current_user.university_group == @university
+        = link_to t('.leave'), ediofy_university_leave_path(@university), data: { confirm: t('.leave_confirm', university: @university.name) }, class: 'manage-university-usership'
+      - else
+        = link_to t('.switch'), ediofy_university_join_path(@university), data: { confirm: t('.switch_confirm', current: current_user.university_group.name, new: @university.name) }, class: 'manage-university-usership'
+    - else
+      = link_to t('.join'), ediofy_university_join_path(@university), class: 'manage-university-usership'
+  .university-logo
+    .image= image_tag @university.badge.notification.url, size: '256x256', alt: @university.name
+
+= render 'stats_header'

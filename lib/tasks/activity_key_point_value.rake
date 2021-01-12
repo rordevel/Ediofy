@@ -1,0 +1,38 @@
+require "resque/tasks"
+
+desc 'populate the ActivityKeyPointValue values'
+task "activity_key_point_value:populate" => :environment do
+  # add or update some CPD
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'question.answer.correct')
+  cpd.update(cpd_time: 180, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'question.answer.wrong')
+  cpd.update(cpd_time: 60, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'question.submit')
+  cpd.update(cpd_time: 1800, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'question.duplicate')
+  cpd.update(cpd_time: 600, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'question.rewrite')
+  cpd.update(cpd_time: 600, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'media.watch')
+  cpd.update(cpd_time: 60, category: 'learning', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'media_files.new')
+  cpd.update(cpd_time: 600, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'pdf.view')
+  cpd.update(cpd_time: 120, category: 'learning', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'pdf_files.new')
+  cpd.update(cpd_time: 300, point_value: 20, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'conversation.new')
+  cpd.update(cpd_time: 300, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'conversation.read')
+  cpd.update(cpd_time: 120, category: 'learning', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'image_files.new')
+  cpd.update(cpd_time: 300, point_value: 20, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'image.view')
+  cpd.update(cpd_time: 120, category: 'learning', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'link.share')
+  cpd.update(cpd_time: 300, category: 'teaching', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'link.view')
+  cpd.update(cpd_time: 120, category: 'learning', enabled: true)
+  cpd = ActivityKeyPointValue.find_or_initialize_by(activity_key: 'comment.new')
+  cpd.update(cpd_time: 10, category: 'teaching', enabled: true)
+end

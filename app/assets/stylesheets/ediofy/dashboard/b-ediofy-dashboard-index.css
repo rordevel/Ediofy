@@ -1,0 +1,22 @@
+.b-ediofy-dashboard-index .searchGridArea.personGrid li {
+    /*width: 13.5% !important;*/
+}
+
+.b-ediofy-dashboard-index .divider {
+    width: 1170px;
+    height: 1px;
+    background-color: #d5dfe8 !important;
+}
+
+
+
+.b-ediofy-dashboard-index #results-listing .infinite-table {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+
+.b-ediofy-dashboard-index #people-results-listing .infinite-table {
+    margin-left: 0px;
+    margin-right: 0px;
+}

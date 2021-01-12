@@ -1,0 +1,20 @@
+= semantic_form_for [:admin, @namespace, @tag] do |f|
+  = f.inputs do
+    %ol
+      %li
+        = f.input :tag_type
+      %li
+        = f.input :name
+      %li  
+        = f.input :parent_id, collection: f.object.new_record? ? Tag.all : Tag.where("id not in(?)",  (f.object.children.pluck(:id) << f.object.id)), include_blank: t('.root_tag'), default: ''
+      %li
+        = f.input :image  
+
+  - if !@tag.new_record? && !@tag.descendants.blank?
+    = f.inputs name: t('.child_tags') do
+      %ol
+        - @tag.descendants.each do |t|
+          %li
+            = link_to t.name, edit_admin_tag_path(t)
+
+  = f.actions

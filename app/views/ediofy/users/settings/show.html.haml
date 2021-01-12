@@ -1,0 +1,131 @@
+.pageContent.settings-show
+  .manageContentMargin
+    .container.contentwrapper
+      .row
+        .col-md-4
+          = render 'settings_left_menu'
+        .col-md-8
+          .contentAreaBox
+            .boxOuterWhite.InnerBoxPages
+              %div.account-settings
+                %h1.h2.topMargin0.page-title Account
+                - if current_user.is_active?
+                  =# link_to('Deactivate your account', deactivate_ediofy_user_setting_path, class: 'account-action', "data-confirm": "Are you sure you want to deactivate your account?", "data-method": "PUT")
+                  =# link_to 'Deactivate your account', "#", "data-request-url": deactivate_ediofy_user_setting_path, class: 'account-action deactivate-user-btn'
+                  
+                  = link_to('Delete your account', "#", "data-request-url": user_registration_path, class: 'account-action destroy-user-btn')
+                - else
+                  = link_to('Activate your account', activate_ediofy_user_setting_path, class: 'account-action', "data-method": "PUT")
+              = semantic_form_for(current_user, :url => update_profile_ediofy_user_setting_path(current_user), :html => { :method => :put, :role => 'form'}) do |f|
+                .form-group.smallLabel
+                  %label Email address
+                  = f.input :email, label: false, :input_html => { :class => 'form-control', :'data-oldValue' => current_user.email}
+                %p.inline-errors
+                  =flash[:alert]
+                .connectSocial
+                  %label Connected Social Networks
+                  %ul.list-unstyled
+                    %li
+                      %span.linkareaSocial
+                        -#@user.facebook_url
+                        = link_to "#" do
+                          %i.fa.fa-facebook-square{"aria-hidden" => "true"}
+                          %span Facebook
+                      - if @user.facebook?
+                        %span.userconnectArea.activeSocial
+                          = link_to ediofy_user_unauth_path(:facebook) do
+                            = current_user.full_name
+                            %i.fa.fa-close
+                      - else
+                        %span.userconnectArea
+                          = link_to 'Connect', user_facebook_omniauth_authorize_path
+                    -#%li
+                    -#  %span.linkareaSocial
+                    -#    = link_to @user.twitter_url do
+                    -#      %i.fa.fa-twitter-square{"aria-hidden" => "true"}
+                    -#      %span Twitter
+                    -#  - if @user.twitter?
+                    -#    %span.userconnectArea.activeSocial
+                    -#      = #link_to ediofy_user_unauth_path(:twitter) do
+                    -#        =# current_user.full_name
+                    -#        %i.fa.fa-close
+                    -#  - else
+                    -#    %span.userconnectArea
+                    -#      =# link_to 'Connect', user_twitter_omniauth_authorize_path
+                    -#%li
+                    -#  %span.linkareaSocial
+                    -#    = #link_to @user.linkedin_url do
+                    -#      %i.fa.fa-linkedin-square{"aria-hidden" => "true"}
+                    -#      %span LinkedIn
+                    -#  - if @user.linkedin?
+                    -#    %span.userconnectArea.activeSocial
+                    -#      =# link_to ediofy_user_unauth_path(:linkedin) do
+                    -#        =# current_user.full_name
+                    -#        %i.fa.fa-close
+                    -#  - else
+                    -#    %span.userconnectArea
+                    -#      = #link_to 'Connect', user_linkedin_omniauth_authorize_path
+                    -#%li{style: 'border-bottom: none;'}
+                    -#  %span.linkareaSocial
+                    -#    = link_to @user.google_url do
+                    -#      %i.fa.fa-google-plus-square{"aria-hidden" => "true"}
+                    -#      %span Google+
+                    -#  - if @user.google?
+                    -#    %span.userconnectArea.activeSocial
+                    -#      = #link_to ediofy_user_unauth_path(:google) do
+                    -#        = current_user.full_name
+                    -#        %i.fa.fa-close
+                    -#  - else
+                    -#    %span.userconnectArea
+                    -#      = #link_to 'Connect', user_google_omniauth_authorize_path
+                          
+                .privacySetting
+                  %label Privacy
+                  %ul.list-unstyled
+                    %li.privacySettingLi
+                      %span.linkareaSocial
+                        Make my profile private
+                        ='&nbsp;'.html_safe
+                        %a{"data-toggle" => "tooltip", :href => "#", :title => "When you make your profile private, your personal information such as contributions, history, education are only shown to your accepted followers. "}
+                          = image_tag 'ediofy/info.png'
+                      %span.userconnectArea.acc
+                        .on-off-mode.p
+                          .checkbox-container.display-inline
+                            =  f.check_box :private, {class: 'custom-switch',  checked: current_user.private}, 'true', 'false'
+                    %li.privacySettingLi
+                      %span.linkareaSocial
+                        Go Ghost
+                        ='&nbsp;'.html_safe
+                        %a{"data-toggle" => "tooltip", :href => "#", :title => "When you enter ghost mode, any posts and comments you make will be anonymous. Instead of appearing under your account name, they’ll appear as “Ediofy Ghost”. You can enable and disable ghost mode at any time in the user menu."}
+                          = image_tag 'ediofy/info.png'
+
+                      %span.userconnectArea.acc
+                        .on-off-switch.on-off-mode
+                          .checkbox-container
+                            = f.inputs do
+                              = f.input :ghost_mode, input_html: {class: 'custom-switch switch', checked: false}
+                    
+                    %br
+                .accountButtons
+                  %ul.list-unstyled
+                    %li
+                      %span.linkareaSocial.text-right
+                        = f.submit 'Save changes', :class => 'btn button', :id => 'update_setting_btn', :disabled => true
+
+:javascript
+  $( document ).ready(function() {
+    $('#user_ghost_mode, #user_cpd_from, .p,  #user_private, #user_cpd_to' ).on('change',(function(){
+      $('.accountButtons input[type="submit"] ').prop("disabled", false);
+    }));
+
+    $('.p' ).on('click',(function(){
+      $('.accountButtons input[type="submit"] ').prop("disabled", false);
+    }));
+
+    $('#user_email').on('input', function() {
+      var original = $(this).data('oldValue');
+      if($(this).val() != original){
+        $('.accountButtons input[type="submit"]').prop("disabled", false);
+      }
+    });
+  });

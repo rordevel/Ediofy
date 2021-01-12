@@ -1,0 +1,13 @@
+.container
+  .row
+    .yourIntrest.searchresultPeople
+      .row
+        .col-md-7
+          %h2.your-interests Related People & Groups
+      #people-results-listing
+        .searchGridArea.personGrid.infinite-table
+          = render partial: 'ediofy/shared/results/people_results', locals: { people_results: people_results }
+        .text-center.padd-btn
+          .pagination
+            - if has_more_people
+              = link_to_next_results_page('people')

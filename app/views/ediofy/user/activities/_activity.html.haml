@@ -1,0 +1,8 @@
+%li[activity]{class: activity.key.parameterize}
+  = image_tag activity.user.avatar.stream.url, size: "32x32", alt: activity.user, class: "avatar"
+  = time_tag activity.created_at, "#{time_ago_in_words(activity.created_at)} ago", class: "created_at", title: l(activity.created_at)
+  %span.description
+    %strong.user= link_to activity.user, ediofy_user_activities_path(activity.user)
+    %span.activity= activity_link(activity)
+    - if activity.variables[:points]
+      %span.points (#{activity.variables[:points]} points)

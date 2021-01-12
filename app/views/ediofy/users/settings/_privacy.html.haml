@@ -1,0 +1,4 @@
+= f.inputs :title => t('.privacy'),  :class => "inputs privacy" do
+  %p= t('.pretext_html')
+  = f.input :privacy_friends, :as => :hinted_radio, :collection => (1..3)
+  = f.input :privacy_public, :as => :hinted_radio, :collection => (1..3)

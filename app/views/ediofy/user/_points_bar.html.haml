@@ -1,0 +1,13 @@
+#level-progress{"data-progress" => user.percent_to_next_level}
+  .progress-bar
+    .current
+      #{user.percent_to_next_level}%<br />
+      #{number_with_delimiter(user.points_into_current_level)} / #{number_with_delimiter(user.points_for_next_level_only)}
+    .start Level #{user.level}
+    .finish Level #{user.level+1}
+  .progress-bar-under
+    .current
+      #{user.percent_to_next_level}%<br />
+      #{number_with_delimiter(user.points_into_current_level)} / #{number_with_delimiter(user.points_for_next_level_only)}
+    .start= t('.progress.start_level', :level => user.level)
+    .finish= t('.progress.finish_level', :level => user.level + 1)

@@ -1,0 +1,146 @@
+.pageContent
+  %section.upload-content.manageContentMargin
+    .container
+      = semantic_form_for @media, :url => @path, html: {multipart: true} do |form|
+        - media_file = @media.errors.blank? ? @media.media_files.last : @media.media_files.first
+        - non_image_file = @media.media_files.where("media_type != 'image'").last || nil
+        %h2.exclr.upl-head
+          = @media.new_record? ? "Share" : "Edit"
+          Content
+        .upload-data
+          .row
+            .col-md-6.text-center
+              .main-sub-data.manageThedata
+                .updata
+                  .displayCell{class: @media.new_record? ? '' : (!media_file.blank? && media_file.media_type == 'video') ? 'videoUploadData' : 'UploadedData'}
+                    #media_files_progress_bar{:style => "display: none"}
+                      .js-progress-bars
+                        .imageProgress
+                          %span.progressInner
+                            .circularProgress.--0
+                              %span.dotProgress
+                              .circularProgress__overlay
+                                %span.progressPerText
+                                  %span.perText 0%
+                                  %span.file-properties Uploading file
+                                  %span.cancel Cancel
+                      %span Please do not refresh this page during the upload process.
+
+                    #file_upload
+                      - if @media.new_record? && media_file.blank?
+                        #top_media_file_caption
+                          = image_tag "ediofy/upload-icon.png"
+                          %h4 Upload
+                          %h6
+                            Drag a file here, or
+                            %br/
+                            %a{:href => "#"} browse
+                            for a file to upload.
+                      - else
+                        - top_file = media_file
+                        - if !non_image_file.blank?
+                          - top_file = non_image_file
+                        = render partial: 'top_file', :locals => { media_file: top_file, file_name: top_file.s3_file_name, media_type: top_file.media_type }
+                    .p-image
+                      %input#file_upload_button.file-upload{ type: 'file', name: 'media[media_files_attributes][0][file]' }/
+                    - if media_file.present?
+                      =# hidden_field_tag "media[media_files_attributes[0][id]", media_file.id
+                    %p.inline-errors= @media.errors.full_messages_for(:media_files).first
+                    -##media_files_progress_bar{:style => "display: none"}
+                      .upload.js-progress-bars
+                        .progress
+                          .bar
+                    - show_add_more_images = false
+                    - if !@media.media_files.blank?
+                      - types = @media.media_files.where(media_type: "image").pluck(:media_type)
+                      - if types.count < 4
+                        - show_add_more_images = true
+                    #media_files.multi-add-img.text-left
+                      - @media.media_files.each_with_index do |file|
+                        -# if file.media_type == "image"
+                        = render partial: 'file', :locals => { file_path: file.file_path, file_url: file.s3_file_url, file_name: file.s3_file_name, file_id: file.id, small_url: file.small_url, large_url: file.large_url, position: file.position, media_type: file.media_type }
+                      .extra-img-add-btn{ :style => ("display: none" unless show_add_more_images) }
+                        %button.btn.button.clearboth.edit-me.clrpink#upload_media_holder{:type => "button"}
+                          %i.fa.fa-picture-o{"area-hidden" => true}
+                          Custom thumbnail
+                        %span Max file size is 2 MB
+                %p.showHideOnUpload Upload an image (.jpg,.jpeg,.png), video (gif, mp4, mpg, mov, avi, wav) audio file or PDF
+
+            .col-md-6
+              .upload-filds.input-group
+                = form.inputs do
+                  = form.input :title, placeholder: 'Title', input_html: {class: "form-control question"}, label: false
+                  = form.label :description, class: 'normalFont'
+                  = form.input :description, input_html: {class: "form-control"}, label: false
+                  - media_files = form.object.media_files
+                  #media-references.explation
+                    %h6.exclass
+                      References
+                      = '&nbsp;'.html_safe
+                      = image_tag 'ediofy/info.png'
+                    = form.nested_fields_for :references do |r|
+                      .clearfix.con-pd.back-exp
+                        = form.inputs do
+                          .row
+                            .col-md-6
+                              = r.input :url, label: false, placeholder: 'URL', input_html: {class: 'form-control'}
+                            .col-md-6
+                              = r.input :title, label: false, placeholder: 'Title', input_html: {class: 'form-control'}
+                    = form.add_nested_fields_link :references, ('<span class="pluse-icon">+</span>').html_safe << 'Add another reference', class: 'btn button clearboth edit-me clrpink brd'
+                  .two-lab
+                    %label.text-left.tagDisplay Tags
+                    = form.input :tag_list, as: :tagger, :placeholder => 'Tags', input_html: { id: "ignored", class: "form-control", data: { :'tagger-source' => ediofy_autocomplete_tags_url, :'tagger-hint' => 'Enter some tags', :'no-results' => 'No matching tags' } }, label: false
+                    %label.text-left.instructionInfo These will help people search for your content
+                / %input.form-control{:name => "t1", :type => "text"}/
+
+                = render partial: 'ediofy/groups/share', locals: { resource: 'media', f: form }
+
+                .on-off-mode.res-mode
+                  .row
+                    .main-pub.col-md-12.text-right
+                      .checkbox-container.display-inline
+                        %h6 Go Ghost
+                      %p.display-inline.margin-right-18px
+                        Your post will be anonymous.
+                        %a{href: 'javascript:void(0)', :'data-toggle' => "tooltip", :title => 'When you enter ghost mode, any posts and comments you make will be anonymous. Instead of appearing under your account name, they\'ll appear as "Ediofy Ghost". You can enable and disable ghost mode at any time in the user menu.'}
+                          = image_tag 'ediofy/info.png'
+                      .checkbox-container.display-inline
+                        = check_box 'media', 'private', {id: 'ghost_mode_ignore', class: 'custom-switch', checked: @media.private }, 'true', 'false'
+              .uplbtn.display-flex.align-center
+                .cpd-msg.hidden.text-red
+                  Uploading media provides:
+                  = 600
+                  cpd points / 1 min
+                .btns.ml-auto
+                  - unless @media.new_record?
+                    =link_to 'Delete', "#", "data-request-url": ediofy_media_path(@media), "data-type": "Media", class: 'colorRed delete-content-btn'
+                    |
+                  = link_to 'Cancel', @media.new_record? ? ediofy_upload_path : ediofy_media_path(@media), redirect_url: @media.new_record? ? ediofy_upload_path : ediofy_media_path(@media), id: 'leave-media-page'
+                  %button.btn.button.clearboth#media-upload-submit{:type => "submit", disabled: true}
+                    =@media.new_record? ? 'Publish' : 'Save'
+      .s3_upload_none
+        - media_types = @media.media_files.pluck(:media_type).uniq
+        - if (media_types.count == 1 && media_types.include?("image")) || media_types.include?("audio") || media_types.include?("video") || media_types.include?("pdf")
+          - allow_extns = ".jpg, .jpeg, .png, .gif"
+        - else
+          - allow_extns = ".pdf, .jpg, .jpeg, .png, .gif, .mp4, .mpg, .m4v, .mov, .mkv, .avi, .ogg, .ogv, .wmv, .webm, .3gp, .3g2, .wav, .mp3, .m4a, .aac"
+        = s3_uploader_form callback_url: add_files_ediofy_media_index_path, callback_param: "media[files]", id: "s3-uploader-media-files", max_file_size: 20.megabytes do
+          = file_field_tag :file, multiple: false, id: "upload_media", class: "image-dispaly", :accept => allow_extns
+
+          - unless @media.new_record?
+            =link_to 'Delete',ediofy_media_path(@media),method: :delete, data:{confirm: "Are you sure!"}
+            |
+          = link_to "Cancel Upload", @media.new_record? ? ediofy_upload_path : ediofy_media_path(@media)
+:javascript
+  $(document).ready(function(){
+    var tag_observer = new MutationObserver(function() {
+        $('.token-input-list-facebook .token-input-input-token-facebook input').focus();
+    });
+    tag_observer.observe($('#media_tag_list_input ul').get(0), {childList: true });
+    $(window).bind("beforeunload",function(event) {
+      var uploaded_percent = parseInt($('#media_files_progress_bar .progressPerText .perText').html().split('%')[0]);
+      if(uploaded_percent > 0 && uploaded_percent < 100){
+        return 'Please do not refresh this page during the upload process.';
+      }
+    });
+  });

@@ -1,0 +1,11 @@
+%p
+  %ul.popover-links
+    - if @group.owner? current_user
+      - if @group.admin?(user)
+        %ol= link_to 'Transfer ownership', roles_ediofy_group_path(@group, user_id: user.id, act: 'transfer_ownership')
+        %ol= link_to 'Remove as admin user',  roles_ediofy_group_path(@group, user_id: user.id, act: 'delete_from_admins')
+      - else
+        %ol= link_to 'Make admin',  roles_ediofy_group_path(@group, user_id: user.id, act: 'add_to_admins')
+    - elsif @group.regular_user? current_user
+      - if @group.invited? user
+        %ol= link_to 'Cancel invite', cancel_invite_ediofy_group_path(@group, user_id: user.id)

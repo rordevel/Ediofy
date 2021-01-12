@@ -1,0 +1,294 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require fileuploader.css
+ *= require style.min.css
+ *= require normalize.css
+ *= require groups
+ *= require jquery.fancybox
+ *= require jquery-progressbar.min
+ *= require custom/bootstrap.min.css
+ *= require custom/slick.css
+ *= require users/show
+ *= require ediofy/dashboard/b-ediofy-dashboard-index
+ *= require token-input-facebook
+ *= require custom/on-off-switch.css
+ *= require froala_editor.min
+ *= require froala_style.min
+ *= require font-awesome
+ *= require pnotify
+ *= require s3_direct_upload_progress_bars
+ *= require jquery.atwho
+ *= require autocomplete.css
+ *= require custom_600_width.css
+ *= require styles
+ *= require animate.css
+ *= require comments
+ *= require playlists
+ *= require select2
+ *= require select2-bootstrap.css
+ *= require bootstrap-datepicker3
+ *= require flatpickr
+ *= require users/cpd_report
+ *= require_self
+*/
+
+/***********/
+
+label[for="ignored"], .on-off-mode label.floating-label{
+  display: none !important;
+}
+
+.d-block {
+  display: block;
+}
+
+.media {
+  overflow:visible;
+}
+
+.link {
+  text-decoration: none !important;
+  color: #17b2ff;
+  cursor: pointer;
+  transition:0.3s all;
+  -webkit-transition:0.3s all;
+
+  &:hover {
+    color: #aac7dd;
+    text-decoration: none;
+  }
+
+
+}
+
+a.active {
+    color: #17b2ff;
+    text-decoration: none;
+}
+.red-link {
+  @extend .link;
+  color: #F4027D;
+}
+
+
+.normal-group-action-link
+{
+  @extend  .link;
+  color: #3f536e;
+}
+
+.green-link {
+  text-decoration: none !important;
+  color: #26c994;
+  cursor: pointer;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+}
+
+.margin-left-25 {
+  margin-right: 25px;
+}
+
+.line-height-30 {
+  line-height: 30px;
+}
+
+.light-gray {
+  color: lightgrey;
+}
+
+.signin-bg {
+  background-image: asset-url("ediofy/signin_bg.jpg")
+}
+.bg-white{
+  background-color: #FFF;
+}
+/***********/
+.circularProgress__overlay {
+  line-height: 1.42857143 !important;
+  .cancel{
+    font-size: 14px;
+    color: red;
+    cursor: pointer;
+  }
+}
+.display-inline {
+  display: inline-block;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.padding-left-7 {
+  padding-left: 7px;
+}
+
+.margin-right-18px {
+  margin-right: 18px;
+}
+.qa-after-create .col86{
+  width: calc(100% - 85px) !important;
+}
+.margin-bottom-25px {
+  margin-bottom: 25px;
+}
+.margin-top-25px {
+  margin-top: 25px;
+}
+.publish-underline .publishedAt{
+  padding-bottom: 0px;
+}
+.pd-bottom:before, .pd-bottom:after{
+  content: none !important;
+}
+#media_files_progress_bar .upload.js-progress-bars {  border: none; }
+.upload .progress {height: 10px;}
+.uploadMedia .upload .progress .bar {background:#deb439;}
+.s3_upload_none {
+  visibility: hidden;
+  height:0;
+}
+
+
+.url-meta-tags .close-img {
+  width: 100%;
+  height: 30px;
+  display: none;
+  cursor: pointer;
+}
+
+.url-meta-tags .close-img span {
+  float: right;
+}
+
+//WYSIWYG Editor
+/******************************************/
+.comment-box {
+  padding: 20px 0 0px !important;
+
+
+
+  .fr-box.fr-basic.fr-bottom .fr-toolbar::after {
+    display: inline;
+  }
+
+
+  .confirm-comm {
+    border-top: 0;
+    .row {
+      .col-md-6 {
+        float: right;
+      }
+    }
+  }
+
+  .comment-sort:first-child {
+    padding-left: 15px;
+  }
+  .comment-sort:nth-child(n-1) {
+    padding-right: 15px;
+  }
+}
+
+#question_explanation_input{
+  border: 1px solid #aac7dd;
+  .fr-box.fr-basic.fr-bottom .fr-element {
+    min-height: 100px;
+  }
+
+}
+
+.fr-box.fr-basic.fr-bottom .fr-wrapper {
+  box-shadow: none;
+}
+
+.fr-box .fr-toolbar {
+  border-top: 1px solid #aac7dd;
+  box-shadow: none;
+  button {
+    margin-top: 5px;
+  }
+  .fr-separator {
+    height: 16px;
+    margin-top: 15px;
+  }
+}
+
+.col86 {
+  width: 84.33% !important;
+}
+
+#user_about_input .fr-box{
+  border: 1px solid #aac7dd;
+}
+/********************************************/
+
+#error_explanation ul {
+  margin-left: 0;
+}
+#error_explanation li {
+  list-style-type: none;
+  color: red;
+}
+select.select-down{
+  background-image: asset-url("ediofy/down4.png") !important;
+}
+.signup-terms {
+  padding-left: 0px !important;
+  .inline-errors {
+    font-size: 14px;
+  }
+}
+
+.password-update-success {
+  color: #11aa4e;
+  font-size: 14px;
+}
+
+#report_reason_input {
+  label {
+    font-size: 14px;
+    input[type="radio"] {
+      font-size: 10px;
+    }
+  }
+  fieldset legend label abbr {
+    display: none;
+  }
+}
+.report-submit-button {
+  margin-bottom: 20px;
+}
+
+/********** Space Configuration *************/
+.ml-auto {
+  margin-left: auto;
+}
+
+.ml-50 {
+  margin-left: 50px;
+}
+
+.ml-25 {
+  margin-left: 25px;
+}
+
+/********** Color Configuration *************/
+.text-red {
+  color: red;
+}

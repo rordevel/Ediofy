@@ -1,0 +1,21 @@
+<%
+  if params["filetype"].include? "pdf" 
+    media_type = params["filetype"].split("/", 2).last
+  else
+    media_type = params["filetype"].split("/", 2).first
+  end
+%>
+<% if (media_type == "image") %>
+  $("#question_images").prepend("<%= escape_javascript(render :partial => 'ediofy/shared/image', :locals => { resource: 'question', file_url: params[:url], file_name: params[:filename], small_url: params[:url] }) %>");
+  if ($(".add-img:visible").size() > 0 && $(".add-img:visible").size() < 4 ) {
+    $(".extra-img-add-btn").show();
+  } else {
+    $(".extra-img-add-btn").hide();
+  }
+<% else %>
+  new PNotify({
+    title: 'Wrong Extension',
+    text: 'Allowed extensions are jpg, jpeg, png, gif',
+    type: 'error'
+  });
+<% end %>

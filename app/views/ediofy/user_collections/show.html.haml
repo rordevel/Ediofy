@@ -1,0 +1,30 @@
+
+.gallery-item-header
+  %h2= t '.user_collection'
+  %h1.full-title
+    %span= @collection.title
+
+.content
+
+  - if @collection.user == current_user
+    .show-action= link_to t('.edit'), [:edit, :ediofy, @collection], class: 'edit'
+
+  .user-collection-detail
+    .info
+      %h2= @collection.title
+      .created
+        %span.date= t '.created_html', date: time_tag(@collection.created_at, @collection.created_at.to_date.to_s(:au), title: @collection.created_at)
+        - if @collection.user.present?
+          %span.user= t '.by_html', user: link_to(@collection.user.full_name, [:ediofy, @collection.user])
+    .description= sanitize @collection.description
+
+  .user-collection-items
+    - if !@media.blank? || !@questions.blank?
+      - unless @media.blank?
+        %h2= t '.media'
+        %ol.media-items= render @media
+      - unless @questions.blank?
+        %h2= t '.questions'
+        %ol.question-items= render partial: 'ediofy/questions/question_item', collection: @questions, as: :question
+    - else
+      .no-items= t '.empty_collection_html'

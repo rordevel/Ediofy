@@ -1,0 +1,2 @@
+$('.modal-body').find("#user-card-<%=j @user.id.to_s %> .follow").removeClass('follow').addClass('unfollow')
+    .html('<a class="red-link" data-remote="true" rel="nofollow" data-method="delete" href="/follows/1?user_id=<%=j @user.id.to_s %>">Unfollow</a>')

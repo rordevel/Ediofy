@@ -1,0 +1,33 @@
+.content
+  %section.invite
+    %h2= t '.invite.title'
+    - if current_user.facebook? || current_user.twitter?
+      %ul.buttons
+        - if current_user.facebook?
+          %li= link_to_function t('.invite.facebook'), "FB.ui({method:'apprequests',message:#{t('.networks.request').to_json}});", class: "facebook"
+        - if current_user.twitter?
+          %li= link_to t('.invite.twitter'), "https://twitter.com/share", class: "twitter-share-button twitter", data: {url: ediofy_root_url, text: t('.invite.tweet')}
+    - else
+      .no-social-accounts= t '.invite.no_accounts_html'
+    = form_tag url_for(action: :create), class: "formtastic invite-emails" do
+      %fieldset
+        %ol
+          %li.description
+            %h3= t '.invite.email.title'
+            = t '.invite.email.description_html'
+          %li.stringish.text.input.required
+            %label.label{for: "emails"}
+              = t '.invite.email.label'
+              %abbr{title: "required"} *
+            = text_area_tag :emails
+      %fieldset.buttons.actions
+        %ol
+          %li.commit.button.action= submit_tag t '.invite.email.send'
+
+  %section.social
+    %h2= t '.social.title'
+    - if current_user.network_users?
+      .users{data: {load: url_for(action: "network_users")}}
+        .loading= t '.social.loading'
+    - else
+      .no-social-accounts= t '.social.no_accounts_html'

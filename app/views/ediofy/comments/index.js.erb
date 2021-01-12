@@ -1,0 +1,12 @@
+// Append new data
+$('<%= j render(partial: 'ediofy/comments/index', collection: @comments, as: :comment) %>').appendTo($('#results-listing .infinite-table .items'));
+$('#comments-count').text('<%= @comments.total_count %>');
+$('#comments-caption').text('<%= @comments.total_count == 1 ? 'Comment' : 'Comments' %>');
+
+// Update pagination link
+<% if @comments.last_page? %>
+$('.loading').hide();
+$('#results-listing .pagination').html('');
+<% else %>
+$('#results-listing .pagination').html('<%= j link_to_next_page(@comments, 'Load more', remote: true, class: 'btn button color-blue back-hov-clr') %>');
+<% end %>

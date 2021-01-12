@@ -1,0 +1,11 @@
+- @histories.each do |history|
+  - if history.viewable_type == "User"
+    =render partial: 'ediofy/shared/contributor_card', locals: { related: false, user: history.viewable}
+  - elsif history.viewable_type == "Question"
+    =render partial: 'ediofy/shared/question_card', locals: { related: false, question: history.viewable}
+  - elsif history.viewable_type == "Media"
+    =render partial: 'ediofy/shared/media_card', locals: { related: false, media: history.viewable}
+  - elsif history.viewable_type == "Conversation"
+    =render partial: 'ediofy/shared/conversation_card', locals: { related: false, conversation: history.viewable}
+  - elsif history.viewable_type == "Link"
+    =render partial: 'ediofy/shared/link_card', locals: { related: false, link: history.viewable}

@@ -1,0 +1,5 @@
+class AddDeletedIndexToMedia < ActiveRecord::Migration[5.0]
+  def change
+    add_index :media, :deleted
+  end
+end

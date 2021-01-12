@@ -1,0 +1,6 @@
+- badge = badge_user.badge
+%tr
+  %td.text
+    .title=I18n.t("notification.badge.#{badge_user.reason_key}.title_html", { badge: badge, default: I18n.t('notification.badge.default.title_html', badge: badge) }).html_safe
+    .description= badge_user.reason
+  %td.image= image_tag badge.image.notification.url, alt: badge.name

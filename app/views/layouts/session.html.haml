@@ -1,0 +1,46 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "website", :property => "og:type"}
+    %meta{:content => "Ediofy", :property => "og:site_name"}
+    %meta{:content => "http://ediofy.com", :property => "og:url"}
+    %meta{:content => og_image_path , :property => "og:image"}
+    %meta{:content => "Ediofy is an online educational platform foth professionals and students to connect, learn and share their knowledge.", :property => "og:description"}
+    %title= content_for?(:title) ? yield(:title) : "Ediofy"
+    = favicon_link_tag 'ediofy/favicon.png', rel: 'shortcut icon', type: 'image/png'
+    %meta{:content => "#{content_for?(:description) ? yield(:description) : "Ediofy"}", :name => "description"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+    %link{href: "https://use.typekit.net/yea4ovx.css", rel: "stylesheet", type: "text/css"}
+    %link{href: "https://fonts.googleapis.com/css?family=Cabin:400,400i,500,500i,600,600i,700", rel: "stylesheet", type: "text/css"}
+    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+    = csrf_meta_tags
+  %body
+    %header{class: 'mainHeader transparent'}
+      .logo
+        %a
+          =image_tag('ediofy/logo.png', alt: 'Ediofy')
+      %div{class: 'rightHeader text-right'}
+    .container
+      =# render 'layouts/messages'
+    %div{class: 'formareaOuter pageContent'}
+      %section.signinLeft.first-slide-banner.signinOnly{style: 'background-image: url('+image_url("ediofy/first-slider-imag.jpg")+')'}
+        .container
+          .fullheight
+            .displayCell
+              .displayTable.clearfix.pdttop
+                .col-md-6.displayCell
+                  %h1.main-head.text-left.clrwhite.home-title The best mentor you can have, is all of them.
+                  .righthomecontent
+                    %h4 Learn the latest medical practices and procedures, from best in field industry peers.
+                    %div
+                      = link_to 'Start learning', new_user_session_path, class: 'btn button color-blue back-hov-clr'
+                    %br
+                    %a.clrwhite.ntblue{:href => "#"} What is Ediofy?
+                .col-md-6.displayCell
+          .scroll-next
+            %a{:href => "#"}
+              Discover Ediofy
+              %i.fa.fa-chevron-down{"aria-hidden" => "true"}
+      = yield

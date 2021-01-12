@@ -1,0 +1,1 @@
+ActiveAdmin::Devise::SessionsController.send(:include, ActiveAdmin::AfterAdminLoginRedirect)

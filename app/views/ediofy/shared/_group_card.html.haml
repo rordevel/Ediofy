@@ -1,0 +1,14 @@
+.col-sm-6.col-md-3.post-cart
+  %div
+    .video-player.withBg-card{style: "background-image: url('#{group&.image&.medium}')"}
+      =link_to ediofy_group_path(group) do
+        .vid-con.vid
+          %p Group
+    .video-content
+      = link_to ediofy_group_path(group) do
+        %h6= truncate(group.title.to_s.titleize, length: 28) rescue ''
+      .row.like-seen-msg
+        .like-icon.col-sm-5.col-xs-5.col-md-5
+          %span{:class => ("colorGrey" if group.view_count == 0)}
+            %i.fa.fa-eye{"aria-hidden" => "true"}
+            =group.view_count rescue 0

@@ -1,0 +1,72 @@
+.contantWrapper.pageContent
+  .editProfiletitle
+    %h1 My Profile
+    %p To get started, tell us a bit about yourself.
+  .row
+    = semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f|
+      - if flash[:alert]
+        %p.inline-errors
+          = flash[:alert]
+      = f.inputs do
+        =f.input :profile_completed, as: :hidden, input_html: { value: true }
+        .col-md-12.text-center
+          #image_upload.circle
+            = image_tag current_user.avatar.x_medium.url, alt: current_user.full_name, class: 'profile-pic', data: { placeholder: asset_path('ediofy/default-profile-img.png') }
+            %i.fa.fa-times.remove-picture-button{ style: (current_user.avatar.present?) ? 'display: inline-block;' : 'display: none;' }
+            %i.fa.fa-camera.upload-button
+          .p-image
+            = f.file_field :avatar, :class => 'file-upload', :id => 'image_upload_button'
+        .clearfix
+          .col-md-6
+            .form-group
+              = f.label :full_name, 'Full Name*'
+              = f.input :full_name, label: false, :input_html => { :class => 'form-control' }
+          .col-md-6
+            .form-group
+              = f.label :title, 'Title'
+              = f.input :title, label: false, :input_html => { :class => 'form-control', style: 'background-image: url('+image_url("ediofy/down4.png")+')' }
+        .clearfix
+          .col-md-6
+            .form-group
+              = f.label :location, 'Location'
+              = f.input :location, label: false, :input_html => { :class => 'form-control' }
+          .col-md-6
+            .form-group
+              = f.label :specialty, 'Job Description'
+              = f.input :specialty, label: false, :input_html => { :class => 'form-control', style: 'background-image: url('+image_url("ediofy/down4.png")+')' }
+        - if user_signed_in? && current_user.email.end_with?('.auth') && current_user.ediofy_terms_accepted      
+          .col-md-12
+            .form-group
+              = f.label :email, 'Email Address'
+              = f.input :email, label: false, :input_html => { :class => 'foc' }
+              %p.inline-errors Please add a valid e-mail address to your account
+        .col-md-12
+          .form-group
+            = f.label :qualifications, 'Education and Qualifications (Optional)'
+            = f.input :qualifications, as: :text, label: false, :input_html => { :class => 'foc' }
+        .col-md-12
+          .form-group
+            = f.label :about, 'About You (Optional)'
+            = f.input :about, as: :text, label: false, :input_html => { :class => 'bigArea foc' }
+      = f.actions do
+        .col-md-12.text-center
+          - if current_user.on_boarding_process_completed
+            = f.action :submit, label: "Save", button_html: { class: "btn button minWidth" }
+          - else
+            = f.action :submit, label: "Next", button_html: { class: "btn button minWidth" }
+:javascript
+  $(document).ready(function(){
+    $('#user_title > option').each(function(){
+      this.text = makeTitle(this.text);
+    });
+  });
+  function makeTitle(title) {
+    var words = title.split(' ');
+
+    $.each(words, function(index, word){
+        word = word == 'Ceo' ? word.toUpperCase() : word
+        words[index] = word.charAt(0).toUpperCase() + word.slice(1);
+    });
+
+    return words.join(' ');
+  }

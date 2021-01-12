@@ -1,0 +1,42 @@
+#signin-slide-container.pageContent.drawerOpen{style: "position: absolute; top: 0px; width:100%;"}
+  .displayTable.clearfix
+    .col-md-6.signinLeft.displayCell.signin-bg
+    .col-md-6.displayCell.signinForm
+      .formOuter.bg-white#signInForm
+        = link_to :back, class: 'closeme' do
+          %i.fa.fa-close
+        %h1.signtitle Sign In
+        %p{class: 'signupNote'}
+          New to Ediofy?
+          = link_to 'Sign up now', new_user_registration_path
+        = semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f|
+          - if flash[:email_empty]
+            %p.inline-errors
+              = flash[:email_empty]
+          - if flash[:invalid_email]
+            %p.inline-errors
+              = flash[:invalid_email]
+          - if flash[:wrong_password]
+            %p.inline-errors
+              = flash[:wrong_password]
+          = devise_error_messages!
+          = f.inputs do
+            .form-group
+              = f.input :email, label: false, :placeholder => 'Username or Email', :input_html => { :class => 'form-control' }
+            .form-group
+              = f.input :password, label: false, :placeholder => 'Password', :input_html => { :class => 'form-control' }
+            - if devise_mapping.recoverable?
+              = link_to "Forgot?", new_password_path(resource_name), class: 'toggleForm'
+          = f.submit 'Start learning', class: 'btn button'
+
+        - if devise_mapping.omniauthable?
+          .orLogin.text-center or
+          .form-group.expd.sociaSignIn
+            %span.singInwith
+              Sign in with
+            - resource_class.omniauth_providers.each do |provider|
+              %a{href: omniauth_authorize_path(resource_name, provider), style: 'text-decoration: none'}
+                - if provider.to_s == 'google'
+                  %i.fa{class: 'fa-'+provider.to_s+'-plus-square'}
+                - else
+                  %i.fa{class: 'fa-'+provider.to_s+'-square'}

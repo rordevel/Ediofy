@@ -1,0 +1,15 @@
+= render 'university_header'
+
+.content
+
+  %section.content-section
+
+    %section.timeline
+      %h2= t '.recent_activity'
+      %ol.activity-list= render collection: @recent_activities, partial: 'ediofy/user/activities/activity'
+      - if @recent_activities.next_page
+        = link_to t('.earlier_activity'), {recent_activities_page: @recent_activities.next_page}, class: 'button'
+
+    = render 'new_users', users: @new_users
+
+  = render 'ediofy/shared/popular', questions: @popular_questions, media_collections: @popular_media_collections, user_collections: @popular_user_collections

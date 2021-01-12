@@ -1,0 +1,17 @@
+$('#results-listing .infinite-table .items').text('');
+
+if ($('#results-listing').length) {
+  url = $('#results-listing').attr('data-url');
+
+  if (typeof url !== 'undefined') {
+    $.ajax({
+      type: 'GET',
+      url: url,
+      dataType: 'script'
+    });
+  }
+}
+
+$('#comment_comment').val('');
+$('li#comment_comment_input .fr-element').html('<p><br /></p>');
+$('li#comment_comment_input .fr-wrapper').addClass('show-placeholder');

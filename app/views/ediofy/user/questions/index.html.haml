@@ -1,0 +1,16 @@
+= render 'profile'
+
+= render 'stats'
+
+.content
+
+  - if @user == current_user
+    .index-action= link_to t('.new'), new_ediofy_question_path
+
+  .question-list
+    .items-header
+    - if @questions.any?
+      %ol.question-items= render partial: 'ediofy/questions/question_item', collection: @questions, as: :question
+      = paginate @questions
+    - else
+      .no-questions= t '.no_questions_html', user: @user

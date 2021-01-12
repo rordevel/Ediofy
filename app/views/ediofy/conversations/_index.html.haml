@@ -1,0 +1,3 @@
+- conversation = conversations.select{|c| c.id == search_result["id"]}.first
+- unless conversation.blank?
+  =render partial: 'ediofy/shared/conversation_card', locals: { related: false, conversation: conversation}

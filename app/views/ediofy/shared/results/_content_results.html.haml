@@ -1,0 +1,7 @@
+- if content_results.count > 0
+  .items
+    - content_results.each do |result|
+      = render partial: "ediofy/shared/results/content/#{result.class.name.downcase}", locals: { related: false, result.class.name.downcase.to_sym => result }
+- else
+  .noRecentView.text-center.items
+    %p No matching content found.

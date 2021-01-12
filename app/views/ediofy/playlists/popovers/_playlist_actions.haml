@@ -1,0 +1,5 @@
+%p
+ %ul.popover-links
+  %ol= link_to 'Edit', edit_ediofy_playlist_path(@playlist), remote: true,  class: 'normal-group-action-link'
+  %ol= link_to 'Duplicate playlist', ediofy_duplicate_playlist_path(@playlist), remote:true, class: 'normal-group-action-lin'
+  %ol= link_to 'Delete',   ediofy_playlist_path(@playlist) , data: {toggle: 'modal', target: '#', type: 'Playlist'},class: 'delete-group-btn red-link'

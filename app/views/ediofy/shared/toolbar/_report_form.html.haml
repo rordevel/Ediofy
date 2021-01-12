@@ -1,0 +1,6 @@
+= semantic_form_for reportable.reports.by(current_user).build, url: [:ediofy, reportable, :reports], remote: true do |f|
+  = f.semantic_errors :media_id, :question_id
+  = f.inputs do
+    = f.input :reason, as: :radio, collection: Report.default_reasons + ["Other"]
+    = f.input :comments, as: :text
+  %button.btn.button.clearboth.submit-btn.report-submit-button{:type => 'submit'} Submit report

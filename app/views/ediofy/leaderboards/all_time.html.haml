@@ -1,0 +1,10 @@
+.content
+
+  %section.content-body
+
+    %header.leaderboard-header
+      = render "leaderboard_navigation"
+      // Need to show the user what range the timeline is displaying (beginning of time to todays date)
+      .range January 1, 2012 — Now
+    %section.leaderboard-list= render :partial => "user", :collection => @users
+    = paginate @users

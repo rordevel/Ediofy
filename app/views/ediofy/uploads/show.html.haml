@@ -1,0 +1,41 @@
+.pageContent
+  %section.upload-content.manageContentMargin
+    .container
+      %div
+        %h1.exclr.h2 Share Content
+        .pageContentDesc
+          %p Learn something. Teach someone. Change the world.
+        .main-gallery.clearboth
+          .row
+            .col-md-3.col-sm-6
+              .main-brd.mediaShareBox
+                %a{href: new_ediofy_media_path}
+                  %span.fa-icon
+                    = image_tag('ediofy/ic-circle-play.png')
+                  .sharingTitleOuter
+                    %h5 Upload Media
+                    %p Share video, audio, images, or PDF
+            .col-md-3.col-sm-6
+              .main-brd.linkShare
+                %a{href: new_ediofy_link_path}
+                  %span.fa-icon
+                    = image_tag('ediofy/ic-share-link.png')
+                  .sharingTitleOuter
+                    %h5 Share a Link
+                    %p Share a link or article
+            .col-md-3.col-sm-6
+              .main-brd.startConversation
+                %a{href: new_ediofy_conversation_path}
+                  %span.fa-icon
+                    = image_tag('ediofy/ic-conversation.png')
+                  .sharingTitleOuter
+                    %h5 Start a Conversation
+                    %p Talk about a subject or issue
+            .col-md-3.col-sm-6
+              .main-brd.otherHelp
+                %a{href: new_ediofy_question_path}
+                  %span.fa-icon
+                    = image_tag('ediofy/ic-help-others-learn.png')
+                  .sharingTitleOuter
+                    %h5 Write a Question
+                    %p Create your own questions

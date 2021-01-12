@@ -1,0 +1,69 @@
+- if related
+  = link_to ediofy_media_path(media, :playlist => @playlist) do
+    .main-related.clearboth
+      .video-col
+        - if media.content_type == "video"
+          .vid-time.vid
+            %p= media.media_files.where(media_type: "video").first.duration
+        - if media.images.blank?
+          - if media.content_type == "video"
+            - videofile = media.media_files.where(media_type: "video").first
+            = image_tag videofile.processed ? videofile.video_thumb_url : image_url(default_placeholder('Media', media.id, 'small'))
+          - elsif media.content_type == "audio"
+            = image_tag image_url('ediofy/small-audio.png')
+          - else
+            = image_tag image_url(default_placeholder('Media', media.id, 'small'))
+        - else
+          = image_tag media.images.first.small_url
+      .vid-con
+        %h6= truncate(media.title, length: 31)
+        .author-name
+          %span
+            = image_tag media.user.ghost_mode || media.private? ? media.user.avatar.default_url : media.user.avatar.xxx_small.url, alt: media.user.full_name
+          %span
+            = media.user.title.humanize.titleize rescue '' if !(media.user.ghost_mode || media.private?)
+            = media.user.ghost_mode || media.private? ? "Anonymous" : truncate(media.user.full_name.to_s.titleize, length: 20) rescue ''
+        -if !params[:playlist].present?
+          %span.like-seen-msg
+            %span{:class => "#{media.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(media) ? 'likedPost' : ''}"}
+              %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+              = media.count_votes_up
+
+- else
+  .col-sm-6.col-md-3.post-cart
+    = yield
+    %div
+      - if media.images.blank?
+        - if media.content_type == "video"
+          - videofile = media.media_files.where(media_type: "video").first
+          - backgroung_image = videofile.processed ? videofile.video_thumb_url : image_url(default_placeholder('Media', media.id, 'medium'))
+        - elsif media.content_type == "audio"
+          - backgroung_image = image_url('ediofy/medium-audio.png')
+        - else
+          - backgroung_image = image_url(default_placeholder('Media', media.id, 'medium'))
+      - else
+        - backgroung_image = media.images.first.medium_url
+      .video-player.withBg-card{style: 'background-image:url("'+backgroung_image+'");'}
+        = link_to  controller_name == 'groups' ?  ediofy_group_media_path(media, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_media_path(media, :playlist => @paylist )    do
+          .vid-con.vid
+            %p= media.content_type.capitalize
+          - if media.content_type == "video"
+            .vid-time.vid
+              %p= media.media_files.where(media_type: "video").first.duration
+      .video-content
+        = link_to  controller_name == 'groups' ?  ediofy_group_media_path(media, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_media_path(media, :playlist => @paylist )    do
+          %h6= truncate(media.title, length: 28)
+        .author-name
+          = render 'ediofy/groups/content_author_small_with_title', content: media, user: media.user
+        .row.like-seen-msg
+          .like-icon.col-sm-5.col-xs-5.col-md-5
+            %span{:class => "#{media.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(media) ? 'likedPost' : ''}"}
+              %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+              =media.count_votes_up
+          .text-right.col-sm-7.col-xs-7.col-md-7
+            %span{:class => ("colorGrey" if media.comments.count == 0)}
+              %i.fa.fa-comment{"aria-hidden" => "true"}
+              =media.comments.count rescue 0
+            %span{:class => ("colorGrey" if media.view_count == 0)}
+              %i.fa.fa-eye{"aria-hidden" => "true"}
+              =media.view_count rescue 0

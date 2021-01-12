@@ -1,0 +1,71 @@
+.pageContent.b-ediofy-follow-index.manageContentMargin
+  = semantic_form_for(current_user, :as => current_user, :url => registration_path(current_user), :html => { :method => :put, :role => 'form'}) do |f|
+    =f.input :follows_selected, as: :hidden, input_html: { value: true }
+    #follows_form_inputs
+      .container
+        .row
+          .col-md-12
+            %h1.exfont.h2 Your Connections
+            %p Connect with colleagues, friends and industry leaders and institutions.
+      .myChoiceTab
+        .container
+          .row
+            .col-md-6
+              %ul.nav.nav-pills
+                %li{ :class => ('active' if params[:follow_type] == 'suggested') }
+                  =link_to 'Suggested', ediofy_follows_path(request.query_parameters.merge({:follow_type => 'suggested'}))
+                %li{ :class => ('active' if params[:follow_type] == 'mine') }
+                  =link_to 'My contacts', ediofy_follows_path(request.query_parameters.merge({:follow_type => 'mine'}))
+                %li{ :class => ('active' unless params[:follow_type]) }
+                  =link_to 'All contributors', ediofy_follows_path(request.query_parameters.except(:follow_type))
+            .col-md-6
+              .col-md-12.connection-filter-pad-left
+                .sortBy.text-right.yourintrestFilter.topMargin0
+                  %ul.list-inline.text-right
+                    %li{style: 'display:none'}
+                      .sortBy.text-right
+                        %label Type:
+                        = content_type_select(:contributors)
+                    %li
+                      .sortBy.text-right
+                        %label Sort by:
+                        = sort_by_select
+
+      .container.pageContent
+        .row
+          .col-md-12
+            .tab-content
+              #home.tab-pane.fade.in.active
+                #people-results-listing
+                  %ul.searchGridArea.personGrid.infinite-table
+                    .items
+                      - @follows.each do |follow|
+                        - user = @users.select{|u| u.id == follow["id"]}.first
+                        = render partial: 'index', locals: {user: user, showpending: user.has_a_pending_follow_request_from(current_user) }
+
+                  .text-center.padd-btn
+                    .pagination
+                      =link_to_next_page(@follows, 'Next page', :remote => true, class: 'btn button color-blue back-hov-clr')
+
+              #mycontacts.tab-pane.fade
+                %h3.exclr.text-center This feature is COMING SOON
+              #all.tab-pane.fade
+                %h3.exclr.text-center This feature is COMING SOON
+
+    .buttonWrapper.text-center.fixedBottom{ :class => ('displayNone' if current_user.on_boarding_process_completed) }
+      .container.pageContent
+        .row
+          .col-md-12
+            -#= f.actions do
+            - if current_user.on_boarding_process_completed
+              = f.submit 'Save', value: "Save", class: 'btn button minWidth'
+            - else
+              = link_to 'Previous', ediofy_interests_path, class: 'btn button minWidth'
+              = f.submit 'Next', value: "Later", class: 'btn button minWidth'
+    
+    :javascript
+      pending_items = $('input[name="followable_id"][data-pending=true]')
+      if (pending_items.length > 0)
+        $('input[name="commit"]').prop('value','Next')
+      else
+        $('input[name="commit"]').prop('value','Later')

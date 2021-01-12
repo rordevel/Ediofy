@@ -1,0 +1,9 @@
+%li.input.boolean.tag{ data: { index: tag.id } }
+  %label
+    - checked = prechecked ? current_user.setting.tag_choice.include?(tag.id.to_s) : false
+    /@question.tags.include?(tag)
+    = check_box_tag "#{f.object.class.name.underscore}[tag_ids][]", tag.id, checked, { id: "#{f.object.class.name.underscore}_tag_ids_#{tag.id}" }
+    = tag.name
+  - if sub_tags.count > 0
+    %ol.nested-tags
+      = nested_tags sub_tags, f, prechecked

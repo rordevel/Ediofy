@@ -1,0 +1,10 @@
+// Append new data
+$("<%=j render(:partial => 'ediofy/users/profile_interests', collection: @interests, as: :interest) %>").appendTo($("#profile-interests .infinite-table .items"));
+
+// Update pagination link
+<% if @interests.last_page? %>
+  $('.loading').hide();
+  $('#profile-interests .pagination').html("");
+<% else %>
+  $('#profile-interests .pagination').html("<%=j link_to('Load more', {controller: 'ediofy/users', action: 'interests', user_id: @user.id, page: params[:page].to_i+1 }, :remote => true, class: 'btn button clearboth') %>");
+<% end %>

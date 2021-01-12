@@ -1,0 +1,12 @@
+= form_for @playlist, url: ediofy_playlist_path(@playlist) do |f|
+  = f.label :title
+  %br
+  = f.text_field :title,  :maxlength => 40, class: "fullwidth"
+  %br
+  = f.label :description
+  = f.text_area :description, :maxlength => 80
+  = f.label :archived
+  = f.check_box :archived
+
+  %br
+  = f.submit nil, class: 'btn btn-default'

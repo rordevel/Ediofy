@@ -1,0 +1,145 @@
+en:
+  devise:
+    sessions:
+      new:
+        title: "Sign In"
+    passwords:
+      new:
+        title: "Forgot Your Password"
+  admin:
+    activity_key_point_values:
+      title: "Points for Activities"
+    admins:
+      title: "Admin Admins"
+    badges:
+      title: "Badges"
+    dashboard:
+      title: "Admin Dashboard"
+    ediofy:
+      tags:
+        title: "Tags"
+    users:
+      title: "Users"
+    mock_exams:
+      title: "Admin Mock Exams"
+    questions:
+      title: "Admin Questions"
+    question_explanations:
+      title: "User Explanations"
+    subjects:
+      title: "Admin Subjects"
+    universities:
+      title: "Universities"
+  ediofy:
+    badges:
+      index:
+        title: Badges
+    dashboard:
+      show:
+        title: Dashboard
+    embed:
+      users:
+        show:
+          title: User Profile
+    enquiry:
+      new:
+        title: Contact
+    home:
+      show:
+        title: "Global Medical Education Project"
+    leaderboards:
+      title: "Monthly Leaderboard"
+      all_time:
+        title: "All Time Leaderboard"
+      this_week:
+        title: "Weekly Leaderboard"
+      this_month:
+        title: "Monthly Leaderboard"
+    media:
+      index:
+        title: Media Gallery
+      new:
+        title: Add Media
+      edit:
+        title: Edit Media
+    media_collections:
+      new:
+        title: Add Clinical Scenario
+      edit:
+        title: Edit Clinical Scenario
+      show:
+        title: Clinical Scenario
+    media_reports:
+      new:
+        title: Report Media
+    users:
+      ediofy_user_exams:
+        user_exam_questions:
+          show:
+            title: Exam
+        new:
+          title: New Exam
+      notifications:
+        index:
+          title: Notifications
+      registrations:
+        new:
+          title: Register
+        edit:
+          title: Edit Profile
+      settings:
+        show:
+          title: Update Settings
+      invites:
+        index:
+          title: Invite & Find Friends
+    user:
+      activities:
+        index:
+          title: Recent Activity
+      badges:
+        index:
+          title: Badges
+        compare:
+          title: Compare Badges
+      friends:
+        index:
+          title: Friends
+      points:
+        index:
+          title: Statistics
+      questions:
+        index:
+          title: Questions
+      media:
+        index:
+          title: Media
+      user_collections:
+        index:
+          title: "Folders"
+    user_collections:
+      index:
+        title: "Folders"
+      new:
+        title: "Create A Folder"
+      edit:
+        title: "Edit A Folder"
+    questions:
+      new:
+        title: Submit Question
+      edit:
+        title: Edit Question
+    question_reports:
+      new:
+        title: Report Question
+    static:
+      about:
+        title: About GMEP
+      changelog:
+        title: Changelog
+      contact_thanks:
+        title: "Contact Us"
+      disclaimer:
+        title: Disclaimer
+      terms_and_conditions:
+        title: Terms & Conditions

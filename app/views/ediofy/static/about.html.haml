@@ -1,0 +1,12 @@
+.content
+
+  %h2 Contact Us
+  = semantic_form_for @enquiry, url: ediofy_contact_path do |f|
+
+    = f.inputs do
+      = f.input :name
+      = f.input :email
+      = f.input :comments, as: :text
+
+    = f.actions do
+      = f.action :submit, button_html: { class: 'button button-new button-large' }

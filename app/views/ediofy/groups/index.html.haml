@@ -1,0 +1,34 @@
+.group-index
+  .pageContent.b-ediofy-conversations-index.manageContentMargin
+    .my-groups
+      .container
+        .row
+          .col-md-7
+            %h2.h1 My Groups
+          .col-md-5
+            =render 'ediofy/filters/groups' unless @mygroups.empty?
+        .row
+          = render 'ediofy/groups/no-groups' unless !@mygroups.empty?
+        #results-listing
+          %ul.searchGridArea.personGrid.infinite-table
+            .items
+              - @mygroups.each do |group|
+                = render partial: 'index', locals: { group: group }
+          .text-center.padd-btn
+            .pagination
+            -#  =link_to_next_page(@groups, 'Next page', :remote => true, class: 'btn button color-blue back-hov-clr')
+    .container.discover-groups
+      .row
+        .col-md-7
+          %h2.h1 Discover Groups
+        .col-md-5
+          = render 'ediofy/filters/groups-discover'
+      #results-listing-g
+        %ul.searchGridArea.personGrid.infinite-table
+          .items
+            - @groups.each do |group|
+              = render partial: 'index', locals: { group: group }
+
+        .text-center.padd-btn
+          .pagination
+            = link_to_next_page @groups, 'Load more', remote: true, class: 'btn button color-blue back-hov-clr'

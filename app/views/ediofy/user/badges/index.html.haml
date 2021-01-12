@@ -1,0 +1,16 @@
+= render 'profile'
+
+= render 'stats'
+
+.content
+  - if user_signed_in? && @user != current_user
+    = link_to t('.compare_badges'), compare_ediofy_user_badges_path(current_user, @user), class: 'compare-badges'
+  %h2 Badges
+  - if @user.badge_users.exists? && with_privacy(@user, Setting::PRIVACY_STEALTH)
+    %ol.badges= render partial: 'badge_user', collection: @user.badge_users.order(:created_at).reverse
+  - else
+    .no-badges
+      - if @user == current_user
+        = t '.no_badges_self_html', badges_path: "#"
+      - else
+        = t '.no_badges_html', name: @user

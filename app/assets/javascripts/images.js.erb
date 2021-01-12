@@ -1,0 +1,155 @@
+$(function() {
+  // $("#media_files").sortable({
+  //   revert: true,
+  //   stop: function(event, ui) {
+  //     $('.ui-sortable li:visible').each(function(index){
+  //       $(this).find("input[name='media[media_files_attributes][][position]']").val(index+1);
+  //     });
+  //   }
+  // });
+  // $("#upload_media").change(function(){
+  //   setS3Options('video');
+  // })
+  $("#s3-uploader-conversation-images").S3Uploader({
+    progress_bar_target: $('#conversation_images_progress_bar .js-progress-bars'),
+    allow_multiple_files: false,
+    before_add: function(file) {
+      return validate_image_attachement(file, <%= Image::VALID_EXTENTIONS.to_json %>)
+    },
+    remove_completed_progress_bar: false
+  });
+
+  $('#s3-uploader-conversation-images').bind('s3_uploads_start', function(e) {
+    disable_conversation_upload_fields();
+    $("#conversation_images_progress_bar").show();
+    $("#conversation_images_progress_bar .progress .bar").css("width","0");
+  });
+
+  $('#s3-uploader-conversation-images').bind('s3_upload_complete', function(e) {
+    enable_conversation_upload_fields();
+    $("#conversation_images_progress_bar").hide();
+    $("#conversation_images_progress_bar .progress .bar").css("width","0");
+  });
+  $( "#upload-conversation-images-holder" ).click(function() {
+    $( "#upload-conversation-images" ).trigger( "click" );
+  });
+
+  $("#s3-uploader-link-images").S3Uploader({
+    progress_bar_target: $('#link_images_progress_bar .js-progress-bars'),
+    allow_multiple_files: false,
+    before_add: function(file) {
+      return validate_image_attachement(file, <%= Image::VALID_EXTENTIONS.to_json %>)
+    },
+    remove_completed_progress_bar: false
+  });
+
+  $('#s3-uploader-link-images').bind('s3_uploads_start', function(e) {
+    disable_link_upload_fields();
+    $("#link_images_progress_bar").show();
+    $("#link_images_progress_bar .progress .bar").css("width","0");
+  });
+
+  $('#s3-uploader-link-images').bind('s3_upload_complete', function(e) {
+    enable_link_upload_fields();
+    $("#link_images_progress_bar").hide();
+    $("#link_images_progress_bar .progress .bar").css("width","0");
+  });
+  $( "#upload-link-images-holder" ).click(function() {
+    $( "#upload-link-images" ).trigger( "click" );
+  });
+
+  $("#s3-uploader-question-images").S3Uploader({
+    progress_bar_target: $('#question_images_progress_bar .js-progress-bars'),
+    allow_multiple_files: false,
+    before_add: function(file) {
+      return validate_image_attachement(file, <%= Image::VALID_EXTENTIONS.to_json %>)
+    },
+    remove_completed_progress_bar: false
+  });
+
+  $('#s3-uploader-question-images').bind('s3_uploads_start', function(e) {
+    disable_question_upload_fields();
+    $("#question_images_progress_bar").show();
+    $("#question_images_progress_bar .progress .bar").css("width","0");
+  });
+
+  $('#s3-uploader-question-images').bind('s3_upload_complete', function(e) {
+    enable_question_upload_fields();
+    $("#question_images_progress_bar").hide();
+    $("#question_images_progress_bar .progress .bar").css("width","0");
+  });
+  $( "#upload-question-images-holder" ).click(function() {
+    $( "#upload-question-images" ).trigger( "click" );
+  });
+});
+
+function delete_conversation_file(ele){
+  $(ele).parents(".add-img").hide();
+  $(ele).parents(".add-img").find(".destroy").val(1);
+  $('.ui-sortable .add-img:visible').each(function(index){
+    $(this).find("input[name='conversation[images_attributes][][position]']").val(index+1);
+  });
+}
+function disable_conversation_upload_fields(){
+  $("#conversation-submit-btn").attr('disabled', 'disabled');
+  $("#conversation-images-upload").attr('disabled', 'disabled');
+}
+function enable_conversation_upload_fields(){
+  $("#conversation-submit-btn").removeAttr('disabled');
+  $("#conversation-images-upload").removeAttr('disabled');
+}
+
+function delete_link_file(ele){
+  $(ele).parents(".add-img").hide();
+  $(ele).parents(".add-img").find(".destroy").val(1);
+  $('.ui-sortable .add-img:visible').each(function(index){
+    $(this).find("input[name='link[images_attributes][][position]']").val(index+1);
+  });
+}
+function disable_link_upload_fields(){
+  $("#link-submit-btn").attr('disabled', 'disabled');
+  $("#link-images-upload").attr('disabled', 'disabled');
+}
+function enable_link_upload_fields(){
+  $("#link-submit-btn").removeAttr('disabled');
+  $("#link-images-upload").removeAttr('disabled');
+}
+
+function delete_question_file(ele){
+  $(ele).parents(".add-img").hide();
+  $(ele).parents(".add-img").find(".destroy").val(1);
+  $('.ui-sortable .add-img:visible').each(function(index){
+    $(this).find("input[name='question[images_attributes][][position]']").val(index+1);
+  });
+  _toggle_add_more_images_holder();
+}
+
+function _toggle_add_more_images_holder() {
+  if ($(".add-img:visible").size() < 4 ) {
+    $(".extra-img-add-btn").show();
+  } else {
+    $(".extra-img-add-btn").hide();
+  }
+}
+
+function disable_question_upload_fields(){
+  $("#question-submit-btn").attr('disabled', 'disabled');
+  $("#question-images-upload").attr('disabled', 'disabled');
+}
+function enable_question_upload_fields(){
+  $("#question-submit-btn").removeAttr('disabled');
+  $("#question-images-upload").removeAttr('disabled');
+}
+
+function validate_image_attachement(file, allowed_extentions){
+  ext = file.name.split('.').pop().toLowerCase();
+  if ($.inArray(ext, allowed_extentions) != -1) {
+    return true;
+  } else {
+    new PNotify({
+      title: 'Wrong Extension',
+      text: 'Allowed extensions are ' + allowed_extentions.join(", "),
+      type: 'error'
+    });
+  }
+}

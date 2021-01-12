@@ -1,0 +1,10 @@
+.content
+
+  %section.content-body
+
+    %header.leaderboard-header
+      = render "leaderboard_navigation"
+      // Need to show the user what range the timeline is displaying
+      .range="#{l(@start, format: :long)} — #{l(@finish, format: :long)} (ends in #{@endsin} days)"
+    %section.leaderboard-list= render :partial => "user", :collection => @users
+    = paginate @users

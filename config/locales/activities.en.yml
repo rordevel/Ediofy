@@ -1,0 +1,97 @@
+en:
+  activities:
+    badge:
+      one: "earned the %{badge} badge"
+      other: "earned %{count} new badges"
+    badge_html:
+      one: "earned the <a href=\"%{badge_path}\">%{badge} badge</a>"
+      other: "earned %{count} new badges"
+    friendship:
+      accept:
+        one: "is now friends with %{friend}"
+        other: "is now friends with %{count} people"
+      accept_html:
+        one: "is now friends with <a href=\"%{friend_path}\">%{friend}</a>"
+        other: "is now friends with %{count} people"
+      accepted:
+        one: "is now friends with %{friend}"
+        other: "is now friends with %{count} people"
+      accepted_html:
+        one: "is now friends with <a href=\"%{friend_path}\">%{friend}</a>"
+        other: "is now friends with %{count} people"
+    media:
+      new:
+        one: "added a new media"
+        other: "added %{count} new files to the media"
+      new_html:
+        one: "added <a href=\"%{ediofy_media_index_path}\">a new file</a> to the media"
+        other: "added %{count} new files to the media"
+    media_files:
+      new:
+        one: "added a file to the media gallery"
+        other: "added %{count} files to the media gallery"
+      new_html:
+        one: "added <a href=\"%{ediofy_media_index_path}\">a media</a> to the media gallery"
+        other: "added %{count} files to the media gallery"
+    media:
+      vote:
+        one: "voted on a media item"
+        other: "voted on %{count} media items"
+      vote_html:
+        one: "voted on <a href=\"%{ediofy_media_index_path}\">a media item</a>"
+        other: "voted on %{count} media items"
+    users:
+      auth:
+        facebook: "connected a Facebook account %{facebook}"
+        google: "connected a Google account %{google}"
+        linkedin: "connected to LinkedIn account %{linkedin}"
+        twitter: "connected to Twitter account @%{twitter}"
+      friendships:
+        accept:
+          one: "and %{friend} are now friends"
+          other: "has %{count} new friends"
+        reject:
+          one: "rejected a friendship with %{friend}"
+          other: "rejected %{count} friendships"
+        request:
+          one: "wants to be friends with %{friend}"
+          other: "requested friendships with %{count} people"
+      profile:
+        update: "updated their profile"
+      question:
+        submit:
+          one: "submitted a question"
+          other: "submitted %{count} questions"
+        submit_html:
+          one: "submitted <a href=\"%{question_path}\">a question</a>"
+          other: "submitted %{count} questions"
+      register: "signed up"
+    question:
+      answer:
+        correct:
+          one: "answered a question correctly"
+          other: "answered %{count} questions correctly"
+        correct_html:
+          one: "answered <a href=\"%{question_path}\">a question</a> correctly"
+          other: "answered %{count} questions correctly"
+      confidence:
+        one: "rated their confidence in a question %{confidence}"
+        other: "rated their confidence in %{count} questions"
+      confidence_html:
+        one: "rated their confidence in <a href=\"%{question_path}\">a question</a> %{confidence}"
+        other: "rated their confidence in %{count} questions"
+      rating:
+        one: "rated a question %{difficulty}"
+        other: "rated the difficulty of %{count} questions"
+      rating_html:
+        one: "rated <a href=\"%{question_path}\">a question</a> %{difficulty}"
+        other: "rated the difficulty of %{count} questions"
+      vote:
+        one: "voted on a question"
+        other: "voted on %{count} questions"
+      vote_html:
+        one: "voted on <a href=\"%{question_path}\">a question</a>"
+        other: "voted on %{count} questions"
+    test: "tested %{a}, %{relation}"
+    test_html: "tested %{a}, <a href=\"%{relation_path}\">link</a>"
+    test_str_only: "tested %{a}, %{relation}"

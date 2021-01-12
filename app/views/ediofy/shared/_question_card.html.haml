@@ -1,0 +1,51 @@
+- if related
+  = link_to  controller_name == 'groups' ?  ediofy_group_question_path(question, :playlist => @paylist,  :group_id => params["id"] ) : answer_ediofy_question_path(question, :playlist => params["playlist"] )  do
+    .main-related.clearboth
+      .video-col
+        - file = (question.images.blank?) ? '' : question.images.first
+        - if file.present?
+          = image_tag(file.small_url, alt: (question.title rescue ''))
+        - else
+          = image_tag(default_placeholder('Question', question.id, 'small'))
+      .vid-con
+        %h6= truncate(question.title || question.body, length: 31)
+        .author-name
+          %span
+            = image_tag question.user.ghost_mode || question.private? ? question.user.avatar.default_url : question.user.avatar.xxx_small.url, alt: question.user.full_name
+          %span
+            = question.user.title.humanize.titleize rescue '' if !(question.user.ghost_mode || question.private?)
+            = question.user.ghost_mode || question.private? ? "Anonymous" : truncate(question.user.full_name.to_s.titleize, length: 20) rescue ''
+        %span.like-seen-msg
+          %span{:class => "#{question.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(question) ? 'likedPost' : ''}"}
+            %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+            = question.count_votes_up
+- else
+  .col-sm-6.col-md-3.post-cart
+    = yield
+    %div
+      - file = question.images.first
+      - unless file.blank?
+        - background_image = file.medium_url
+      - else
+        -background_image = image_url(default_placeholder('Question', question.id, 'medium'))
+      .video-player.withBg-card{style: 'background-image: url('+background_image+')'}
+        = link_to  controller_name == 'groups' ?  answer_ediofy_question_path(question, :playlist => @paylist,  :group_id => params["id"] ) : answer_ediofy_question_path(question) do
+          .vid-con.vid
+            %p Question
+      .video-content
+        = link_to  controller_name == 'groups' ?  ediofy_group_question_path(question, :playlist => @paylist,  :group_id => params["id"] ) : answer_ediofy_question_path(question) do
+          %h6=truncate(question.title, length: 40)
+        .author-name
+          = render 'ediofy/groups/content_author_small_with_title', content: question, user: question.user
+        .row.like-seen-msg
+          .like-icon.col-sm-5.col-xs-5.col-md-5
+            %span{:class => "#{question.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(question) ? 'likedPost' : ''}"}
+              %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+              =question.count_votes_up
+          .text-right.col-sm-7.col-xs-7.col-md-7
+            %span{:class => ("colorGrey" if question.comments.count == 0)}
+              %i.fa.fa-comment{"aria-hidden" => "true"}
+              =question.comments.count rescue 0
+            %span{:class => ("colorGrey" if question.view_count == 0)}
+              %i.fa.fa-eye{"aria-hidden" => "true"}
+              =question.view_count rescue 0

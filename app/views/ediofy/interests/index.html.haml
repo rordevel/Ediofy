@@ -1,0 +1,57 @@
+= semantic_form_for(current_user, :as => current_user, :url => registration_path(current_user), :html => { :method => :put, :role => 'form'}) do |f|
+  =f.input :interests_selected, as: :hidden, input_html: { value: true }
+  .container.pageContent
+    .row
+      .col-md-12
+        %h1 My Interests
+        %p Select your interests below as your dashboard will be updated to display what you are interested in. You can update this anytime.
+    .row
+      .col-md-12
+        %ul#myUL.searchGridArea.text-center.exbg
+          - @interests.each do |interest|
+            %li
+              %a.hidden= interest.name
+              = check_box_tag "user[interest_list][]", interest.name, current_user.interests.ids.include?(interest.id), id: interest.id.to_s + 'interest'
+
+              %label{:for => interest.id.to_s + 'interest'}
+                .labelOuter
+                  .labelImage
+                    = image_tag(interest.image.medium.url, alt: '') rescue image_tag('ediofy/subject.jpg', alt: '')
+                    %i.fa.fa-check{"aria-hidden" => "true"}
+                  %p= interest.name
+
+  .buttonWrapper.text-center.fixedBottom
+    .container.pageContent
+      .row
+        .col-md-12
+          - if current_user.on_boarding_process_completed
+            = f.submit 'Save', value: "Save", class: 'btn button minWidth'
+          - else
+            = link_to 'Previous', edit_user_registration_path, class: 'btn button minWidth'
+            = f.submit 'Next', value: "Later", class: 'btn button minWidth'
+  
+  :javascript
+    $(function(){
+      check_interest.call(this)
+      $('input[name="user[interest_list][]"]').on("click",function() {
+        check_interest.call(this)
+      });
+    });
+    function check_interest() {
+      if ($('input[name="commit"]').prop('value') == 'Save')
+        return
+      
+      var is_checked = false
+      $('input[name="user[interest_list][]"]').each(function(index, item) {
+        is_checked = is_checked || item.checked
+      })
+
+      if (is_checked) {
+        $('input[name="commit"]').prop('value', 'Next')
+        $('input[name="commit"]').data('disable-with', 'Next')
+      }
+      else {
+        $('input[name="commit"]').prop('value','Later')
+        $('input[name="commit"]').data('disable-with', 'Later')
+      }
+    }

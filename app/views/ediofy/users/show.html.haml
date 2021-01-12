@@ -1,0 +1,95 @@
+.pageContent.b-ediofy-users-show
+  .back-color
+    .recentlyViewedTop
+      .row
+        .clearfix.head-title-pro
+        .col-md-2
+          .profileImage.text-center
+            =# image_tag @user.avatar.url(:x_medium), alt: "Profile Picture"
+            =render partial: 'ediofy/follows/follow', locals: {user: @user, is_on_profile: true, showPending:@showPending }
+          .editprofileOuter.text-center
+            = link_to "Edit", edit_user_registration_path, class: "btn button pro-edit" if @user == current_user
+            %strong 
+              %br
+              %br
+              - if @user.id == current_user.id
+                = @current_user.private ? 'private profile' : "public" + "  profile"
+              - else 
+                = @user.private ? 'private profile' : "public" + "  profile"
+        .col-md-6
+          .userInfo
+            %h1.h2= @user.complete_name.titleize rescue ''
+            - if @user == current_user || !@user.private || current_user.following?(@user)
+              %ul.list-inline.fmprofile{style: 'text-align: left;'}
+                %li
+                  %p.fmprofile
+                    %i.fa.fa-address-card-o.marrig{"aria-hidden" => "true"}
+                    = @user.specialty_name
+                %li
+                  %address.fmprofile
+                    %i.fa.fa-location-arrow.marrig{"aria-hidden" => "true"}
+                    = @user.location
+                %li
+                  %i.fa.fa-users{"aria-hidden" => "true"}
+                  = @user.followers_count
+                  Followers
+                %li
+                  = @user.follow_count
+                  Following
+              .aboutUser
+                %div
+                  .row
+                    .col-md-12
+                      %h5 About #{@user.full_name}
+                      =@user.about.html_safe
+                    .col-md-12
+                      %h5.eqTitle Education and Qualifications
+                      %p=@user.qualifications
+        .col-md-4
+          = render 'user_profile_cpd_section'
+
+  - if @user == current_user || !@user.private  || current_user.following?(@user)
+    .userIntrested
+      .container
+        .row
+          .col-xs-6
+            %h2.topMargin0 Interests
+          .col-xs-6
+            .text-right
+              = link_to "Edit", ediofy_interests_path, class: "btn button pro-edit" if @user == current_user
+        .row
+          .col-md-12
+            - if @total_interests > 0
+              #profile-interests
+                .infinite-table
+                  %ul.searchGridArea.profile-search.text-center.new-search.items
+                    =render :partial => "profile_interests", collection: @interests, as: :interest
+                  - if @total_interests > 4
+                    .text-center.padd-btn
+                      .pagination
+                        =link_to 'Load more', {controller: "ediofy/users", action: "interests", user_id: @user.id, page: 2}, :remote => true, class: 'btn button clearboth'
+  - if @user == current_user || !@user.private || current_user.following?(@user)
+    .contibutionProfile.new-con
+      .container
+        %ul.nav.nav-tabs#user-contribution-history-nav-tabs
+          %li{class: params[:type] != "history" ? "contributions active" : ""}
+            %h2.topMargin0.extabing
+              = link_to "Contributions", ediofy_user_path(request.query_parameters.except(:type)), remote: true
+          -#- if current_user == @user
+          %li{class: params[:type] == "history" ? "active history" : ""}
+            %h2.topMargin0.extabing
+              = link_to "History", ediofy_user_path(request.query_parameters.merge({:type => 'history'})), remote: true
+        = render 'ediofy/filters/all_remote_false'
+
+        .tab-content
+          .tab-pane.fade.in.active
+            - if (@total && @total > 0) || (@histories_total && @histories_total > 0)
+              #results-listing
+                .row.clearboth.fourCol.infinite-table
+                  - if params[:type].blank?
+                    .items= render(:partial => 'ediofy/dashboard/index', collection: @search_results, as: :search_result, locals: {users: @users, conversations: @conversations, media: @media, questions: @questions, links: @links})
+                  - else
+                    .items= render(:partial => 'ediofy/dashboard/history')
+                .text-center.padd-btn
+                  .pagination
+                    =link_to_next_page(@search_results, 'Load more', :remote => true, class: 'btn button clearboth b-ediofy-load-more')

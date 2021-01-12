@@ -1,0 +1,14 @@
+- if member_signed_in?
+  #notifications-overlay
+  #notifications-popup
+    .popup
+      %nav
+        %span.prev= t '.previous'
+        %span.next= t '.next'
+      .body
+        .notifications
+          .notifications-wrapper
+
+            = render partial: 'gmep/members/notifications/popup/notification', collection: current_member.notifications.unread
+
+        = link_to t('.clear'), mark_all_read_gmep_member_notifications_path, class: 'clear'

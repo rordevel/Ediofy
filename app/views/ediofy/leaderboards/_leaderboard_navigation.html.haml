@@ -1,0 +1,5 @@
+%nav
+  %ul
+    %li.this_week= link_to_unless_current t('.weekly'), this_week_ediofy_leaderboard_path
+    %li.this_month= link_to_unless_current t('.monthly'), ediofy_leaderboard_path
+    %li.all_time= link_to_unless_current t('.all_time'), all_time_ediofy_leaderboard_path

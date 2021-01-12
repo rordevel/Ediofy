@@ -1,0 +1,71 @@
+
+.filter form {
+  display: flex;
+  display: -ms-flexbox;
+  align-items: center;
+  -ms-flex-align: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  margin: 0 auto;
+}
+
+.filter .tag-label {
+  margin-right: 10px;
+  margin-bottom: 0;
+  color: inherit;
+  font-size: 14px;
+}
+
+.total,
+.category {
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.report-label {
+  display: inline-block;
+  min-width: 200px;
+  text-align: left;
+}
+
+#cpdfilters {
+  margin-bottom:30px;
+}
+
+
+form > input.flatdateselector
+{
+  width: 250px;
+  padding-left:10px;
+  margin-left:5px;
+  margin-bottom:20px;
+}
+
+.filterButtonCpd 
+{
+  font-size: 20px;
+  margin-bottom: 10px;
+  
+}
+
+.noCpd
+{
+  text-align: center;
+  color: #e70057;
+}
+
+table.cpd-details {
+  width: 100%;
+  td, th {
+    border: 1px solid;
+  }
+}
+
+.control {
+  margin-top: 10px;
+  .commentLabel {
+    font-size: 15px;
+    color: #878da0;
+    margin-right: 10px;
+  }
+}

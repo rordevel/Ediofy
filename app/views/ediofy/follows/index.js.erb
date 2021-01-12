@@ -1,0 +1,12 @@
+// Append new data
+$("#people-results-listing .infinite-table .items").html('')
+<% @follows.each do |follow| %>
+  <% user = @users.select{|u| u.id == follow["id"]}.first %>
+  $("<%=j render(:partial => 'ediofy/follows/index', locals: {user: user}) %>").appendTo($("#people-results-listing .infinite-table .items"));
+<% end %>
+// Update pagination link
+<% if @follows.last_page? %>
+  $('#people-results-listing .pagination').html("");
+<% else %>
+  $('#people-results-listing .pagination').html("<%=j link_to_next_page(@follows, 'Next Page', :remote => true, class: 'btn button color-blue back-hov-clr') %>");
+<% end %>

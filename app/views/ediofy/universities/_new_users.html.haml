@@ -1,0 +1,12 @@
+%section.new-users
+  %h2= t '.title'
+  %ol.users-list
+    - users.each do |user|
+      %li
+        = link_to ediofy_user_activities_path(user), class: 'avatar' do
+          = image_tag user.avatar.stream.url, size: '32x32', alt: user.full_name
+        .info{ class: ('no-group' unless user.group.present?) }
+          %span.name
+            = link_to user.full_name, ediofy_user_activities_path(user)
+            %span.level= t '.level', level: user.level
+          %span.joined= t '.joined', date: user.created_at.to_date.to_s(:au)

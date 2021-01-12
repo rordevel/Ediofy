@@ -1,0 +1,19 @@
+= render 'profile'
+
+= render 'stats'
+
+.content
+  %h2= t '.title'
+  - if with_privacy(@user, Setting::PRIVACY_MEDIUM)
+    .stat-block
+      %h3= t '.points_per_day'
+      = points_per_day_graph_for @user
+    .stat-block
+      %h3= t '.points_per_week'
+      = points_per_week_graph_for @user
+    .stat-block
+      %h3= t '.points_per_month'
+      = points_per_month_graph_for @user
+  - else
+    .no-stats
+      = t '.no_points_html', name: @user

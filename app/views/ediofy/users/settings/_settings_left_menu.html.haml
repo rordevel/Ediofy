@@ -1,0 +1,6 @@
+.accountLeft
+  %ul.list-unstyled
+    %li{:class => "#{'active' if current_page?(ediofy_user_setting_path)}"}= link_to 'Account', ediofy_user_setting_path
+    %li{:class => "#{'active' if current_page?(change_password_ediofy_user_setting_path)}"}= link_to 'Password', change_password_ediofy_user_setting_path
+    %li{:class => "#{'active' if current_page?(settings_ediofy_user_notifications_path)}"}
+      = link_to 'Notifications', settings_ediofy_user_notifications_path

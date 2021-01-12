@@ -1,0 +1,20 @@
+- position_id = Time.current.to_i
+.add-img{style: ("display: none" unless media_type == "image" )}
+  %input{:name => "media[media_files_attributes][][s3_file_name]", :type => "hidden", :value => file_name}/
+  %input{:name => "media[media_files_attributes][][file_path]", :type => "hidden", :value => file_path}/
+  %input{:name => "media[media_files_attributes][][s3_file_url]", :type => "hidden", :value => file_url}/
+  %input{:name => "media[media_files_attributes][][media_type]", :type => "hidden", :value => media_type}/
+  - if defined? position
+    %input{:name => "property[media_files_attributes][][position]", :type => "hidden", :value => position}/
+  - else
+    %input{:id => position_id, :name => "media[media_files_attributes][][position]", :type => "hidden"}/
+  - if defined? file_id
+    %input{:name => "media[media_files_attributes][][id]", :type => "hidden", :value => file_id}/
+  %input.destroy{:name => "media[media_files_attributes][][_destroy]", :type => "hidden", :value => "0"}/
+  %image{:src => small_url, :style => "height:50px"}
+  %image{:src => large_url, :style => "display:none", class: "large-preview-url"}
+  .close-img
+    %a{:onclick => "delete_media_file(this); return false"}
+      %i.fa.fa-times-circle{"aria-hidden" => "true"}
+:javascript
+  $("##{position_id}").val($('#media_files .add-img:visible').length)

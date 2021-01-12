@@ -1,0 +1,22 @@
+- @announcement ||= announcement
+- @group ||= group
+
+.announcement-form
+  = semantic_form_for [:ediofy, @group, @announcement] do |f|
+    .share-a-con.shareAlink
+      %h4.exclr
+        %i.fa.fa-bullhorn.announcement-icon
+        = raw '&nbsp;'
+        Announcement
+
+      .row
+        .col-md-12
+          .form-group
+            = f.inputs do
+              = f.text_field :text, placeholder: 'Create a new announcement in this group', class: 'form-control', label: false
+
+      .row
+        .col-md-12
+          .text-right.uplbtn
+            = link_to 'Cancel', ediofy_group_path(id: @group.id)
+            =f.button @announcement.new_record? ? 'Post' : 'Save', type: 'submit', class: 'btn button clearboth', id: 'link-submit-btn'

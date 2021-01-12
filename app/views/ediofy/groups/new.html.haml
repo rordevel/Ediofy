@@ -1,0 +1,9 @@
+.group-new
+  .pageContent
+    %section.upload-content.manageContentMargin
+      .container
+        = render 'form'
+        .s3_upload_none
+          = s3_uploader_form callback_url: add_images_ediofy_links_path, callback_param: "link[images]", key_starts_with: "link/images/", id: "s3-uploader-link-images", max_file_size: 20.megabytes do
+            = file_field_tag :file, multiple: false, id: "upload-link-images", class: "image-dispaly", :accept => ".jpg, .jpeg, .png, .gif"
+

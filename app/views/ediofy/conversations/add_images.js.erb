@@ -1,0 +1,1 @@
+$("#conversation_images").prepend("<%= escape_javascript(render :partial => 'ediofy/shared/image', :locals => { resource: 'conversation', file_url: params[:url], file_name: params[:filename], small_url: params[:url] }) %>");

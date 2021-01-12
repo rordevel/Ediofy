@@ -1,0 +1,44 @@
+.rel-con
+.tab-content.infinite-table.no-top-padding
+  .row
+    .col-md-6
+      %h4 Share Content
+  .row
+    .col-md-12
+    .share-from-group
+
+      = link_to new_ediofy_media_path(ref: :group, group_id: @group.id), class: '' do
+        .rectangle.list-group-item
+          .content-rectangle.video
+            %span.fa-icon
+              = image_tag 'ediofy/ic-circle-play.png', size: '35x35'
+          .content
+            %b.title Upload Media
+            %p.text Share video, images, audio or PDF
+
+      = link_to new_ediofy_link_path(ref: :group, group_id: @group.id), class: '' do
+        .rectangle.list-group-item
+          .content-rectangle.link
+            %span.fa-icon
+              = image_tag 'ediofy/ic-share-link.png', size: '35x35'
+          .content
+            %b.title Share a link
+            %p.text Share a link or article
+
+      = link_to new_ediofy_conversation_path(ref: :group, group_id: @group.id), class: '' do
+        .rectangle.list-group-item
+          .content-rectangle.conversation
+            %span.fa-icon
+              = image_tag 'ediofy/ic-conversation.png', size: '35x35'
+          .content
+            %b.title Start a conversation
+            %p.text Talk about a subject or issue
+
+      = link_to new_ediofy_question_path(ref: :group, group_id: @group.id), class: '' do
+        .rectangle.list-group-item
+          .content-rectangle.question
+            %span.fa-icon
+              = image_tag 'ediofy/ic-help-others-learn.png', size: '35x35'
+          .content
+            %b.title Write a question
+            %p.text Create your own questions

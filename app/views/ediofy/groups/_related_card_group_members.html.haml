@@ -1,0 +1,4 @@
+- users.each do |user|
+  .member-image
+    %a{href: is_mobile? ? '#' : ediofy_user_path(user)}
+      = image_tag user.avatar.x_small.url, alt: 'man-icon', class: 'img-circle', size: '50x50'

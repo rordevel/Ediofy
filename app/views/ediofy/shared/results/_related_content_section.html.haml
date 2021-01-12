@@ -1,0 +1,15 @@
+.container
+  .row
+    .yourIntrest
+      .row
+        .col-md-7
+          %h2.your-interests= 'Related Content' if params[:q].blank?
+        .col-md-5
+          = render partial: 'ediofy/shared/filters', locals: { url: url_for({ controller: params[:controller], action: 'content', q: params[:q] }), content_type: true, sort_by: true }
+      #results-listing
+        .row.clearboth.fourCol.infinite-table
+          = render partial: 'ediofy/shared/results/content_results', locals: { content_results: content_results }
+        .text-center.padd-btn
+          .pagination
+            - if has_more_content
+              = link_to_next_results_page('content')

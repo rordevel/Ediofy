@@ -1,0 +1,16 @@
+%li.user-item
+  = link_to ediofy_user_path(user), class: 'avatar' do
+    = image_tag user.avatar.comment.url, size: '48x48', alt: user
+  %ul.meta
+    %li
+      .value= number_with_delimiter user.points.total
+      .label= t '.points'
+    %li
+      .value= number_with_delimiter user.created_at.to_date.to_s(:au)
+      .label= t '.joined'
+  .info
+    %h2.name
+      = link_to user.full_name, ediofy_user_activities_path(user)
+      %span.level= t '.level', level: user.level
+    - if user.group.present?
+      .group= user.group

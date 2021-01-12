@@ -1,0 +1,4 @@
+%section.share
+  %h4 Share this question using
+  = facebook_share([:ediofy, @question], truncate_html(@question.body, 65))
+  = twitter_share([:ediofy, @question], truncate_html(@question.body, 65))

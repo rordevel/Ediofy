@@ -1,0 +1,18 @@
+.pageContent.b-ediofy-histories-index
+  .container
+    .yourIntrest.manageContentMargin
+      .row
+        .col-md-7
+          %h2.h1 Recently Viewed
+          %p
+            %span.total_records=@histories_total
+            Records
+        .col-md-5
+          = render 'ediofy/filters/all'
+      #results-listing
+        .row.clearboth.fourCol.infinite-table
+          .items= render(:partial => 'ediofy/dashboard/history')
+          =# render(:partial => 'ediofy/dashboard/index', collection: @histories_results, as: :search_result, locals: {users: @histories_users, conversations: @histories_conversations, media: @histories_media, questions: @histories_questions, links: @histories_links})
+        .text-center.padd-btn
+          .pagination
+            =link_to_next_page(@histories, 'Load more', :remote => true, class: 'btn button color-blue back-hov-clr b-ediofy-load-more')

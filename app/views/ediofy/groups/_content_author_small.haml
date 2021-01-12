@@ -1,0 +1,12 @@
+- if !params[:playlist].present?
+ %span
+ - if content.posted_as_group?
+  = image_tag  content.group.image.url , alt: content.group.title
+ - else
+  = image_tag content.user.ghost_mode || content.private? ? content.user.avatar.default_url : content.user.avatar. xxx_small.url, alt: content.user.full_name
+ %span
+ - if (!params[:playlist].present? && (!request.referrer || !request.referrer.include?('playlists')) && defined?(group) && group != nil && content.posted_as_group? )
+  = content.group.title
+ - else
+  = content.user.title.humanize.titleize rescue '' if !(content.user.ghost_mode || content.private?)
+  = content.user.ghost_mode || content.private? ? "Anonymous" : (truncate(content.user.full_name.to_s.titleize, length:  20) rescue '')

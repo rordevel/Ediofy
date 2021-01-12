@@ -1,0 +1,5 @@
+- style_button = 'background: #1cbff5; background: linear-gradient(top, #1cbff5, #09a2d6); background: -webkit-linear-gradient(top, #1cbff5, #09a2d6); background: -moz-linear-gradient(top, #1cbff5, #09a2d6); background: -ms-linear-gradient(top, #1cbff5, #09a2d6); background: -khtml-linear-gradient(top, #1cbff5, #09a2d6); background: -o-linear-gradient(top, #1cbff5, #09a2d6);'
+
+%h1 You've been invited to EDIOFY
+%p #{link_to @user, ediofy_user_activities_url(@user)} would like to be your friend on EDIOFY, the Global Medical Education Project.
+= link_to 'Find out what EDIOFY is all about', ediofy_root_url, class: 'button', style: style_button

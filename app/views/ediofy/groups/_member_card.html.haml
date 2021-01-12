@@ -1,0 +1,61 @@
+- img_size ||= '50x50'
+- role ||= nil
+- actions ||= nil
+- invite_modal ||= nil
+
+.row.user-card{'data-name' => user.full_name.downcase, id: "user-card-#{user.id}"}
+  .col-sm-12.col-md-12.wrapper
+    .image
+      %a{href: is_mobile? ? '#' : ediofy_user_path(user)}
+        = image_tag user.avatar.x_small.url, alt: 'man-icon', class: 'img-circle', size: img_size
+    .info
+      %h4= user.full_name
+      .text-muted= user.title&.humanize
+      - if role.present? && @group.owner?(user)
+        %small.owner Owner
+        -#%small{class: "#{'owner' if @group.owner?(user)}"}= @group.user_role(user).humanize
+    .role.pull-right
+      - if actions.present?
+        .group-role
+          - unless invite_modal
+            - if @group.owner?(current_user)
+              - unless user == current_user || @group.owner?(user)
+                .actions
+                  %b.remove
+                    = link_to roles_ediofy_group_path(@group, user_id: user.id, act: 'remove_member', invite_modal: invite_modal), remote: true, class: 'red-link' do
+                      %i.fa.fa-times
+                      = raw '&nbsp;'
+                      Remove
+                  %i.fa.fa-ellipsis-v.ellipsis.modal-popover{"data-container" => "body", "data-content" => "#{render 'ediofy/groups/popovers/modal_admin_links', user: user}",
+                                            "data-placement" => "bottom", "data-toggle" => "popover", "type" => "button",
+                                            "data-trigger" => "focus", "tabindex" => "0", "role" => "button"}
+            - else
+              %b
+                - if current_user.following? user
+                  %span.unfollow
+                    = link_to ediofy_follow_path(user_id: user.id), method: :delete, remote: true, class: 'red-link' do
+                      Unfollow
+                - else
+                  %span.follow
+                    = link_to ediofy_follows_path(user_id: user.id), method: :post, remote: true do
+                      %i.fa.fa-plus
+                      = raw '&nbsp;'
+                      Follow
+          - else
+            .actions
+              - if @group.in_group?(user) || @group.invited?(user)
+                %span.link.added-member.margin-left-25
+                  %i.fa.fa-check
+                  = raw '&nbsp;'
+                  = @group.invited?(user) ? 'Invite Sent' : 'Added'
+                = raw '&nbsp;'
+                %i.fa.fa-ellipsis-v.ellipsis.modal-popover{"data-container" => "body", "data-content" => "#{render 'ediofy/groups/popovers/modal_admin_links', user: user}",
+                                            "data-placement" => "bottom", "data-toggle" => "popover", "type" => "button",
+                                            "data-trigger" => "focus", "tabindex" => "0", "role" => "button"}
+              - else
+                = link_to roles_ediofy_group_path(@group, user_id: user.id, act: 'invite_member', invite_modal: invite_modal), remote: true do
+                  %span.add-member
+                    %i.fa.fa-plus
+                    = raw '&nbsp;'
+                    Add member
+      = yield

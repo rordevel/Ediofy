@@ -1,0 +1,17 @@
+.row
+  .rel-con
+    .tab-content.infinite-table.spaceAbove
+      = link_to ediofy_playlist_path(@playlist) do
+        .card-title
+          = @playlist.title
+        .card-subtitle.spaceBelow
+          = @playlist.content.count.to_s + ' items' + ' • Last updated ' + @playlist.updated_at.strftime('%b %e %Y')
+        %br
+      - @playlist.content.each_with_index do |content, index|
+        .row
+          .col-md-1
+            = index + 1
+          .col-md-11
+            .main-related.clearboth.main-related-sidebar.minipl{ class: ('currentrow' if content.playable.id == locals[:playable].id) }
+              = render partial: "ediofy/shared/#{content.playable.class.name.downcase}_card", locals: { related: true, content.playable.class.name.downcase.to_sym => content.playable, playlist: @playlist.id }
+  %br

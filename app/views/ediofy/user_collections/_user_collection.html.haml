@@ -1,0 +1,16 @@
+%li.collection-item
+  = link_to [:ediofy, user_collection], class: 'thumb' do
+    - if user_collection.media.present?
+      = image_tag user_collection.media.first.file.thumb.url, size: '32x32', alt: user_collection.title
+    - else
+      = image_tag 'ediofy/media-collection-default.png', size: '32x32', alt: user_collection.title
+  .links
+    = link_to t('.view'), ediofy_user_collection_path(user_collection), class: 'button view-collection'
+  .info
+    .title= user_collection.title
+    .description= truncate_html user_collection.description, 200
+    .meta
+      .created
+        %span.date= t '.created_html', date: user_collection.created_at.to_date.to_s(:au)
+        - if user_collection.user.present?
+          %span.user= t '.by_html', user: link_to(user_collection.user.full_name, [:ediofy, user_collection.user])

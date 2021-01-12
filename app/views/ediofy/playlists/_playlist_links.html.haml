@@ -1,0 +1,3 @@
+= link_to '&#x25C0; Previous'.html_safe, polymorphic_url([:ediofy, locals[:previous_playlist_content].playable], playlist: locals[:playlist], action: (locals[:previous_playlist_content].playable.class.name == Question.class_name) ? 'answer' : nil), class: 'lineheight30' if locals[:previous_playlist_content]
+= ' | ' if locals[:previous_playlist_content] && locals[:next_playlist_content]
+= link_to 'Next &#x25B6;'.html_safe, polymorphic_url([:ediofy, locals[:next_playlist_content].playable], playlist: locals[:playlist], action: (locals[:next_playlist_content].playable.class.name == Question.class_name) ? 'answer' : nil), class: 'lineheight30' if locals[:next_playlist_content]

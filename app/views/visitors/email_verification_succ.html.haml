@@ -1,0 +1,7 @@
+.displayTable.clearfix
+  .col-md-12.signinLeft.displayCell.text-center{style: 'background-image: url('+image_url("ediofy/signin_bg.jpg")+')'}
+    .contantWrapper
+      %h2.exclr Congratulations!
+      %p Welcome to ediofy! You have successfully created your account.
+      .clearfix
+        = link_to 'Get Started', new_user_session_path, class: 'button btn'

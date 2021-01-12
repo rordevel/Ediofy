@@ -1,0 +1,38 @@
+// Append new data
+<% if params[:result_item] == 'user' %>
+  <% if !@follows.blank? %>
+    <% if params[:page].blank? || params[:page].to_i == 1 %>
+      $("#people-results-listing .infinite-table .items").html('')
+    <% end %>
+    <% @follows.each do |follow| %>
+      <% user = @users.select{|u| u.id == follow["id"]}.first %>
+      $("<%=j render(:partial => 'ediofy/dashboard/follow_index', locals: {user: user}) %>").appendTo($("#people-results-listing .infinite-table .items"));
+    <% end %>
+
+    <% if @follows && @follows.last_page? %>
+      $('#people-results-listing .pagination').html("");
+    <% else %>
+      $('#people-results-listing .pagination').html("<%=j link_to('Load more', "/?b_ediofy_dashboard_index_people_sort=#{params[:b_ediofy_dashboard_index_people_sort]}&page=#{params[:page].to_i+1}&q=#{params[:q]}&result_item=#{params[:result_item]}", class: "btn button color-blue back-hov-clr", id: "b_ediofy_dashboard_index_people_load", data: {remote: true}) %>");
+    <% end %>
+
+  <% end %>
+
+<% else %>
+  <% if (params[:page].blank? || params[:page].to_i == 1) && !@search_results.blank? %>
+    $("#results-listing .infinite-table .items").html('');
+  <% elsif @search_results.blank? %>
+    $("#results-listing .infinite-table .items").html('<p class="noRecentView text-center">No matching content found.</p>');
+  <% end %>
+  <% if !@search_results.blank? %>
+    $("<%=j render(:partial => 'ediofy/dashboard/index', collection: @search_results, as: :search_result, locals: {users: @users, conversations: @conversations, media: @media, questions: @questions, links: @links}) %>").appendTo($("#results-listing .infinite-table .items"));
+  <% end %>
+  // Update pagination link
+  <% if @search_results && @search_results.last_page? %>
+    $('.loading').hide();
+    $('#results-listing .pagination').html("");
+  <% else %>
+    <% if @search_results %>
+      $('#results-listing .pagination').html("<%=j link_to_next_results_page(@search_results, 'Load more', :remote => true, class: 'btn button color-blue back-hov-clr b-ediofy-load-more') %>");
+    <% end %>
+  <% end %>
+<% end %>

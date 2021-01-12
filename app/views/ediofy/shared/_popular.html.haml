@@ -1,0 +1,55 @@
+%section.content-section.popular-items
+  %section.popular-questions
+    %h2= t '.questions'
+    - if questions.any?
+      %ol= render partial: 'ediofy/questions/question_item_small', collection: questions, as: :question
+    - else
+      .no-items= t '.no_questions'
+
+  %section.popular-media_collections
+    %h2= t '.media_collections'
+    - if media_collections.any?
+      %ol
+        - media_collections.each do |media_collection|
+          %li.media[media_collection]{class: ('empty' unless media_collection.media.exists?)}
+            = link_to [:ediofy, media_collection], class: 'thumb' do
+              - if media_collection.media.exists?
+                = image_tag media_collection.media.first.file.thumb.url, size: '32x32', alt: media_collection.title
+              - else
+                = image_tag 'ediofy/media-collection-default.png', size: '32x32', alt: media_collection.title
+            .info
+              .title
+                = link_to media_collection.title, [:ediofy, media_collection]
+                %span.count= t '.items', count: media_collection.media.count
+              .user= t '.by_html', user: link_to(media_collection.user.full_name, [:ediofy, media_collection.user])
+    - else
+      .no-items= t '.no_media_collections'
+
+  %section.popular-user_collections
+    %h2= t '.user_collections'
+    - if user_collections.any?
+      %ol
+        - user_collections.each do |user_collection|
+          %li.user_collection[user_collection]{class: ('empty' unless user_collection.user_collections_objects.exists?)}
+            = link_to [:ediofy, user_collection], class: 'thumb' do
+              - if user_collection.media.exists?
+                = image_tag user_collection.media.first.file.thumb.url, size: '32x32', alt: user_collection.title
+              - else
+                = image_tag 'ediofy/media-collection-default.png', size: '32x32', alt: user_collection.title
+            .info
+              .title
+                = link_to user_collection.title, [:ediofy, user_collection]
+                %span.count= t '.items', count: user_collection.user_collections_objects.count
+              .user= t '.by_html', user: link_to(user_collection.user.full_name, [:ediofy, user_collection.user])
+    - else
+      .no-items= t '.no_user_collections'
+
+  .actions-section
+    %section.popular-questions
+      .actions= link_to t('.browse_questions'), ediofy_questions_path
+
+    %section.popular-media_collections
+      .actions= link_to t('.browse_media_collections'), ediofy_media_index_path
+
+    %section.popular-user_collections
+      .actions= link_to t('.browse_user_collections'), ediofy_user_collections_path

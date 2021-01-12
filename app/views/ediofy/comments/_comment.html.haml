@@ -1,0 +1,18 @@
+.main-comment.sm-pd
+  .row.comment-sort
+    .col-sm-6.col-xs-6.col-md-6.vid-tit.commet-icon.wid-blk
+      = image_tag comment.user.avatar.stream.url, alt: 'user-comment' rescue image_tag('ediofy/user_profile')
+      %h6
+        = comment.user_title.titleize rescue ''
+        = comment.user_full_name.titleize rescue ''
+      %p= comment.user.specialty_name
+    .col-sm-6.col-xs-6.col-md-6.text-right.checkbox-container.wid-blk
+      %a.btn.button.clearboth.follow-btn.ex-cl.clrpink{ href: '#' } + Follow
+      %a.btn.button.clearboth.reply-btn.cancel-btn.ex-cl{ href: '#' } Reply
+  .text-area-content
+    %p= comment.comment
+  .row.brd-bot
+    .col-sm-6.col-xs-6.col-md-6.soc-me.wid-blk
+      %p= time_ago_in_words(comment.created_at)
+    .col-sm-6.col-xs-6.col-md-6.text-right.rep-lik-un.wid-blk
+      = render 'ediofy/shared/toolbar/votable', votable: comment

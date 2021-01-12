@@ -1,0 +1,19 @@
+= render 'profile'
+
+= render 'stats'
+
+.content
+
+  %section.timeline
+    %h2= t '.title'
+    - if @activities && with_privacy(@user, Setting::PRIVACY_STEALTH)
+      %ol.activity-list= render @activities
+      - if @activities.next_page
+        = link_to t('.earlier_activity'), { page: @activities.next_page }, class: 'button'
+    - else
+      .no-activities
+        - if @user == current_user
+          = t '.no_activities_self_html', badges_path: "#"
+        - else
+          = t '.no_activities_html', name: @user
+  = render 'ediofy/user/submissions', questions: @questions, media: @media, collections: @collections

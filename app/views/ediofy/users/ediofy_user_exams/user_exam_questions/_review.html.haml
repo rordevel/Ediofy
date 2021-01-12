@@ -1,0 +1,23 @@
+.main-que
+  .que-gride
+    - @question.answers.each_with_index do |ans, i|
+      - klass = "clearboth pd-bottom"
+      - if ans.correct
+        - klass << " correct"
+      - elsif !ans.correct && ans == @selected_answer.answer
+        - klass << " incorrect"
+      %div.displayTable{class: klass}
+        .col16.displayCell.full-color.fix-hight.text-center
+          %h5=alphabet[i]
+        .col86.displayCell.full-color.fix-hight
+          %p=ans.body
+.explanation
+  %h6 Explanation
+  =@question.explanation.html_safe
+  %h6.titleOnAnswerRef References
+  - @question.references.each do |ref|
+    =link_to ref.title, ref.url
+    %br
+.three-col-btn
+  - @question.tags.each do |tag|
+    = link_to tag.name, ediofy_root_path('[q]' => tag.name, :button => 'Search', :utf8 => '✓')

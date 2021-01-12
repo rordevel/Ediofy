@@ -1,0 +1,163 @@
+.group-show
+  .pageContent
+    %section.content-page-video.content-page-img.manageContentMargin
+      .container
+        .row
+          .col-md-8
+            .contentAreaBox
+              .card
+                .header
+                  = image_tag @group.image || '', class: 'card-img-top img-fluid', size: '780x184'
+                .card-body
+                  .row
+                    .col-sm-7.col-xs-7.col-md-7
+                      %h2.group-title= @group.title
+                    .col-sm-5.col-xs-5.col-md-5.text-right
+                      .row
+                        .col-sm-6.col-xs-6.col-md-6.col-md-6.access
+                          %p
+                            - if @group.ispublic
+                              %i.fa.fa-globe
+                              -#= '&nbsp;'
+                              %span Public
+                            - else
+                              %i.fa.fa-lock
+                              -#= raw '&nbsp;'
+                              %span Private
+                        .col-sm-6.col-xs-6.col-md-6
+                          %p
+                            - if @group.in_group?(current_user)
+                              %span#joined-popover.popoverlinkDrop{"data-container" => "body", "data-content" => "#{render 'ediofy/groups/popovers/links'}",
+                              "data-placement" => "bottom", "data-toggle" => "popover", "type" => "button",
+                              "data-trigger" => "focus", "tabindex" => "0", "role" => "button"}
+                                Joined
+                                = raw '&nbsp;'
+                                %i.fa.fa-caret-down
+                            - else
+                              - if @group.invited? current_user
+                                = @group.user_invite(current_user)&.invite_type == :request ? 'Request sent' : 'Request Sent'
+                              - else
+                                = link_to @group.ispublic ? 'Join group' : 'Request Invite', join_ediofy_group_path, class: 'btn button joinButton'
+                  %hr
+                    .row
+                      .col-sm-12.col-xs-12.col-md-12
+                        .group-desc-heading Description
+                      .col-sm-12.col-xs-12.col-md-12
+                        %p
+                          =simple_format @group.description
+                          %p
+                          =link_to truncate(@group.group_url, :length => 140), @group.group_url unless @group.group_url.nil?
+            %br
+            - if @group.announcements.present?
+              = render 'ediofy/announcements/announcements', announcements: @group.announcements
+              - if @group.able_edit?(current_user)
+                .text-right
+                  = link_to new_ediofy_group_announcement_path(group_id: @group.id), remote: true do
+                    .add-announcement
+                      %h5.green-link
+                        %i.fa.fa-plus
+                        = raw '&nbsp;'
+                        Add Announcement
+            - else
+              - if @group.able_edit?(current_user)
+                = render 'ediofy/announcements/form', announcement: @group.announcements.new
+          .col-md-4
+            .rel-con
+              #related-content
+                .tab-content.infinite-table
+                  .row
+                    .col-md-6
+                      %p
+                        Members •
+                        %span.members-size= @group.members.size
+                    = render 'layouts/modal', id: 'invite_group_members', css_class: 'default', title: 'Add Members' do
+                      .row
+                        .col-sm-12.col-md-12
+                          %input.search_members.form-control{type: :text, placeholder: 'Search members by name'}
+                        %br
+                        %hr
+                        %br
+                        %h3 Suggested Members
+                        %p
+                        -# TODO: i guess here should be any suggestion based on tags or similar or whatever
+                        -# also i don't think that there will be any users without full name
+                        -# but additional reject will prevent unexpected crashes.
+                        -# In JS they are filtered too.
+                        - User.all.reject { |u| u.full_name.blank? || u == current_user }.each do |user|
+                          = render 'member_card', user: user, actions: true, invite_modal: true
+                    .col-md-6.text-right
+                      - if @group.in_group?(current_user)
+                        .span.green-link{'data-target' => '#invite_group_members', 'data-toggle' => 'modal'}
+                          Invite members
+                  - if @group.in_group?(current_user) || @group.ispublic?
+                    .row
+                      %hr
+                    .items.members
+                      .row
+                        .col-sm-12.col-md-12.group-first-6-members
+                          = render 'related_card_group_members', users: @group.users.first(6)
+                      .row
+                        .col-sm-12.col-md-12
+                          .see-all.text-center
+                            = render 'layouts/modal', id: 'group_members', css_class: 'default', title: "Members • #{@group.members.size}" do
+                              .row
+                                .col-sm-12.col-md-12
+                                  %input.search_members.form-control{type: :text, placeholder: 'Search members by name'}
+                              %br
+                              %hr
+                              %br
+                              %h3 Admin
+                              %p
+                              - (@group.owners + @group.admins).each do |user|
+                                = render 'member_card', img_size: '60x60', user: user, role: true, actions: true
+                              %br
+                              %h3 Members
+                              %p
+                              - @group.users.each do |user|
+                                = render 'member_card', user: user, actions: true
+                            -if (@group.users.count > 0 )
+                              .span.link{'data-target' => '#group_members', 'data-toggle' => 'modal'}
+                                See All members
+                  .items
+                    Admins
+                    %p
+                    - (@group.owners + @group.admins).each do |user|
+                      = render 'member_card', user: user do
+                        .group-role{class: "#{'owner' if @group.owner?(user)}"}
+                          = @group.user_role(user)&.humanize
+                  .load-more
+            %br
+            - if @group.regular_user?(current_user) || @group.able_edit?(current_user)
+              = render 'share_from_group'
+        .comment-section
+          %ul#group-content-tabs.nav.nav-tabs
+            %li.active
+              %a{"data-toggle" => 'tab', :href => "#latest"} Latest
+            %li
+              %a{"data-toggle" => 'tab', :href => "#top"} Top Discussions
+            %li
+              %a{"data-toggle" => 'tab', :href => "#playlists"} Playlists
+          .row.sort
+            .col-md-6
+              = form_tag ediofy_group_url, method: :get, :class => "form-inline groupsearch" do
+                .input-group.col-md-12
+                = text_field_tag :query, params[:query], placeholder: "Search in group...", class: "form-control no-border-radius"
+                = submit_tag "search", class: "btn btn-secondary"
+            .col-md-6
+              = render 'ediofy/filters/group_content_sort_filter'
+          .tab-content.row.comments
+            #latest.tab-pane.fade.in.active
+              - if @group.in_group?(current_user)
+                = render 'group_content', group_content: @group_content, group: @group
+              - else
+                .text-center Join this group to see add shared content and comment.
+            #top.tab-pane.fade
+              - if @group.in_group?(current_user)
+                = render 'group_content', group_content: @group_top_content, group: @group
+              - else
+                .text-center Join this group to see add shared content and comment.
+            #playlists.tab-pane.fade
+              - if @group.in_group?(current_user)
+                = render 'group_content', group_content: @group_playlists, group: @group
+              - else
+                .text-center Join this group to see and add to playlists

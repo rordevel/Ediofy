@@ -1,0 +1,21 @@
+.keyboard-tip
+  %button.close ×
+  %h4= t(:title, :scope => :hotkeys)
+  %p= t(:explanation, :scope => :hotkeys)
+  %ul
+    %li
+      %strong= (1..@answers.size).to_a.join(',')
+      %span= t(:explanation, :scope => [ :hotkeys, :select ])
+    %li
+      %strong= t(:key, :scope => [ :hotkeys, :answer ])
+      %span= t(:explanation, :scope => [ :hotkeys, :answer ])
+    - if @member_mock_exam.present?
+      %li
+        %strong= t(:key, :scope => [ :hotkeys, :next ])
+        %span= t(:explanation, :scope => [ :hotkeys, :next ])
+    %li
+      %strong= t(:key, :scope => [ :hotkeys, :skip ])
+      %span= t(:explanation, :scope => [ :hotkeys, :skip ])
+
+.show-keyboard-tip
+  = link_to 'Show Keyboard Shortcuts', '#keyboard-tip'

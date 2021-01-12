@@ -1,0 +1,16 @@
+.pageContent.b-ediofy-dashboard-index.manageContentMargin
+  .container
+    .row
+      .yourIntrest
+        .row
+          .col-md-12
+            %h2.h1.your-interests
+              Search Results:
+              %span.searchFor= params[:q]
+            %span
+              = @content_total_results
+              Results
+
+  = render partial: 'ediofy/shared/results/related_content_section', locals: { content_results: @content_results, content_total_results: @content_total_results, has_more_content: @has_more_content }
+
+  = render partial: 'ediofy/shared/results/related_people_section', locals: { people_results: @people_results, people_total_results: @people_total_results, has_more_people: @has_more_people }

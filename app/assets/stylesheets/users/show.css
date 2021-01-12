@@ -1,0 +1,160 @@
+.b-profile-development .total-time, .contribution {
+    margin-bottom: 10px;
+}
+.total-time #progressbar {
+    width: 292px;
+    height: 6px;
+    border-radius: 100px;
+    background-color: rgba(129,201,38, 0.2);
+    display: inline-block;
+}
+.total-time #progressbar .ui-progressbar-value {
+    height: 6px;
+    border-radius: 100px;
+    background-color: rgba(129,201,38, 1);
+}
+
+.total-time .time {
+    width: 58px;
+    height: 12px;
+    font-family: "proxima-soft";
+    font-size: 10px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    text-align: right;
+    color: #aac7dd;
+    display: inline-block;
+}
+
+.total-time .title {
+    width: 202px;
+    height: 17px;
+    font-family: 'NexaRegular' !important;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.42;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f536e;
+    margin-bottom: -5px;
+}
+
+.contribution #progressbar {
+    width: 292px;
+    height: 6px;
+    border-radius: 100px;
+    background-color: rgba(0,221,235, 0.2);
+    display: inline-block;
+}
+.contribution #progressbar .ui-progressbar-value {
+    height: 6px;
+    border-radius: 100px;
+    background-color: rgba(0,221,235, 1);
+}
+
+.contribution .time {
+    width: 58px;
+    height: 12px;
+    font-family: "proxima-soft";
+    font-size: 10px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    text-align: right;
+    color: #aac7dd;
+    display: inline-block;
+}
+
+.contribution .title {
+    width: 202px;
+    height: 17px;
+    font-family: 'NexaRegular' !important;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.42;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f536e;
+    margin-bottom: -5px;
+}
+
+
+.learning #progressbar {
+    width: 292px;
+    height: 6px;
+    border-radius: 100px;
+    background-color: rgba(253,193,108, 0.2);
+    display: inline-block;
+}
+.learning #progressbar .ui-progressbar-value {
+    height: 6px;
+    border-radius: 100px;
+    background-color: rgba(253,193,108, 1);
+}
+
+.learning .time {
+    width: 58px;
+    height: 12px;
+    font-family: "proxima-soft";
+    font-size: 10px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    text-align: right;
+    color: #aac7dd;
+    display: inline-block;
+}
+
+.learning .title {
+    width: 202px;
+    height: 17px;
+    font-family: 'NexaRegular' !important;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.42;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f536e;
+    margin-bottom: -5px;
+}
+
+.settings-show .page-title {
+    width: 315px;
+    display: inline-block;
+}
+.settings-show .account-action {
+    width: 200px;
+    height: 15px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #aac7dd;
+}
+
+.settings-show .dates li {
+  margin-bottom: 8px;
+  border-bottom: 0;
+}
+
+.settings-show .dates .label {
+  display: inline-block;
+  min-width: 60px;
+}

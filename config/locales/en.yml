@@ -1,0 +1,1448 @@
+en:
+  activerecord:
+    attributes:
+      order:
+        to_s: "Tax Invoice #%{id}"
+      question:
+        created_at: Date
+        difficulty: Difficulty
+        rating: Rating
+        shortened_body: Question
+        tags: Tags
+  layouts:
+    navigation_links:
+      faqs: FAQs
+      about: About
+      contact: Contact
+      dashboard: Dashboard
+      stories: Stories
+      friends: Friends
+      gallery: "Media Gallery"
+      home: Home
+      leaderboard: Leaderboard
+      users: Users
+      notifications: Notifications
+      questions: Questions
+      register: Register
+      sign_in: "Sign In"
+      universities: "Universities"
+    nav_links_for_auth:
+      profile: Profile
+      edit_profile: "Edit Profile"
+      settings: Settings
+      sign_out: "Sign Out"
+  admin:
+    activity_key_point_values:
+      activity_keys:
+        badge: "Earned a Badge"
+        media:
+          new: "Added Media"
+          vote: "Voted on Media"
+          watch: "Watched Media"
+        media_files:
+          new: "Added a Media File"
+        conversation:
+          vote: "Voted on Conversation"
+          new: "Started a Conversation"
+          read: "Read a Conversation"
+        link:
+          vote: "Voted on Link"
+          share: "Shared a Link"
+          view: "Viewed a Link"
+        users:
+          auth:
+            facebook: "Connected Facebook"
+            google: "Connected Google"
+            linkedin: "Connected LinkedIn"
+            twitter: "Connected Twitter"
+          friendship:
+            accept: "Friendship Request Accepted"
+          profile:
+            update: "Edited Profile"
+          register: Registered
+        question:
+          answer:
+            correct: "Answered a Question correctly"
+            wrong: "Answered a Question wrong"
+          submit: "Submitted a Question"
+          vote: "Voted on Question"
+          duplicate: "Submitted a duplicate Question"
+          rewrite: "Rewritted a duplicate Question"
+        pdf:
+          view: "Viewed a PDF"
+        pdf_files:
+          new: "Added a PDF File"
+        image:
+          view: "Viewed an Image"
+        image_files:
+          new: "Added an Image File"
+        comment:
+          new: "Added a Comment"
+    comments:
+      index:
+        sub-nav:
+          all: "All (%{count})"
+          approved: "Approved (%{count})"
+          pending: "Pending (%{count})"
+          spam: "Spam (%{count})"
+          trash: "Trashed (%{count})"
+    confirmations:
+      destroy_educational_resource: "Are you sure you wish to destroy this resource?"
+      destroy_product: "Are you sure you wish to destroy this product?"
+      destroy_tag: "Are you sure you wish to destroy this tag?"
+    dashboard:
+      sign_out: "Sign Out"
+    educational_resources:
+      actions:
+        edit: Edit
+        new: "Add New Resource"
+      edit:
+        title: "Edit Resource"
+      index:
+        title: "Resources Index"
+      new:
+        title: "New Resource"
+      show:
+        title: "View Resource"
+    ediofy:
+      tags:
+        new:
+          title: "New EDIOFY Tag"
+    users:
+      index:
+        title: "User Index"
+      show:
+        title: "View User"
+    navigation:
+      activity_key_point_values: "Activity Points"
+      admins: Admins
+      dashboard: Dashboard
+      educational_resources: Resources
+      ediofy: EDIOFY
+      hospital: Hospital
+      users: Users
+      mock_exams: "Mock Exams"
+      products: Products
+      questions: Questions
+      sign_out: "Sign Out"
+      subjects: Subjects
+      tags: Tags
+      university: University
+      user_explanations: "User Explanations"
+    orders:
+      show:
+        company:
+          abn: "71 146 580 109"
+          abn_label: ABN
+          address_html: "7 Karla Place<br /> City Beach WA 6015<br /> Australia"
+          address_label: Address
+          fax: "+61 8 9284 7486"
+          fax_label: Fax
+          phone: "+61 8 9467 2318"
+          phone_label: Phone
+          title: "Oz iMedic Pty Ltd"
+        line_items:
+          price: "%{price}"
+          price_label: Price
+          product: "%{title} (%{months} months)"
+          product_label: Product
+          title: Products
+        title: "Tax Invoice"
+        totals:
+          discount: Discount
+          gst: GST
+          subtotal: Subtotal
+          title: Totals
+          total: Total
+    products:
+      actions:
+        edit: Edit
+        new: "Add New Product"
+      edit:
+        title: "Edit Product"
+      index:
+        title: "Products Index"
+      new:
+        title: "New Product"
+      show:
+        title: "View Product"
+    questions:
+      actions:
+        edit: Edit
+        new: "Add New Question"
+      edit:
+        title: "Edit Question"
+      index:
+        title: "Questions Index"
+      new:
+        title: "New Question"
+    tags:
+      actions:
+        new: "Add New Tag"
+      edit:
+        title: "Edit Tag"
+      form:
+        child_tags: "Child Tags"
+        no_product: "No Product"
+        parent_tag: "Parent Tag"
+        root_product: "Root Product"
+      index:
+        title: "Tag Index"
+      new:
+        title: "New Tag"
+      show:
+        title: "View Tag"
+    universities:
+      actions:
+        new: 'New University Group'
+
+  badges:
+    early_adopter: "One of the pioneering EDIOFY users"
+    facebook: "Connected a Facebook account"
+    friendship: "Made your first friend"
+    google: "Connected a Google account"
+    level: "Achieved level %{level}"
+    linkedin: "Connected a LinkedIn account"
+    points: "Earned %{points} points"
+    profile_completed: "A full profile is a happy profile"
+    questions_answered: "Answered %{count} questions"
+    questions_submitted: "Submitted %{count} questions"
+    questions_voted: "Voted on %{count} questions"
+    test: "%{badge} testing, %{a}, %{relation}"
+    twitter: "Connected a Twitter account"
+  banner:
+    one:
+      heading: "Welcome to iMeducate <br> your partner in exam success"
+      text: "Test yourself with our bank of MCQ questions written by both Australian and international consultants to aid your revision and identify any gaps in your knowledge base."
+    three:
+      heading: "Refresh your mind"
+      text: "By working your way through our entire database one question at a time!"
+    two:
+      heading: "bring it on"
+      text: "Think you're ready? Test your knowledge in a randomly generated timed session, just like the real exam!"
+  contact:
+    abn: ABN
+    address: Address
+    email: Email
+    fax: Fax
+    message: "You can contact us by using the details below or fill out the enquiry form"
+    phone: Phone
+    postal_address: "Postal Address"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  time:
+    formats:
+      default: "%d %B %Y %I:%M %p"
+  dashboard:
+    community_performance: "Community Performance"
+    edit_account: "Edit Account"
+    email: Email
+    exam_revision: "Exam Revision"
+    full_name: Name
+    my_account: "My Account"
+    performance_overview: "Performance Overview"
+  devise:
+    buttons:
+      reset_password: "Reset Password"
+  educational_resources:
+    all_resources: "All Resources"
+  exams:
+    minutes:
+      one: "%{count} Minute"
+      other: "%{count} Minutes"
+    questions:
+      one: "%{count} Question"
+      other: "%{count} Questions"
+    start_now: "Start Now"
+  ediofy:
+    banner:
+      stats:
+        users: Users
+        new_users: "New Users This Week"
+        questions: Questions
+        questions_answered: "Questions Answered"
+    comments:
+      comment:
+        status:
+          approved: "This comment has been approved"
+          pending: "This comment is pending approval"
+          spam: "This comment has been marked as spam"
+          trash: "This comment has been removed"
+      form:
+        logged_in_as_html: "You are logged in and commenting as %{link}."
+        submit_comment: "Submit Comment"
+      index:
+        comments:
+          one: "%{count} Comment"
+          other: "%{count} Comments"
+    completed_exam: "Revision completed successfully"
+    dashboard:
+      welcome:
+        close_html: "<span>Close</span> ×"
+        title: "Welcome to your EDIOFY Dashboard"
+        intro_html: "<p>You EDIOFY Dashboard is your central hub to the Global Medical Education project. From here you can keep track of your performance, see recent activity of friends and influential EDIOFY users, find new friends, see what's popular and see how your university is performing in the community.</p>"
+      quicklinks:
+        collapse: Collapse
+        create:
+          collection:
+            action: "points for creating a folder"
+            button: "Create Stories"
+            description_html: "<p><strong>Create Stories</strong> of media and questions to share with friends and other users. Become the go-to resource for the best questions or media on the site.</p>"
+          media:
+            action: "points for each media upload"
+            button: "Upload Media"
+            description_html: "<p><strong>Upload Media</strong> like images, video or audio to our database to be used in questions, organise your uploads in clinical cases to create a series of related media.</p>"
+          question:
+            action: "points for each submitted question"
+            button: "Submit Questions"
+            description_html: "<p><strong>Submit Questions</strong> to earn points, badges and expand the EDIOFY database. You can always come back and see how your questions have been rated by the community.</p>"
+        expand: Expand
+        view:
+          collection:
+            button: "Explore Stories"
+            description_html: "<p><strong>Explore Stories</strong> that users have created, making it easier to find related media and questions.</p>"
+          media:
+            button: "Browse Media"
+            description_html: "<p><strong>Browse Media</strong> in our extensive collection. Rate, review, comment and collect to let others know what you think.</p>"
+          question:
+            action: "points for each correct answer"
+            button: "Answer Questions"
+            description_html: "<p><strong>Answer Questions</strong> in exam or shuffle modes. Rate, review and comment as you go to earn bonus points. Add your favourites to your collections to share with friends.</p>"
+      show:
+        adbar:
+          close: ×
+          description_html: "Looking for high quality, professionally assembled MCQ exams? <a href='%{url}'>Log into iMeducate with your EDIOFY account</a>."
+          title: iMeducate
+        earlier_activity: "Earlier Activity"
+        earlier_submissions: "Earlier Submissions"
+        earn_points: "to earn points"
+        no_questions: "You haven't submitted any questions yet."
+        recent_activity: "Recent Activity"
+        your_performance:
+          next_level_html:
+            one: "You’re just <strong>1</strong> question away from reaching <strong>Level %{next_level}</strong>"
+            other: "You’re about <strong>%{count}</strong> questions away from reaching <strong>Level %{next_level}</strong>"
+            zero: "You’re just <strong>1</strong> question away from reaching <strong>Level %{next_level}</strong>"
+          stats:
+            all_time:
+              badges_fearned: "All Time Badges Earned"
+              leaderboard_position: "All Time Leaderboard Position"
+              points_earned: "All Time Points Earned"
+              questions_answered: "All Time Questions Answered"
+              questions_submitted: "All Time Questions Submitted"
+            month:
+              badges_earned: "Badges Earned This Month"
+              leaderboard_position: "Monthly Leaderboard Position"
+              points_earned: "Points Earned This Month"
+              questions_answered: "Questions Answered This Month"
+              questions_submitted: "Questions Submitted This Month"
+            week:
+              badges_earned: "Badges Earned This Week"
+              leaderboard_position: "Weekly Leaderboard Position"
+              points_earned: "Points Earned This Week"
+              questions_answered: "Questions Answered This Week"
+              questions_submitted: "Questions Submitted This Week"
+          time_range:
+            all_time: "All Time"
+            label: "Time range:"
+            month: Month
+            week: Week
+          title: "Your Performance"
+        your_submissions: "Your Submissions"
+      find_friends:
+        title: "People you may know"
+        level: "Level %{level}"
+        invite: "Invite friends"
+        search: "Search for friends"
+      popular:
+        by_html: "by %{user}"
+        questions: "Popular Questions"
+        media_collections: "Popular Clinical Scenarios"
+        user_collections: "Popular Stories"
+        items:
+          one: "(1 Item)"
+          other: "(%{count} Items)"
+        browse_stories: "Browse Stories"
+        browse_media_collections: "Browse Clinical Scenarios"
+        browse_questions: "Browse Questions"
+      university_stats:
+        link: "View University Profile"
+        time_range:
+          label: "Time range:"
+          week: "Week"
+          month: "Month"
+          all_time: "All Time"
+        stats:
+          week:
+            users: "New Users This Week"
+            questions: "New Questions This Week"
+            media_collections: "New Clinical Scenarios This Week"
+            user_collections: "New Stories This Week"
+          month:
+            users: "New Users This Month"
+            questions: "New Questions This Month"
+            media_collections: "New Clinical Scenarios This Month"
+            user_collections: "New Stories This Month"
+          all_time:
+            users: "Total Users"
+            questions: "Total Questions"
+            media_collections: "Total Clinical Scenarios"
+            user_collections: "Total Stories"
+    embed:
+      users:
+        show:
+          latest_media: Latest Media
+          latest_question: Latest Question
+      media:
+        show:
+          by_html: " by <strong>%{user}</strong>"
+          created_html: "Created on <strong>%{date}</strong>"
+          title: "Media Embed"
+    facebook:
+      connect:
+        connect: "Connect Facebook"
+        connect_text: "Connecting your EDIOFY account to Facebook will allow you to log in using Facebook and find EDIOFY friends through your Facebook friends."
+        logged_in_html: "You are currently logged in to EDIOFY as %{link}."
+        title: Connect
+      show:
+        dashboard: "EDIOFY Dashboard"
+        your_profile: "Your Profile"
+      signup:
+        intro: "Join EDIOFY now to access a wealth of medical education and connect with medical professionals around the world."
+        register:
+          footer:
+            alternate: "or register without Facebook"
+            button: "Sign up with Facebook"
+            pitch: "Ready to get started? Sign up with Facebook in seconds…"
+          header:
+            button: "Sign up with Facebook"
+            existing_html: "If you already have a EDIOFY account, %{link}."
+            existing_link_text: "sign in to connect your Facebook account"
+        title: "Welcome to EDIOFY"
+    footer:
+      copyright: "Copyright © 2012 Global Medical Education Project / iMeducate"
+      disclaimer: Disclaimer
+      home: Home
+      imeducate: iMeducate
+      powered_by: "Powered by %{imeducate}"
+      terms: "Terms & Licensing"
+      changelog: "Changelog"
+    home:
+      show:
+        features:
+          badges:
+            description: "For special achievements you’ll receive badges. Badges are a testament to your dedication and participation on the site."
+            title: "Receive Badges"
+          compare:
+            description: "Who has the most points? What badges don’t you have that your friends do? Find out by comparing with your friends."
+            title: "Compare With Friends"
+          connect:
+            description: "Let your Facebook friends, Twitter followers and Google Plus pals know just how smart you are. Share your achievements online through social networks."
+            title: "Connect Socially"
+          points:
+            description: "Every time you answer a question, rate its difficulty, add a friend or participate on EDIOFY you’ll earn points. Points are your bragging right!"
+            title: "Earn Points"
+          submit:
+            description: "Think a question is wrong, could be improved or have your own questions? Submit them and earn points. Your question will become part of our extensive library."
+            title: "Submit Questions"
+          track:
+            description: "We keep track of your progress and provide you with detailed graphs to let you see how much you’re improving."
+            title: "Track Your Performance"
+        introduction:
+          column_1_html: "<p style=\"text-align:center;\">Welcome to the Global Medical Education Project.</p>"
+          column_2_html: "<p style=\"text-align:center;\">The site is currently in beta, <a href=\"https://getsatisfaction.com/ediofy/\" target=\"_blank\">please give us your feedback</a>.</p>"
+        register:
+          footer:
+            button: "Register Free"
+            pitch: "Ready to get started? Register free in under 30 seconds…"
+          header:
+            button: "Register Free"
+            pitch: "Ready to be a part of medical history? Register for free in under 30 seconds…"
+    leaderboards:
+      leaderboard_navigation:
+        all_time: "All Time"
+        monthly: Monthly
+        weekly: Weekly
+      user:
+        points:
+          one: Point
+          other: Points
+          zero: Points
+    media:
+      collections:
+        add_to_collection: "Add To"
+        collections: "Clinical Scenarios"
+        remove_from_collection: Remove
+      index:
+        all_media: "All Media"
+        by_html: " by <strong>%{user}</strong>"
+        clear: Clear
+        created_html: "Created on <strong>%{date}</strong>"
+        direction: Direction
+        do_search: Search
+        new: "Upload New Media"
+        new_collection: "Add Clinical Scenario"
+        order_by: "Order By"
+        query: Query
+        score_html: "<strong>Score:</strong> %{score}"
+        results_for: "Results for “%{search}”"
+        results_for_tag: "Results for tag “%{tag}”"
+        search_results: "Search Results"
+        tags_html: "<strong>Tags:</strong> %{tags}"
+        no_media_html: "<p>No media found.</p>"
+        view: View
+        tabs:
+          friends: "Friend’s Media"
+          mine: "My Media"
+          public: "All Media"
+      media:
+        delete: Delete
+        edit: Edit
+        tags: "Tags:"
+        by_html: " by <strong>%{user}</strong>"
+        created_html: "Created on <strong>%{date}</strong>"
+        view: "View Media"
+        view_collection: "View Scenario"
+      user_collections:
+        user_collections: "Stories"
+        add_to_collection: "Add To"
+        remove_from_collection: "Remove"
+        no_user_collections: "This media has not been added to any stories."
+      private: Private
+      public: Public
+      report_bar:
+        report: "Report question"
+        reported: Reported
+      search:
+        clear: "Clear Search"
+        search: Search
+        search_gallery: "Search Gallery"
+      share:
+        share_this_collection: "Share this collection using"
+        share_this_media: "Share this media using"
+      popup:
+        by_html: " by <strong>%{user}</strong>"
+        created_html: "Created on <strong>%{date}</strong>"
+      show:
+        manage:
+          media: "Manage Media"
+          collection: "Manage Clinical Scenario"
+        by_html: " by <strong>%{user}</strong>"
+        created_html: "Uploaded on <strong>%{date}</strong>"
+        add_to_collection: "Add To Collection"
+        collections: Collections
+        comment_references: "Comment References"
+        create_question: "Create Question From Media"
+        more: "Show More"
+        delete: "Delete This Media"
+        edit: "Edit This Media"
+        gallery_collection_item: "Gallery / %{collection}"
+        info:
+          filesize_html: "<strong>Filesize:</strong> %{size}"
+          questions_html:
+            one: "Used in <strong>%{count}</strong> question"
+            other: "Used in <strong>%{count}</strong> questions"
+          uploaded_html: "<strong>Uploaded:</strong> %{time}"
+          uploader_html: "<strong>Uploader:</strong> %{link}"
+        media_references: "Media References"
+        no_collections: "Not in any collections."
+        no_questions: "No associated questions"
+        processing: "Processing..."
+        processing_message: "Your media is processing and will be available shortly."
+        questions: "Questions"
+        remove_from_collection: Remove
+        uploaded: "Uploaded %{time} ago"
+        collection:
+          slideshow: "Slideshow"
+          edit: "Edit Clinical Scenario"
+          delete: "Delete Clinical Scenario"
+          reorder: "Reorder Clinical Scenario"
+          title_html:
+            one: "Other Media in this Clinical Scenario"
+            other: "Other Media in this Clinical Scenario (%{slideshow})"
+      tags:
+        no_tags_html: "<p>This media doesn’t have any tags.</p>"
+        title: Tags
+        add_tags: "Add Tags"
+        instructions: "Type a new tag and press enter"
+      fields:
+        view_media: "View Media"
+        edit_media: "Edit Media"
+        remove_media: "Remove Media"
+    media_collections:
+      form:
+        details: "Clinical Scenario Details"
+        add_media: "Add New Media"
+        add_more_media: "Add Media"
+        media: "Edit Media"
+        media_description_html: "<p>Please select the media files you wish to upload to this clinical scenario. You may upload as many media items as you wish with the following filetypes: pdf, jpg, jpeg, png, gif, mp4, mpg, m4v, mov, mkv, avi, ogg, wav, mp3, ogv, aac</p>"
+      media_collection:
+        delete: Delete
+        edit: Edit
+        items:
+          one: "1 Item"
+          other: "%{count} Items"
+          zero: "Empty Clinical Scenario"
+        tags: "Tags:"
+        by_html: " by <strong>%{user}</strong>"
+        created_html: "Created on <strong>%{date}</strong>"
+        view: "View Scenario"
+      media_fields:
+        remove_media: "Remove Media"
+      show:
+        collection_slideshow: "Clinical Scenario Slideshow"
+        delete: "Delete This Clinical Scenario"
+        edit: "Edit This Clinical Scenario"
+        gallery_collection: "Gallery / Clinical Scenario"
+        no_media_html: "<p>This clinical scenario has no media.</p>"
+        tags: Tags
+      new:
+        introduction_html: "<p>A clinical scenario is a collection of one or more pieces of media that relate to a single patient or case.</p><p>Enter a title, description and some tags to apply to the clinical scenario and all media items it contains. On the next screen you'll be able to upload multiple pieces of media to be a part of this Clinical Scenario.</p>"
+      reorder:
+        title: "Reorder Clinical Scenario Media"
+        by_html: " by <strong>%{user}</strong>"
+        created_html: "Created on <strong>%{date}</strong>"
+        instructions: "Using your mouse, drag and drop the Media in this Clinical Scenario to adjust its order. Once you are happy with the order, press save."
+        save: "Save Order"
+      tabs:
+        edit: "Edit"
+        reorder: "Reorder Media"
+    user:
+      activities:
+        index:
+          no_activities_html: "<p>%{name} doesn't have an activity yet.</p>"
+          no_activities_self_html: "<p>You haven't done anything yet.</p>"
+          earlier_activity: "Earlier Activity"
+      badges:
+        compare:
+          badges:
+            one: "1 Badge"
+            other: "%{count} Badges"
+            zero: "No Badges"
+          created_at: "%{time} ago"
+          level: "Level %{count}"
+          no_badge: "Not yet achieved"
+        index:
+          compare_badges: "Compare Badges"
+          no_badges_html: "<p>%{name} doesn’t have any badges yet.</p>"
+          no_badges_self_html: "<p>You don’t have any badges yet.</p><p>Why not <a href='%{badges_path}'>see what badges you can earn</a>.</p>"
+      friends:
+        friend:
+          accept_request: "Accept Request"
+          remove_friend: "Remove Friend"
+          remove_request: "Cancel Request"
+        index:
+          find_friends: "Find Friends"
+          find_friends_html: "It’s easy to <a href=\"%{find_friends_path}\">find & invite your friends</a>."
+          incoming: "Incoming Friend Requests"
+          no_friends: "%{name} doesn’t have any friends on EDIOFY yet."
+          no_friends_self: "You don’t appear to have any friends on EDIOFY yet."
+          outgoing: "Outgoing Friend Requests"
+      media:
+        index:
+          new: "Upload New Media"
+          no_media_html: "%{user} hasn’t submitted any media yet"
+      user_collections:
+        index:
+          no_user_collections_html: "%{user} hasn’t created any stories yet"
+          new: "Create Story"
+        user_collection:
+          delete: Delete
+          edit: Edit
+          items:
+            one: "1 Item"
+            other: "%{count} Items"
+            zero: "Empty Story"
+      points:
+        index:
+          points_per_day: "Points Per Day"
+          points_per_month: "Points Per Month"
+          points_per_week: "Points Per Week"
+          no_points_html: "<p>Statistics are unavailable for %{name}</p>"
+      points_bar:
+        progress:
+          finish_level: "Level %{level}"
+          start_level: "Level %{level}"
+      profile:
+        follow: "Follow"
+        unfollow: "Unfollow"
+        confirm_unfollow: "Are you sure you no longer want to follow this user?"
+        add_friend: "Add Friend"
+        approve_friend: "Approve Friend"
+        confirm_remove_friend: "Are you sure you no longer want to be friends with this user?"
+        friend_approve: "Approve Friend"
+        friend_request_error: "Error requesting friend"
+        friend_requested: "Friend Requested"
+        remove_friend: "Remove Friend"
+        remove_friend_request: "Remove Friend Request"
+      questions:
+        index:
+          new: "Submit Question"
+          no_questions_html: "%{user} hasn’t submitted any questions yet"
+      settings:
+        tags:
+          choose_tags: "Choose Exam Tags"
+      sidebar:
+        compare_badges: "Compare Badges"
+      stats:
+        figure:
+          all_time_rank: "All Time Rank"
+          badges:
+            one: Badge
+            other: Badges
+            zero: Badges
+          collections:
+            one: Story
+            other: Stories
+            zero: Stories
+          friends:
+            one: Friend
+            other: Friends
+            zero: Friends
+          level: Level
+          media: Media
+          monthly_rank: "Monthly Rank"
+          questions:
+            one: Question
+            other: Questions
+            zero: Questions
+          weekly_rank: "Weekly Rank"
+        navigation:
+          activities: Timeline
+          badges: Badges
+          collections: Stories
+          friends: Friends
+          media: Media
+          points: Statistics
+          questions: Questions
+        progress:
+          current_level: "Current Level: %{current_points} / %{next_level_points}"
+          total_points: "Total Points: %{points}"
+      submissions:
+        all_collections: "View All"
+        all_media: "View All"
+        all_questions: "View All"
+        recent_collections_html: "Recent Clinical Scenarios %{link}"
+        recent_media_html: "Recent Media %{link}"
+        recent_questions_html: "Recent Questions %{link}"
+    user_collections:
+      index:
+        by_html: " by <strong>%{user}</strong>"
+        clear: Clear
+        created_html: "Created on <strong>%{date}</strong>"
+        direction: Direction
+        do_search: Search
+        new: "Create Story"
+        no_collections_html: "<p>No collections found matching your selections.</p>"
+        order_by: "Order By"
+        query: Query
+        results_for: "Results for “%{search}”"
+        tabs:
+          all: "All Stories"
+          friends: "Friend’s Stories"
+          mine: "My Stories"
+        view: View
+      show:
+        by_html: " by <strong>%{user}</strong>"
+        created_html: "Uploaded on <strong>%{date}</strong>"
+        user_collection: "Story"
+        empty_collection_html: "<p>This folder has no questions or media.</p>"
+        media: "Media in Story"
+        questions: "Questions in Story"
+        edit: "Edit Story"
+      user_collection:
+        delete: Delete
+        edit: Edit
+        items:
+          one: "1 Item"
+          other: "%{count} Items"
+          zero: "Empty Story"
+        by_html: " by <strong>%{user}</strong>"
+        created_html: "Created on <strong>%{date}</strong>"
+        view: View
+    users:
+      ediofy_user_exams:
+        user_exam_questions:
+          review:
+            comments_html:
+              one: "There is 1 comment on this question, you can %{link} to read it and add your own."
+              other: "There are %{count} comments on this question, you can %{link} to read them and add your own."
+              zero: "There are no comments on this question, you can %{link} to add your own."
+            comments_link: "view the question"
+            shuffle_mode: "Shuffle Mode"
+          show:
+            exam_mode: "Revision Type: %{exam_mode}"
+            shuffle_mode: "Shuffle Mode"
+          sidebar:
+            finish: "End & Review Session"
+          tag_selector:
+            select_tags: "Select Tags"
+            select_tags_html: "<p>Please select the tags you wish to shuffle below, you can set some default tag preferences in <a href=\"%{settings_path}\">your settings</a>.</p>"
+        new:
+          exam_mode: "Revision Type"
+          select_tags: "Select Tags"
+          select_tags_html: "<p>Please select the tags you wish to shuffle below, you can set some default tag preferences in <a href=\"%{settings_path}\">your settings</a>.</p>"
+      index:
+        clear: Clear
+        direction: Direction
+        do_search: Search
+        order_by: "Order By"
+        query: Query
+        results_for: "Results for “%{search}”"
+        title: Users
+      invites:
+        create:
+          invalid: "Invalid email addresses, please specify comma-separated email addresses"
+          success:
+            one: "Friend invited via email"
+            other: "%{count} friends invites via email"
+        index:
+          networks:
+            request: "Invite your friends to EDIOFY"
+          invite:
+            email:
+              description_html: "<p>Enter one or more email addresses separated by commas.</p>"
+              label: "Email Addresses"
+              send: "Send Invites"
+              title: "Invite Friends By Email"
+            facebook: "Invite Facebook Friends"
+            no_accounts_html: "<p>Please <a href='%{url}'>connect your social accounts</a> to invite friends.</p>"
+            title: "Invite Friends"
+            tweet: "Join me on EDIOFY, the Global Medical Education Project!"
+            twitter: "Invite Twitter Friends"
+          social:
+            loading: "Finding EDIOFY users on your social networks…"
+            no_accounts_html: "<p>Please <a href='%{url}'>connect your social accounts</a> to find friends.</p>"
+            title: "People You Know"
+      user:
+        level: "Level %{level}"
+        points: "Total Points"
+        joined: "Date Joined"
+      notifications:
+        button:
+          clear: "Clear All Notifications"
+          new_notifications:
+            one: "New Notification"
+            other: "New Notifications"
+        notification:
+          delete: "Delete Notification"
+          mark_as_read: "Mark As Read"
+          time_ago: "%{time} ago"
+        popup:
+          clear: "Clear All Notifications"
+          next: "Next Notification"
+          previous: "Previous Notification"
+      omniauth_callbacks:
+        flash:
+          already_connected: "Another user has already connected that %{provider} account."
+          connected: "Successfully connected %{provider} account."
+          signed_in: "Successfully signed in with %{provider} account."
+        providers:
+          facebook: Facebook
+          google: Google
+          linkedin: LinkedIn
+          twitter: Twitter
+      passwords:
+        edit:
+          title: "Password recovery"
+        new:
+          title: "Password recovery"
+      registrations:
+        edit:
+          account: "Account Details"
+          address: Address
+          avatar:
+            current: Current
+            facebook: Facebook
+            google: Google
+            gravatar: Gravatar
+            twitter: Twitter
+            upload: "Upload New"
+          connect_facebook: "Connect to Facebook"
+          connect_google: "Connect to Google"
+          connect_linkedin: "Connect to LinkedIn"
+          connect_twitter: "Connect to Twitter"
+          disconnect_facebook: "Disconnect Facebook"
+          disconnect_google: "Disconnect Google"
+          disconnect_linkedin: "Disconnect LinkedIn"
+          disconnect_twitter: "Disconnect Twitter"
+          profile: "User Profile"
+          profile_picture: "Profile Picture"
+          profile_picture_instructions_html: "<p>For best results, please use a square image at least 300x300 pixels in size.</p>"
+          social: "Link Social Accounts"
+          social_benefits_html: "<p>Linking your social accounts makes it faster and easier for you to log in, find friends and share your badges and achievements.</p>"
+        new:
+          confirm: Confirmation
+          create_an_account: "Create an account"
+          email: Email
+          first: First
+          last: Last
+          normal_description: "Ready to participate in the Global Medical Education Project? Creating a EDIOFY / iMeducate account is quick and easy. Simply fill out the form below and you’re in!"
+          password: Password
+          password_confirmation: "Password Confirmation"
+          register_with: "Register with..."
+          social_description: "Register in just seconds using one of your social media accounts. We respect your privacy and won’t spam you, or post/tweet on your behalf without asking."
+      sessions:
+        new:
+          email: Email
+          password: Password
+          reuser_me: "Reuser me"
+          sign_in_using: "Or sign in using..."
+          title: "Sign in"
+          welcome_body: "<p>Welcome back! Enter your email and password to sign in to EDIOFY and continue your journey to community powered, continued professional education.</p>"
+          social_body: "<p>Reuser, by connecting your social accounts to EDIOFY you can log in with one click and we’ll even help you connect with friends who are also EDIOFY users.</p>"
+          welcome_heading: "Log in to EDIOFY"
+      settings:
+        privacy:
+          beta_message_html: "<p>During the EDIOFY Beta privacy settings have been disabled.<br />Once we're ready for prime time you'll be able to customise who can see your profile, activity and details.</p>"
+          pretext_html: "As the <a href=\"%{ediofy_media_index_path}\">Media Gallery</a> and Questions have their own privacy controls, anything you set here will not affect these."
+          privacy: "Privacy Settings"
+        questions:
+          questions: "Question Settings"
+        send_updates:
+          email_preferences: "E-mail Digest"
+          email_preferences_html: "<p>Each week we send out a digest e-mail containing a weekly breakdown for you</p>"
+        tags:
+          choose_tags: "Choose Tags"
+          choose_tags_html: "<p>Select your default tags preferences.</p>"
+      unauth:
+        authentication_removed: "%{provider} account removed."
+    navigation:
+      about: About
+      contact: Contact
+      dashboard: Dashboard
+      edit_profile: "Edit Profile"
+      stories: Stories
+      friends: Friends
+      gallery: "Media Gallery"
+      home: Home
+      leaderboard: Leaderboard
+      users: Users
+      notifications: Notifications
+      profile: Profile
+      questions: Questions
+      register: Register
+      settings: Settings
+      sign_in: "Sign In"
+      sign_out: "Sign Out"
+      universities: "Universities"
+    conversations:
+      new:
+        add_media: "Add Media..."
+    questions:
+      form:
+        add_media: "Add Media..."
+        answers: Answers
+        answers_hint_html: "<p>A question must have at least one correct and one incorrect answer.</p><p>Define the correct answer in the first field and then create some incorrect answers for the question.</p><p>We reccomend you supply at least three incorrect answers.</p>"
+        correct_answer: "Correct Answer"
+        incorrect_answers: "Incorrect Answers"
+        media: Media
+        no_incorrect_answers: "Please supply at least one incorrect answer."
+        question_body: "Question Body"
+        question_body_hint_html: "<p>Enter your question body text providing all information neccisary for the user to answer the question.</p><p>Use the formatting tools provided to apropriately format your question.</p>"
+        question_difficulty_hint: "How would you rate this question in terms of difficulty?"
+        question_explanation: "Question Explanation"
+        question_explanation_hint_html: "<h3>(Optional)</h3><p>Please provide an informative explanation for this question and detail why the correct answer is the appropriate choice.</p>"
+        question_source_hint: "Was this question sourced from another text?"
+        tags: Tags
+      index:
+        results_for: "Results for “%{search}”"
+        do_search: Search
+        query: "Search Keywords"
+        title: Questions
+        order_by: "Order by"
+        direction: "Direction"
+        clear: "Clear Search"
+        new: "Submit New Question"
+        tabs:
+          all: "All Questions"
+          friends: "Friend’s Questions"
+          mine: "My Questions"
+        no_questions_html: "<p>No questions found matching your selections.</p>"
+      question_item:
+        tags_html: "<strong>Tags:</strong> %{tags}"
+        created_html: "Created on <strong>%{date}</strong>"
+        by_html: " by <strong>%{user}</strong>"
+        rating_html: "<strong>Rating:</strong> %{rating}"
+        difficulty_html: "<strong>Difficulty:</strong> %{difficulty}"
+        answered_html: "<strong>Answered:</strong> %{count}"
+        view: "View Question"
+        answer: "Answer Question"
+      question_item_small:
+        by_html: "by %{user}"
+      media_fields:
+        remove: Remove
+      user_collections:
+        user_collections: Stories
+        add_to_collection: Add To
+        remove_from_collection: Remove
+      meta:
+        answered_count:
+          one: "Answered %{count} time"
+          other: "Answered %{count} times"
+          zero: "Nobody has answered this question yet"
+        comment_count:
+          one: "%{count} comment"
+          other: "%{count} comments"
+          zero: "No comments"
+        submitted_by_html: "Submitted by %{link}"
+      question:
+        answered: Answered
+        answered_tooltip: "Times answered by the community"
+        average_confidence: "Avg. Confidence"
+        average_confidence_tooltip: "Average confidence rating"
+        average_difficulty: "Avg. Difficulty"
+        average_difficulty_tooltip: "Average difficulty rating"
+        rating: Rating
+        rating_tooltip: "Calculated rating score"
+        time_ago: "%{time} ago"
+        view_question: "View Question"
+      report_bar:
+        report: "Report question"
+        reported: Reported
+      show:
+        answer_question: "Answer This Question"
+        question_references: "Question References"
+        comment_references: "Comment References"
+        create_new_question: "Create New Question"
+        create_similar_question: "Create a Similar Question"
+        reported: "Question reported"
+        sign_in_to_answer: "Sign In To Answer"
+        title: Question
+    references:
+      form:
+        add: "Add Reference"
+        hint_html: "<h3>(Optional)</h3><p>Please enter any external references you may have. This includes articles and journals.</p>"
+        references: "References"
+        remove: Remove
+    shared:
+      popular:
+        by_html: "by %{user}"
+        questions: "Popular Questions"
+        media_collections: "Popular Clinical Scenarios"
+        user_collections: "Popular Stories"
+        items:
+          one: "(1 Item)"
+          other: "(%{count} Items)"
+        browse_user_collections: "Browse Stories"
+        browse_media_collections: "Browse Media Collections"
+        browse_questions: "Browse Questions"
+        no_user_collections: "No popular Stories found"
+        no_media_collections: "No popular Clinical Scenarios found"
+        no_questions: "No popular Questions found"
+      toolbar:
+        report:
+          media:
+            report: "Report Media"
+            reported: Reported
+          question:
+            report: "Report Question"
+            reported: Reported
+        vote:
+          media:
+            instructions:
+              down: "This media needs work."
+              rate: "Rate the quality of this media."
+              up: "This media is good."
+              voted: "Thanks for your vote!"
+            quality: "Media Quality"
+          question:
+            instructions:
+              down: "This question needs work."
+              rate: "Rate the quality of this question."
+              up: "This is a good question."
+              voted: "Thanks for your vote!"
+            quality: "Question Quality"
+      tag_builder:
+        add_tag: "Add Tag"
+    sidebar_ads:
+      imeducate_ad: "Looking for high quality, professionally assembled MCQ exams? Log into iMeducate with your EDIOFY account."
+    terms:
+      show:
+        title: "Terms & Licensing"
+    tags:
+      selector:
+        all: "Select All Tags"
+        none: "Deselect All Tags"
+    universities:
+      index:
+        clear: "Clear Search"
+        direction: "Direction"
+        do_search: "Search"
+        order_by: "Order by"
+        query: "Query"
+        results_for: "Results for “%{search}”"
+        title: "Universities"
+        no_universities_html: "<p>No universities were found matching your selections.</p>"
+        tabs:
+          all: "All Universities"
+          mine: "My University"
+      university:
+        attendees_html: "<strong>Attendees:</strong> %{attendees}"
+        created_html: "Created on <strong>%{date}</strong>"
+        rating_html: "<strong>Rating:</strong> %{rating}"
+        view: "University Profile"
+        users: "Total Users"
+        questions: "Total Questions"
+        media: "Total Media"
+        points: "Total Points"
+      overview:
+        recent_activity: "Recent Activity"
+        earlier_activity: "Earlier Activity"
+      new_users:
+        title: "Newest Users"
+        joined: "Joined: %{date}"
+        level: "Level %{level}"
+      stats_header:
+        nav:
+          overview: "Overview"
+          users: "Users"
+          questions: "Questions"
+          media: "Media"
+          user_collections: "Stories"
+        stats:
+          rank: "Total Score"
+          users: "Users"
+          questions: "Questions"
+          media_collections: "Clinical Scenarios"
+          user_collections: "Stories"
+      university_header:
+        switch_confirm: "Are you sure you want to leave %{current} and join %{new}?"
+        leave_confirm: "Are you sure you want to leave %{university}?"
+        join: "Join University"
+        switch: "Switch University"
+        leave: "Leave University"
+      users:
+        title: "Users"
+        no_items: "This University has no users."
+      questions:
+        title: "Questions"
+        no_items: "This University's users have not submitted any Questions."
+      media:
+        title: "Media"
+        no_items: "This University's users have not submitted any Media."
+      user_collections:
+        title: "Stories"
+        no_items: "This University's users have not created any Stories."
+  header:
+    content_provided_by: "Content provided by"
+    subscriptions:
+      one: subscription
+      other: subscriptions
+      zero: subscriptions
+    welcome_back: "Welcome back %{user_name}"
+  headings:
+    community_performance: "Community Performance"
+    discount_information: "Discount Information"
+    navigation_disabled: "Navigation Disabled"
+    rate_question: "Rate This Question"
+    review_mock_exam: "%{title} - Review"
+    session_performance: "Session Performance"
+    session_progress: "Session Progress"
+  homepage:
+    body: "<p>Our teams of International physicians are dedicated to providing high quality educational resources for medical professionals from student to Fellow.</p><p>With our ever expanding peer reviewed question database and unique question validation system your examination success has never been more achievable.</p>"
+    title: "Welcome to iMeducate"
+  hotkeys:
+    answer:
+      explanation: "Answer the question / Next Question"
+      key: Enter
+    explanation: "Tired of clicking? You can quickly answer questions using these easy keyboard shortcuts:"
+    next:
+      explanation: "Not Sure"
+      key: "N"
+    select:
+      explanation: "Quickly select an answer."
+    skip:
+      explanation: Skip
+      key: S
+    title: "Keyboard Shortcuts"
+  locales:
+    de: German
+    en: English
+  user_mock_exams:
+    display_status:
+      finished: Finished
+      in_progress: "In Progress"
+      paused_session: "Paused Session"
+  user_revision_exam:
+    community_average: "Community Average"
+    continue_session: "Continue Session"
+    correct_answers: "Correct Answers"
+    my_performance: "My Performance"
+    new_session: "New Session"
+    purchase_related_resources: "Purchase Related Resources"
+    questions_answered: "Questions Answered"
+    rate_question_confidence: Confidence
+    rate_question_confidence_answer: "<p>You answered this question with <strong>%{confidence}</strong> confidence.</p>"
+    rate_question_confidence_explanation: "<p>How confident do you feel about the answer you provided for this question?</p>"
+    rate_question_difficulty: Difficulty
+    rate_question_difficulty_answer: "<p>You rated this question as <strong>%{difficulty}</strong>.</p>"
+    rate_question_difficulty_explanation: "<p>How would you rate the difficulty of this question for the standard user?</p>"
+    rate_question_none: "<p>You did not rate this question.</p>"
+    related_resources: "Related Resources"
+    related_resources_available: "There are related resources available for this tag."
+    resume_session: "Resume Session"
+    revise_incorrect: "Revise Incorrect"
+    started_at: "Started at"
+    tags_completed: "Tags Completed"
+    tags_started: "Tags Started"
+    view_session: "View Session"
+  users:
+    educational_resources:
+      browse:
+        title: "Find More Educational Resources"
+      browse_owned:
+        title: "My Educational Resources"
+      index:
+        title: "Educational Resources"
+      show:
+        title: "Educational Resource Detail"
+    orders:
+      index:
+        none: "No invoices yet."
+        title: "My Invoices"
+      show:
+        company:
+          abn: "71 146 580 109"
+          abn_label: ABN
+          address_html: "7 Karla Place<br /> City Beach WA 6015<br /> Australia"
+          address_label: Address
+          fax: "+61 8 9284 7486"
+          fax_label: Fax
+          phone: "+61 8 9467 2318"
+          phone_label: Phone
+          title: "Oz iMedic Pty Ltd"
+        line_items:
+          price: "%{price}"
+          price_label: Price
+          product: "%{title} (%{months} months)"
+          product_label: Product
+          title: Products
+        title: "Tax Invoice"
+        totals:
+          discount: Discount
+          gst: GST
+          subtotal: Subtotal
+          title: Totals
+          total: Total
+    performance:
+      index:
+        title: "My Performance"
+      user_revision_exams:
+        title: "My Revision Performance"
+  navigation:
+    about_us: "About Us"
+    blog: Blog
+    contact: Contact
+    disclaimer: Disclaimer
+    educational_resources: "Educational Resources"
+    home: Home
+    my_dashboard: "My Dashboard"
+    online_education: "Online Education"
+    online_revision: "Online Revision"
+    register: Register
+    sign_in: "Sign In"
+    sign_out: "Sign Out"
+    terms_and_conditions: "Terms and Conditions"
+  notification:
+    media:
+      body_html: "<a href=\"%{content_url}\">%{content}</a>"
+      title: "Created new media "
+      processed:
+        body_html: "<a href=\"%{content_url}\">%{content}</a>"
+        title: "Your video has finished processing and is now live! Watch now "
+    question:
+      body_html: "<a href=\"%{content_url}\">%{content}</a>"
+      title: "Created new question "
+    conversation:
+      body_html: "<a href=\"%{content_url}\">%{content}</a>"
+      title: "Created new conversation "
+    link:
+      body_html: "<a href=\"%{content_url}\">%{content}</a>"
+      title: "Created new link "
+    group:
+      invite:
+        title_html: " invites you to join group <strong> %{group_name}</strong>. <a href='%{accept_path}'>Accept</a> / <a href='%{decline_path}'>Decline</a>"
+      request:
+        title_html: " would like to join your group <strong> %{group_name}</strong>. <a href='%{accept_path}'>Accept</a> / <a href='%{decline_path}'>Decline</a>  "
+    vote:
+      up: "liked your %{votable}"
+      down: "disliked your %{votable}"
+    comment:
+      mention_title: " mentioned you in a comment on %{commentable}"
+      body: ""
+      title: "Comment"
+      title_html: "commented on your %{commentable}"
+      reply:
+        body: ""
+        title: "Comment"
+        title_html: "replied on your comment"
+    badge:
+      default:
+        body: ""
+        title: "%{badge} Badge"
+        title_html: "Congratulations, you’ve earned the <span>%{badge} Badge</span>"
+      facebook:
+        body: "for connecting your EDIOFY account to Facebook"
+        title: "Facebook Badge"
+        title_html: "Congratulations, you’ve earned the <span>Facebook Badge</span>"
+      google:
+        body: "for connecting your EDIOFY account to Google"
+        title: "Google Badge"
+        title_html: "Congratulations, you’ve earned the <span>Google Badge</span>"
+      linkedin:
+        body: "for connecting your EDIOFY account to LinkedIn"
+        title: "LinkedIn Badge"
+        title_html: "Congratulations, you’ve earned the <span>LinkedIn Badge</span>"
+      twitter:
+        body: "for connecting your EDIOFY account to Twitter"
+        title: "Twitter Badge"
+        title_html: "Congratulations, you’ve earned the <span>Twitter Badge</span>"
+    follows:
+      follow:
+        body_html: ""
+        title: "is now following you."
+      request:
+        title_html: "  would like to follow your activity on Ediofy. <a href='%{accept_path}'>Accept</a> / <a href='%{decline_path}'>Decline</a>  "
+      unfollow:
+        body_html: "<a href=\"%{follower_url}\">%{follower}</a>"
+        title: "You are no longer being followed by "
+    friendship:
+      accepted:
+        body_html: "<a href=\"%{friend_url}\">%{friend}</a>"
+        title: "You are now friends with"
+      requested:
+        body_html: "<a href=\"%{user_url}\">%{user}</a>"
+        title: "You have a friend request from"
+  number:
+    currency:
+      format:
+        format: "$%n %u"
+        unit: AUD
+  purchase:
+    address: "Your Billing Address"
+    failure: "Your purchase was unsuccessful, please try again."
+    payment_details: "Your Payment Details"
+    success: "Your purchase was successful."
+  site_title: Global Medical Education Project
+  subscriptions:
+    already_subscribed: "You already have an active subscription to this product expiring on %{date}."
+    free_for_thirty_days: "We're offering all exam revisions free for the next 30 days!"
+    subscribed_status: "Active, expires %{date}."
+  ui:
+    active: Active
+    all_subjects: "All Subjects"
+    answered: Answered
+    brought_to_you: "Brought to you by"
+    browse_exams: "Browse Exams"
+    cart: Cart
+    cart_contains:
+      one: "Your shopping cart contains <strong>1</strong> item"
+      other: "Your shopping cart contains <strong>%{count}</strong> items"
+    cart_discount_information: "A shopping cart with 2 items will receive a 10% discount, a 20% discount will be applied for 3 items or more. Users who have previously placed an order will receive an additional 10% discount and users who have 2 or more previous orders will receive an additional 20% discount."
+    checkout: Checkout
+    community_average: "Community Average"
+    confirm: "Are you sure?"
+    continue_exam: "Continue Exam"
+    continue_revision: "Continue Revision"
+    copyright: "Copyright © 2011 iMeducate"
+    correct: Correct
+    correct_answer: "Your answer was correct"
+    correct_answer_label: "Correct Answer"
+    current: Current
+    dashboard_text: "Welcome to iMeducate, select one of the options below"
+    days:
+      one: "1 day"
+      other: "%{count} days"
+    edit_cart: "Edit Cart"
+    empty_cart: "Your shopping cart is currently empty."
+    exam_finished_message: "The time limit for this exam has been reached."
+    exam_name: "Exam Name"
+    exam_revision: "Exam Revision"
+    exams: Exams
+    explanation: Explanation
+    featured_exams: "Featured Exams"
+    finish_exam: "Finish Exam"
+    finish_exam_confirm: "Are you sure you want to finish this exam? Once the exam is complete you cannot revise your answers."
+    finish_reviewing: "Finish Reviewing"
+    finish_revising: "Finish Revising"
+    get_free_access: "Get Free Access"
+    have_a_better_explanation: "Have a better explanation?"
+    have_a_better_explanation_link: "Submit your own"
+    incorrect: Incorrect
+    incorrect_answer: "Your answer was not correct"
+    item: Item
+    last_session: "Last Session"
+    mins: "%{number} mins."
+    mock_exam: "Mock Exam"
+    mock_exam_mode: "Mock Exam Mode"
+    months:
+      one: "1 month"
+      other: "%{count} months"
+    more_details: "More Details"
+    navigation_disabled_text: "The site navigation is disabled while you're in exam mode. Use the <span class='finish-exam'>'Finish Exam'</span> button to end your session early."
+    new_mock_exam: "New Mock Exam"
+    new_revision_session: "New Revision Session"
+    no_answer: "You did not answer this question"
+    no_subscriptions: "Thanks for registering! click the button below to browse our complete exam list and commence your free trial."
+    not_started: "Not Started"
+    not_sure: "Not Sure"
+    not_yet_started: "Not Yet Started"
+    pause_exam: "Pause Exam"
+    pending: Pending
+    product: Product
+    purchase_exam: "Purchase Exam"
+    purchase_exams: "Purchase Exams"
+    question: Question
+    question_number: "Question %{number}"
+    questions: Questions
+    questions_answered: "Questions Answered"
+    read_more: "Read More"
+    remaining: Remaining
+    remove: Remove
+    renew: Renew
+    resume_exam: "Resume Exam"
+    review_exam: "Review Exam"
+    revision_mode: "Revision Mode"
+    score: Score
+    social:
+      facebook: Facebook
+      google: Google
+      linkedin: LinkedIn
+      twitter: Twitter
+      website: Website
+    start_exam: "Start Exam"
+    submit_your_own: "Submit your own."
+    subscription: Subscription
+    thanks_for_question_submission: "Thank you for submitting your question explanation."
+    time_limit: "Time Limit"
+    tag: Tag
+    total: Total
+    totalling: "Totalling <strong>%{total}</strong>"
+    trial_days:
+      one: "1 day free trial"
+      other: "%{count} day free trial"
+    unanswered: Unanswered
+    view_cart: "View Cart"
+    view_education_resources: "View Resource"
+    view_more_exams: "View More Exams"
+    view_performance: "View Performance"
+    view_revision_tags: "View Revision Tags"
+    view_sessions: "View sessions"
+    your_answer_label: "Your Answer"
+    your_performance: "Your Performance"
+  will_paginate:
+    models:
+      media:
+        zero: results
+        one: result
+        two: results
+        other: results
+      media_collection:
+        zero: results
+        one: result
+        two: results
+        other: results

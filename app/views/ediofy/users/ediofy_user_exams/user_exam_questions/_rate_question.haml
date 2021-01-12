@@ -1,0 +1,24 @@
+%fieldset#question-confidence-difficulty
+  = f.semantic_fields_for :selected_answer, @selected_answer do |ff|
+    = ff.inputs :title => "Confidence" do
+      %li.description
+        %h5= t(:rate_question_confidence, :scope => :member_revision_exam).html_safe
+        = t(:rate_question_confidence_explanation, :scope => :member_revision_exam).html_safe
+      - if @selected_answer.persisted?
+        - if @selected_answer.confidence?
+          = t(:rate_question_confidence_answer, :scope => :member_revision_exam, :confidence => @selected_answer.confidence).html_safe
+        - else
+          = t(:rate_question_none, :scope => :member_revision_exam).html_safe
+      - else
+        = ff.input :confidence, :as => :radio, :collection => SelectedAnswer::CONFIDENCE.collect { |x| [x.to_s.capitalize, x] }, :required => false, :label => false
+    = ff.inputs :title => "Difficulty" do
+      %li.description
+        %h5= t(:rate_question_difficulty, :scope => :member_revision_exam).html_safe
+        = t(:rate_question_difficulty_explanation, :scope => :member_revision_exam).html_safe
+      - if @selected_answer.persisted?
+        - if @selected_answer.difficulty?
+          = t(:rate_question_difficulty_answer, :scope => :member_revision_exam, :difficulty => @selected_answer.difficulty).html_safe
+        - else
+          = t(:rate_question_none, :scope => :member_revision_exam).html_safe
+      - else
+        = ff.input :difficulty, :as => :radio, :collection => SelectedAnswer::DIFFICULTY.collect { |x| [x.to_s.capitalize, x] }, :required => false, :label => false

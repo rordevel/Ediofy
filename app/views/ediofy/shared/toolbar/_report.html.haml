@@ -1,0 +1,9 @@
+%div{id: "report_selector_#{reportable.id.to_s + "_" + reportable.class.name.underscore}"}
+  - if reportable.reports.by(current_user).exists?
+    %span.nav-item.disabled= t ".#{reportable.class.name.underscore}.reported"
+    %span.close.report-close-btn ×
+  - else
+    / %span.nav-item= t ".#{reportable.class.name.underscore}.report"
+    .dropdown#report-dropdown
+      %span.close.report-close-btn ×
+      = render "ediofy/shared/toolbar/report_form", reportable: reportable

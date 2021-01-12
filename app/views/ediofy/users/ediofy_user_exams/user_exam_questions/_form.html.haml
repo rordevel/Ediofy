@@ -1,0 +1,19 @@
+.main-que
+  = semantic_form_for @exam_question, url: [ :ediofy, :user, nil, @user_exam, @exam_question, :answer ], remote: true, method: :put do |f|
+    = f.semantic_fields_for :selected_answer, @selected_answer do |ff|
+      = ff.inputs do
+        = ff.input :answer_id, as: :hidden
+        = ff.input :confidence, as: :hidden
+        = ff.input :difficulty, as: :hidden
+      .que-gride
+        - @question.answers.each_with_index do |ans, i|
+          = link_to "javascript:void(0)", class: "select-ans", id: ans.id do
+            .clearboth.displayTable.pd-bottom{id: "answer-#{ans.id}"}
+              .col16.displayCell.full-color.fix-hight.text-center
+                %h5= alphabet[i]
+              .col86.displayCell.full-color.fix-hight
+                %p= ans.body
+  .three-col-btn
+    - @question.tags.each do |tag|
+      = link_to tag.name, ediofy_root_path('[q]' => tag.name, :button => 'Search', :utf8 => '✓')
+  =# f.action :submit, label: 'Answer', button_html: { class: 'button button-new button-wide', id: 'member_exam_question_submit' }              

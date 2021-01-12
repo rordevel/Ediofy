@@ -1,0 +1,12 @@
+= link_to content.user.ghost_mode || content.private? ? "#" : ( content.posted_as_group? ? ediofy_group_path(content.group) : ediofy_user_path(content.user)  ) do
+  = image_tag content.user.ghost_mode || content.private? ? content.user.avatar.default_url : (  content.posted_as_group? ? content.group.image.url : content.user.avatar.x_small.url)
+.authinfoWrapName
+  %h6
+    - if content.posted_as_group? 
+      = link_to content.group.title, ediofy_group_path(content.group) 
+    - else 
+      = link_to content.user.ghost_mode || content.private? ? "Anonymous" : content.user.complete_name.to_s.titleize, content.user.ghost_mode || content.private? ? "#" : ediofy_user_path(content.user)
+    - if current_user != content.user && !(content.user.ghost_mode || content.private?)
+      %span.button_flow{class: "follows-container-#{content.user.id}"}
+        = manage_follow_link(content.user)
+  %p= content.user.ghost_mode || content.private? ? "Ghost mode" : content.user.specialty_name unless content.posted_as_group?

@@ -1,0 +1,162 @@
+- provide :title do
+  Ediofy Media #{@media.title}
+- video_file = @media.media_files.where(media_type: 'video').last
+- if !video_file.blank? && !video_file.processed
+  %input{type: :hidden, id: 'video_file_id', value: video_file.id }
+.pageContent
+  - media_file = @media.media_files.first
+  - image_cont_classes = 'ful-we-img full-brd'
+  - if media_file.present?
+    - if !media_file.audio? && !media_file.video? && !media_file.image?
+      - image_cont_classes += "full-pdf"
+    - elsif media_file.audio?
+      - image_cont_classes += "audio-ply"
+    - elsif media_file.video?
+      - image_cont_classes = ""
+
+  %section.content-page-video.content-page-img.manageContentMargin
+    .container
+      .row
+        .col-md-8
+          .contentAreaBox
+            .boxOuterWhite
+              .publishedAt
+                .row
+                  .col-sm-5.col-xs-5.col-md-5.vid-tit.wid-blk
+                    .row
+                      .col-sm-12.col-xs-12.auth-name.commet-icon.col-md-12
+                        = render 'ediofy/groups/content_author', content: @media
+                  .col-sm-7.col-xs-7.col-md-7.text-right.wid-blk.pub-pd.conver
+                    = render 'ediofy/groups/add_to_playlist',  id: 'add_content_to_playlist', content:@media, form_action: '/'
+                    - if (user_signed_in? && @media.group_exclusive)
+                      = link_to "Back to group", ediofy_group_path(@media.groups.first), class: 'btn'   
+                    - if (user_signed_in? && @media.group_exclusive  && current_user == @media.user )
+                      .span.link.addToPlaylistBtn.clrpink.btn.button{'data-target' => '#add_content_to_playlist', 'data-toggle'  => 'modal'}
+                        Add to playlist
+                    - if user_signed_in? && current_user == @media.user
+                      %a{href: edit_ediofy_media_path(@media), class: 'btn button secoundryBtn edit-me follow-btn clrpink'}
+                        %i.fa.fa-pencil
+                        Edit media
+              .row
+                .col-sm-12.col-xs-12.col-md-12.vid-tit.wid-blk{:class => ("vid-his" if !media_file.blank? && media_file.video?)}
+                  %h1=@media.title
+                .col-sm-12.col-xs-12.col-md-12.wid-blk.pub-pd
+                  %p
+                    %span= @media.created_at.strftime("Published on %B %d, %Y")
+              - media_files = @media.media_files
+              - if media_files.count > 0
+                .que-slider
+                  - if media_files.count == 1
+                    .ful-we-img.full-brdaudio-ply.video-sec{:class => ("#{image_cont_classes}")}
+                      - if media_file.video?
+                        - if media_file.processed?
+                          = video_tag [media_file.video_url_mp4], controls: true, loop: true, height: '100%', width: '100%', poster: media_file.video_thumb_url, class: 'video-show', data: {id: media_file.id}
+                        - else
+                          = image_tag 'ediofy/video-processing-message.png', class: 'video-not-encoded'
+                      - elsif media_file.audio?
+                        = audio_tag media_file.large_url, controls: false, height: '100%', width: '100%', id: 'content-audio-player', class: 'audio-show', data: {id: media_file.id}
+                        = render partial: 'audio_player'
+                      - elsif media_file.pdf?
+                        .video-sec.ful-we-img.full-brd.full-pdf
+                          %embed{:height => "100%", :src => media_file.large_url, :width => "100%"}
+                          %a{ href: media_file.large_url, target: '_blank', class: 'open-pdf' } Open PDF
+                          %br
+                          %br
+                          How much have you read?
+                          %select.pdf-spent-mins{data: {id: media_file.id}}
+                            %option{value: 0} Minutes
+                            - 5.times do |m|
+                              %option{value: m*2}
+                                = m * 2
+                            %option{value: 10} more than 10 minutes
+                      - else
+                        = image_tag media_file.large_url rescue ''
+                  - else
+                    .banner-slider
+                      - media_files.each do |image|
+                        %div
+                          - if image.audio?
+                            = audio_tag image.large_url, controls: false, height: '100%', width: '100%', id: 'content-audio-player', class: 'audio-show', data: {id: media_file.id}
+                            = render partial: 'audio_player'
+                          - elsif image.video?
+                            - if image.processed?
+                              = video_tag [image.video_url_mp4], controls: true, loop: true, height: '100%', width: '100%', class: 'video-show', data: {id: image.id}
+                            - else
+                              = image_tag 'ediofy/ediofy-placeholder-large.png', class: 'video-not-encoded'
+                          - elsif image.pdf?
+                            .video-sec.ful-we-img.full-brd.full-pdf
+                              %a{ href: image.large_url, target: '_blank' }
+                                %embed{:height => "100%", :src => image.large_url, :width => "100%"}
+                              %a{ href: image.large_url, target: '_blank', class: 'open-pdf'  } Open PDF
+                          - else
+                            = image_tag image.large_url
+                    .inner-slider
+                      - media_files.each do |image|
+                        .pad
+                          - if image.video?
+                            = image_tag image.processed ? image.video_thumb_url : 'ediofy/ediofy-placeholder.png', class: 'video-not-encoded-thumb'
+                          - elsif image.audio? || image.pdf?
+                            = image_tag 'ediofy/ediofy-placeholder.png'
+                          - else
+                            = image_tag image.small_url
+              .video-del
+                .postContent.overFlowHidden
+                  %p= simple_format(@media.description)
+                - if @media.description.length > 500
+                  %a.seeMoreContent.show-more Show more
+              .explanation{style: ("display: none" if @media.references.blank? ) }
+                %h6.titleOnAnswerRef References
+                - @media.references.each do |ref|
+                  = link_to ref.title, ref.url
+                  %br
+              .three-col-btn
+                - @media.tags.each do |tag|
+                  = link_to tag.name, ediofy_root_path('[q]' => tag.name, :button => 'Search', :utf8 => '✓')
+              .row.brd-bot.ex-pd
+                .col-sm-6.col-xs-6.col-md-6.soc-me.wid-blk
+                  = render 'ediofy/groups/share_to_group', id: 'share_media_to_group', form_action: share_to_group_ediofy_media_path(@media)
+                  - if @media.shareable_to_groups
+                    %p SHARE:
+                    %ul
+                      %li
+                        .span.link.btn.button.clrpink{'data-target' => '#share_media_to_group', 'data-toggle' => 'modal'}
+                          Share to group
+                      %li
+                        = facebook_share(ediofy_media_path(@media), @media.title)
+                      %li
+                        = twitter_share(ediofy_media_path(@media), @media.title)
+                      %li
+                        = linkedin_share(ediofy_media_path(@media), @media.title)
+
+                .col-sm-3.col-xs-3.col-md-3
+                  = render 'ediofy/playlists/playlist_links', locals: { playlist: @playlist, previous_playlist_content: @previous_playlist_content, next_playlist_content: @next_playlist_content } if @playlist
+
+                .col-sm-3.col-xs-3.col-md-3.text-right.rep-lik-un.wid-blk
+                  = render 'ediofy/shared/toolbar/votable', votable: @media
+              .brd-bottom{id: ("content-#{@media.id}-report-container"), class: ('reported' if @media.reports.by(current_user).exists?) }
+            = render 'ediofy/shared/comments/section', commentable: @media
+        .col-md-4
+          = render 'ediofy/playlists/miniplaylist', locals: { playable: @media } if @playlist
+          .row
+            .rel-con
+              #related-content.slid-con-tab
+                %ul#related-content-tabs.nav.nav-tabs
+                  %li.active
+                    %a{"data-url" => ediofy_related_index_path({type: 'media', return_type: 'media', id: @media.id}), "data-link" => 'media', :href => "#Media"} Media
+                  %li
+                    %a{"data-url" => ediofy_related_index_path({type: 'media', return_type: 'questions', id: @media.id}), "data-link" => 'questions', :href => "#Questions"} Questions
+                  %li
+                    %a{"data-url" => ediofy_related_index_path({type: 'media', return_type: 'conversations', id: @media.id}), "data-link" => 'conversations', :href => "#Conversations"} Conversations
+                .tab-content.infinite-table
+                  .items
+                  .load-more.text-center
+                %br
+- unless video_file.blank?
+  :javascript
+    if($('#video_file_id').length) {
+      var video_file = new Object();
+      video_file[#{video_file.id}] = {
+        id: '#{video_file.id}',
+        processed: '#{video_file.processed}'
+      };
+    }

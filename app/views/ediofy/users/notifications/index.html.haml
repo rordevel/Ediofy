@@ -1,0 +1,15 @@
+.pageContent
+  .manageContentMargin
+    .container
+      .row
+        .col-md-6
+          %h1.h1 Notifications
+        .col-md-6
+          .text-right.notification-settings-link
+            = link_to 'Notification Settings', settings_ediofy_user_notifications_path
+      .contentAreaBox
+        .boxOuterWhite
+          .row
+            = render :partial => 'notification', collection: @notifications
+          .row  
+            = paginate @notifications    

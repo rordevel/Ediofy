@@ -1,0 +1,15 @@
+/ TODO not being used in BETA
+- if current_user.friendable_network_users.to_a.present?
+  %ol.friends
+    - current_user.friendable_network_users.each do |user|
+      %li.user[user]<
+        = link_to gmep_user_activities_path(user) do
+          %span.avatar<>= image_tag user.avatar.stream.url, size: "32x32", alt: user
+          %span.name<>= user
+        = manage_friendship_link user
+- else
+  .no-friends
+    - if current_user.network_users.exists?
+      %p We couldn't find any new GMEP users amongst your friends.
+    - else
+      %p None of your friends are on GMEP yet.

@@ -1,0 +1,31 @@
+- class_name = record.class.name.downcase
+.publishedAt
+  .row
+    .col-sm-7.col-xs-7.col-md-7.vid-tit.wid-blk
+      .row
+        .col-sm-12.col-xs-12.auth-name.commet-icon.col-md-12
+          = image_tag record.user.avatar.x_small.url
+          %h6
+            = link_to record.user.complete_name.to_s.titleize, ediofy_user_path(record.user)
+            - if current_user != record.user
+              %span.button_flow{class: "follows-container-#{record.user.id}"}
+                = manage_follow_link(record.user)
+          %p= record.user.specialty_name
+
+    .col-sm-5.col-xs-5.col-md-5.text-right.wid-blk.pub-pd.conver
+      %p
+        %span= record.created_at.strftime("%B %d, %Y")
+        - if user_signed_in? && current_user == record.user
+          =link_to "Edit", send("edit_ediofy_#{class_name}_path", record), class: "btn button secoundryBtn follow-btn clrpink"
+.que-slider
+  - if @images.count == 1
+    = image_tag @images.first.large_url
+  - else
+    .banner-slider
+      - @images.each do |image|
+        %div
+          = image_tag image.large_url
+    .inner-slider
+      - @images.each do |image|
+        .pad
+          = image_tag image.small_url

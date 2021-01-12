@@ -1,0 +1,63 @@
+.pageContent
+  %section.content-page-video.content-page-img.manageContentMargin
+    .container
+      .row
+        .col-md-4
+          = render 'ediofy/playlists/playlist_show_card'
+          #editModal
+          #duplicateModal
+        .col-md-8
+          .rel-con
+            .tab-content.infinite-table#playlists
+              %a{href: '#', class: 'btn button secoundryBtn enable-edit-sort follow-btn clrpink'}
+                %i.fa.fa-pencil
+                Edit
+              %a{href: '#', class: 'btn button secoundryBtn disable-edit-sort hidden follow-btn clrpink'}
+                %i.fa.fa-times-circle
+                Done
+              %table.plist#spacingrows
+                %tbody{ id: ('contents' if @playlist.group.able_edit? current_user) }
+                  - @playlist.content.each_with_index do |content, index|
+                    %tr.row.plrow.spaceUnder{ id: index + 1, url: polymorphic_url([:ediofy, content.playable], playlist: @playlist, action: (content.playable.class.name == Question.class_name) ? 'answer' : nil) }
+                      %td.plist.sortable_mark.hidden.js-handle
+                      %td.plist.position
+                        %strong
+                          = content.position
+                        .rollOverBtn
+                          %i.fa-icon-file
+                          %i.fa.fa-ellipsis-v
+                        %td.plist.col-md-5.img-border{ style: "background-image: url(#{content.playable.playlist_image})" }
+                          .video-player.withBg-card
+                            = link_to polymorphic_url([:ediofy, content.playable], playlist: @playlist, action: (content.playable.class.name == Question.class_name) ? 'answer' : nil) do
+                              .vid-con.vid#plp
+                                %p= content.playable.class.name
+                      %td.plist.col-md-7
+                        %h2.playlist-title
+                          = link_to polymorphic_url([:ediofy, content.playable], playlist: @playlist, action: (content.playable.class.name == Question.class_name) ? 'answer' : nil), class: 'plcontenttitle' do
+                            = content.playable.title
+                        %p
+                        .author-name.tight
+                          = render 'ediofy/groups/content_author_small_with_title', content: content.playable, user: current_user
+                        .like-seen-msg
+                          .like-icon.col-sm-6.col-xs-6.col-md-7
+                            -#%span{:class => "#{content.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(content) ? 'likedPost' : ''}"}
+                              %i.fa.fa-thumbs-up{ 'aria-hidden' => 'true' }>
+                              = content.playable.count_votes_up
+                            .text-right.col-sm-7.col-xs-7.col-md-7
+                              %span{ class: ('colorGrey' if content.playable.comments.count == 0) }
+                                %i.fa.fa-comment{ 'aria-hidden' => 'true' }
+                                = content.comments.count rescue 0
+                              %span{ class: ('colorGrey' if content.playable.view_count == 0) }
+                                %i.fa.fa-eye{ 'aria-hidden' => 'true' }
+                                = content.playable.view_count rescue 0
+                      %td.col-md-1
+                        - if ((@playlist.group.able_edit? current_user))
+                          %i.fa.fa-ellipsis-v.td-elipsis.modal-popover{ 'data-container' => 'body',
+                            'data-content' => "#{render 'ediofy/playlists/popovers/modal_playlist_content_links', content: content.playable, playlist_id: @playlist.id, id: content.id}",
+                            'data-placement' => 'bottom',
+                            'data-toggle' => 'popover',
+                            'type' => 'button',
+                            'data-trigger' => 'focus',
+                            'tabindex' => '0',
+                            'role' => 'button',
+                          }

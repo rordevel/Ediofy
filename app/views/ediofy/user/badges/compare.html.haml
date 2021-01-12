@@ -1,0 +1,39 @@
+.content
+
+  .users
+    .user[@user]
+      .image= link_to image_tag(@user.avatar.thumb.url, size: "128x128", alt: @user), [:ediofy, @user]
+      .info
+        .name= link_to @user, [:ediofy, @user]
+        .level= t '.level', count: @user.level
+        .badge-count= t '.badges', count: @user.badges.count
+    .other_user[@other_user]
+      .image= link_to image_tag(@other_user.avatar.thumb.url, size: "128x128", alt: @other_user), [:ediofy, @other_user]
+      .info
+        .name= link_to @other_user, [:ediofy, @other_user]
+        .level= t '.level', count: @other_user.level
+        .badge-count= t '.badges', count: @other_user.badges.count
+
+  .badges
+    - compare_badges_of @user, @other_user do |badge, badge_user, other_badge_user|
+      .badge[badge]
+
+        .user{ class: ('has-badge' if badge_user) }
+          .image= image_tag badge.image.thumb.url, size: "128x128", alt: badge.name
+          .info
+            %h3.name= badge.name
+            - if badge_user
+              = time_tag badge_user.created_at, t('.created_at', time: time_ago_in_words(badge_user.created_at)), class: "created_at"
+              .reason= badge_user.reason
+            - else
+              .no-badge= t '.no_badge'
+
+        .user.other_user{ class: ('has-badge' if other_badge_user) }
+          .image<>= image_tag badge.image.thumb.url, size: "128x128", alt: badge.name
+          .info
+            %h3.name= badge.name
+            - if other_badge_user
+              = time_tag other_badge_user.created_at, t('.created_at', time: time_ago_in_words(other_badge_user.created_at)), class: "created_at"
+              .reason= other_badge_user.reason
+            - else
+              .no-badge= t '.no_badge'

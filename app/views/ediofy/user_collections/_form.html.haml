@@ -1,0 +1,7 @@
+= semantic_form_for [:ediofy, @collection] do |f|
+  = f.semantic_errors
+  = f.inputs do
+    = f.input :title
+    = f.input :description, as: :html_text
+    = f.input :private, as: :radio, collection: [[t('public', scope: 'ediofy.media'), false], [t('private', scope: 'ediofy.media'), true]]
+  = f.actions

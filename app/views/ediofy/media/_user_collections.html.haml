@@ -1,0 +1,30 @@
+.user-collections-box.aside-box
+  %h3
+    = t '.user_collections'
+    %span.add
+      - if user_signed_in?
+        = surround '(', ')' do
+          = link_to t('.add_to_collection'), '#add-to-collection'
+  - if @media.user_collections.present?
+    %ul.collections
+      - @media.user_collections.each do |user_collection|
+        %li
+          = link_to [:ediofy, user_collection] do
+            = user_collection
+            %span.count
+              = surround '(', ')' do
+                = user_collection.media.count
+          - if user_collection.user == current_user
+            = link_to t('.remove_from_collection'), url_for(action: :remove_from_user_collection, user_collection_id: user_collection), data: {method: "post"}, class: 'button'
+  - else
+    .no-items.no-user-collections= t '.no_user_collections'
+  - if user_signed_in?
+    = form_tag url_for(action: :add_to_user_collection), class: 'add-to-collection add-form' do
+      %fieldset.inputs
+        %ol
+          - media_user_collections = (@media.user_collections.blank?) ? current_user.user_collections : current_user.user_collections.where("id NOT IN(?)", @media.user_collections.pluck(:objectable_id))
+          %li.select.input= select_tag :user_collection_id, options_for_select(media_user_collections.map { |c| [c.title, c.id] }.insert(0,['Create new...','new'])), { include_blank: false, prompt: 'Select one' }
+          %li.input= text_field_tag :user_collection_name, nil, placeholder: 'Name of the new folder'
+      %fieldset.actions
+        %ol
+          %li.button= submit_tag t '.add_to_collection'

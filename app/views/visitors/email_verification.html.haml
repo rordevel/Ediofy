@@ -1,0 +1,13 @@
+.displayTable.clearfix
+  .col-md-12.signinLeft.displayCell.text-center{style: 'background-image: url('+image_url("ediofy/signin_bg.jpg")+')'}
+    .contantWrapper
+      %h2.exclr You're almost done!
+      %p Please check your email to verify your account.
+      %p
+        If you don’t receive a confirmation email shortly, please check your spam folder or 
+        = link_to 'click here to resend .', user_confirmation_path(email: params[:email])
+      %p
+        Welcome to Ediofy!
+
+:javascript
+  localStorage.setItem('signedUpEmail', "#{params[:email]}")

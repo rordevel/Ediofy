@@ -1,0 +1,25 @@
+%li.list-group-item
+  %span.pull-left
+    = link_to ediofy_question_path(question), class: 'thumb' do
+      - if question.images.present?
+        - image = question.images.first
+        = image_tag image.file.thumb.url, size: '32x32', alt: question.body.truncate(65), class: 'img-reponsive'
+      - else
+        = image_tag 'ediofy/question-default.png', size: '32x32', alt: question.body.truncate(65), class: 'img-reponsive'
+  .links
+  = link_to t('.view'), ediofy_question_path(question), class: 'button view-question'
+  - unless question.user == current_user
+    = link_to t('.answer'), answer_ediofy_question_path(question), class: 'button answer-question'
+  .info
+    .body=truncate_html question.body, 220
+    - if question.tags.present?
+      .tags= t '.tags_html', tags: question.tags.map(&:name).join(', ')
+    .meta
+      .created
+        - if question.created_at.present?
+          %span.date= t '.created_html', date: question.created_at.to_date.to_s(:au)
+        - if question.user.present?
+          %span.user= t '.by_html', user: link_to(question.user.full_name, [:ediofy, question.user])
+        - if question.difficulty.present?
+          %span.difficulty= t '.difficulty_html', difficulty: question.difficulty
+        %span.answered= t '.answered_html', count: number_with_delimiter(question.selected_answers.count)

@@ -1,0 +1,5 @@
+%li{id: "#{resource}-container-#{resource['id']}"}
+  - if resource.class.to_s.downcase == 'user'
+    = render partial: 'ediofy/dashboard/follow', locals: { user: resource }
+  - elsif resource.class.to_s.downcase == 'group'
+    = render partial: 'ediofy/groups/group', locals: { show_join: true, group: resource }

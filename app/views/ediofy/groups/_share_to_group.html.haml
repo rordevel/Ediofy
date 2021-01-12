@@ -1,0 +1,23 @@
+- css_class ||= 'default'
+- title ||= 'Share to group'
+
+= render 'layouts/modal', id: id, css_class: css_class, title: title do
+  .row
+    .col-sm-12
+      .text-muted
+      Create discussions and share relevant content with a group to connect with selected users in a private space.
+  %p
+  %br
+  .row
+    .col-sm-12
+      = form_tag form_action do
+        .row.line-height-30
+          .col-sm-6.text-center
+            Select a group you to share with
+          .col-sm-6
+            .form-group
+              = select_tag :group_id, options_for_select(current_user.groups&.pluck(:title, :id)), class: 'form-control rounded-select'
+        %br
+        .form-group
+          .pull-right
+            = submit_tag 'Share', class: 'btn button clearboth'

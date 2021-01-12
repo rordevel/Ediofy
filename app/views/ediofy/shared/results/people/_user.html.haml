@@ -1,0 +1,2 @@
+%li{id: "user-container-#{user.id}"}
+  = render partial: 'ediofy/follows/follow', locals: { user: user, showPending: FollowRequest.where(:follower_id => current_user.id, :followee_id => user.id ).limit(1).blank? ? false : true }

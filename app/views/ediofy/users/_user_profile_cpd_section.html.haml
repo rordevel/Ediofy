@@ -1,0 +1,85 @@
+.pointProfileSec
+  - if @user.id == current_user.id
+    .pointTop
+      %h4
+        = "Continuous Professional Development"
+      %br
+      .row
+        .col-sm-12
+          = form_for :@user,  url: ediofy_user_update_cpd_times_range_path(@user) do |f|
+            .row#cpdfilters
+              .col-sm-3
+                %p.pull-left
+                  = 'Dates'
+              .col-sm-9
+                .point
+                  .filter
+                    - from = params[:from].present? ? params[:from].to_date : ( @user.cpd_from.present? ? @user.cpd_from : @user.created_at)
+                    - to   = params[:to].present? ? params[:to].to_date : ( @user.cpd_to.present? ?  @user.cpd_to.to_date : Date.today)
+                    .row
+                      .col-md-6
+                        = text_field_tag :from, from.strftime('%d/%m/%Y'), class: "flatdateselector", onchange: 'this.form.submit();'
+                      .col-md-6
+                        = text_field_tag :to, to.strftime('%d/%m/%Y'),   class: "flatdateselector",  onchange: 'this.form.submit();'
+            .row#cpdfilters
+              .col-sm-3
+                %p.pull-left
+                  = 'Filter'
+              .col-sm-9
+                = f.select :range_filter,  options_for_select(opts_for_select_cpd_time_range,  ''),  {prompt: ''}, { onchange: 'this.form.submit();' }
+      .row
+        .col-sm-12
+          %p.totalColor
+            Total Time 
+            .strong
+              - if @user.cpd_times.count > 0 
+                = Time.at(@user.cpd_times_in_window.total).utc.strftime("%H:%M")
+              - else
+                = 0
+          %p.learningColor
+            Time spent learning
+            .strong
+              - if @user.cpd_times.count > 0 
+                = Time.at(@user.cpd_times_in_window.learning.total).utc.strftime("%H:%M")
+              - else
+                = 0
+          %p.teachingColor
+            Time spent teaching
+            .strong
+              - if @user.cpd_times.count > 0 
+                = Time.at(@user.cpd_times_in_window.teaching.total).utc.strftime("%H:%M")
+              - else
+                = 0
+        .clearboth
+        %br
+        = link_to 'Detailed Report', cpd_report_ediofy_user_path(@user), class: "btn button pro-edit"
+        .clearboth
+    .b-profile-development{style: 'visibility: hidden;'}
+      %h4 Continuing Professional Development
+      .total-time
+        .title
+          Total time
+        .div
+          #progressbar
+          .time
+            - total_seconds = @user.cpd_times_in_window.total || 0
+            - total_seconds_progress = total_seconds > 0 ? total_seconds/100 : 0
+            =humanize_seconds(total_seconds)
+      .contribution
+        .title
+          Contributions
+        .div
+          #progressbar
+          .time
+            - contributed_seconds = @user.cpd_times_in_window.contributions.pluck(:value).sum || 0
+            - contributed_seconds_progress = contributed_seconds > 0 ? contributed_seconds/100 : 0
+            =humanize_seconds(contributed_seconds)
+      .learning
+        .title
+          Learning
+        .div
+          #progressbar
+          .time
+            - learning_seconds = @user.cpd_times_in_window.learning.pluck(:value).sum || 0
+            - learning_seconds_progress = learning_seconds > 0 ? learning_seconds/100 : 0
+            =humanize_seconds(learning_seconds)

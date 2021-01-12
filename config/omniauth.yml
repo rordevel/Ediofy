@@ -1,0 +1,49 @@
+development:
+  :facebook_secret: '455a364e979bd5d3665d9e4c33696a75'          # GMEP Development Facebook App
+  :facebook_api: '456540154371883'                              # GMEP Development Facebook App
+  :twitter_secret: 'Yvrdfx56zpBIqBze4r19fUS7k2jcmyUgdbaw3sPNNg' # GMEP Twitter Application
+  :twitter_api: 'e3Y6RbPcGrdueGzZQKg'                           # GMEP Twitter Application
+  :google_secret: '1tEbHOwL2ysLVHgN7ldZDp09'                    #
+  :google_api: '763084370877.apps.googleusercontent.com' #
+  :linkedin_secret: 'yNiW6CPfDoVbIT1H'                          #
+  :linkedin_api: '543uuw18crn6'                                 #
+
+test:
+  :facebook_secret: '455a364e979bd5d3665d9e4c33696a75'          # GMEP Development Facebook App
+  :facebook_api: '456540154371883'                              # GMEP Development Facebook App
+  :twitter_secret: 'Yvrdfx56zpBIqBze4r19fUS7k2jcmyUgdbaw3sPNNg' # GMEP Twitter Application
+  :twitter_api: 'e3Y6RbPcGrdueGzZQKg'                           # GMEP Twitter Application
+  :google_secret: '1tEbHOwL2ysLVHgN7ldZDp09'                    #
+  :google_api: '763084370877.apps.googleusercontent.com' #
+  :linkedin_secret: 'yNiW6CPfDoVbIT1H'                          #
+  :linkedin_api: '543uuw18crn6'                                 #
+
+staging:
+  :facebook_secret: '178a0ce2b9798845348d7f578bedf27c'          # GMEP Production Facebook App
+  :facebook_api: '304473092977502'                              # GMEP Production Facebook App
+  :twitter_secret: '0vhqTsW9GPsojfQiQwfG5hyEfcTE4WYbuJcdA3nV6NDoTQtFUM' # EDIOFY Twitter Application
+  :twitter_api: 'k8fkIugNZfBqazb47Wv4ATnfG'                           # EDIOFY Twitter Application
+  :google_secret: '1tEbHOwL2ysLVHgN7ldZDp09'                    #
+  :google_api: '763084370877.apps.googleusercontent.com'        #
+  :linkedin_secret: 'XTeloISUc0BagYh3'                          #
+  :linkedin_api: '810j6o4cde7ois'                                 #
+
+staging_old:
+  :facebook_secret: '019e7bfe7e3a254a271208e3f6b63bff'          # GMEP Staging Facebook App
+  :facebook_api: '401525159861756'                              # GMEP Staging Facebook App
+  :twitter_secret: 'Yvrdfx56zpBIqBze4r19fUS7k2jcmyUgdbaw3sPNNg' # GMEP Twitter Application
+  :twitter_api: 'e3Y6RbPcGrdueGzZQKg'                           # GMEP Twitter Application
+  :google_secret: '1tEbHOwL2ysLVHgN7ldZDp09'                    #
+  :google_api: '763084370877.apps.googleusercontent.com' #
+  :linkedin_secret: 'yNiW6CPfDoVbIT1H'                          #
+  :linkedin_api: '543uuw18crn6'                                 #
+
+production:
+  :facebook_secret: '178a0ce2b9798845348d7f578bedf27c'          # GMEP Production Facebook App
+  :facebook_api: '304473092977502'                              # GMEP Production Facebook App
+  :twitter_secret: 'Yvrdfx56zpBIqBze4r19fUS7k2jcmyUgdbaw3sPNNg' # GMEP Twitter Application
+  :twitter_api: 'e3Y6RbPcGrdueGzZQKg'                           # GMEP Twitter Application
+  :google_secret: '1tEbHOwL2ysLVHgN7ldZDp09'                    #
+  :google_api: '763084370877.apps.googleusercontent.com'        #
+  :linkedin_secret: '45muhWrePeP9yI3x'                          #
+  :linkedin_api: 'qqzq41gouncb'                                 #

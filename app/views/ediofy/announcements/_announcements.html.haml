@@ -1,0 +1,38 @@
+.contentAreaBox
+  .card.announcement
+    - ids = announcements.map(&:id)
+    - announcements.each do |announcement|
+      .announc{id: "announcement-#{announcement.id}", class: announcements.first == announcement ? '' : 'hidden'}
+        .header
+          .row
+            .col-sm-12.col-xs-12.col-md-12
+              %h5
+                %i.fa.fa-bullhorn.announcement-icon
+                = raw '&nbsp;'
+                = announcements.size
+                = link_to 'Announcement', ediofy_group_announcement_path(id: announcement.id, group_id: @group.id)
+        .card-body
+          .row
+            .col-sm-12.col-xs-12.col-md-12
+              = announcement.text
+          %hr
+          .row.card-footer
+            #group-announcements.col-sm-2.col-xs-2.col-md-2
+              %a.annouce.prev-annouce.link{"data-open" => "#announcement-#{ids[(ids.index(announcement.id)) - 1]}"}
+                %i.fa.fa-caret-left
+              - index = ids[(ids.index(announcement.id)) + 1]
+              %a.annouce.next-annouce.link{"data-open" => "#announcement-#{index ? index : ids.first}"}
+                %i.fa.fa-caret-right
+            .col-sm-10.col-xs-10.col-md-10
+              .row.text-right.rep-lik-un.wid-blk
+                .col-sm-9.col-xs-9.col-md-9
+                  - if current_user == announcement.user || @group.owner?(current_user)
+                    %b= link_to 'Delete', "#", "data-request-url": ediofy_group_announcement_path(id: announcement.id, group_id: @group.id), "data-type": "Announcement", class: 'red-link delete-ann-btn'
+                    = raw '&nbsp;'
+                    %b= link_to 'Edit Announcement', edit_ediofy_group_announcement_path(id: announcement.id, group_id: @group.id), remote: true
+                    = raw '&nbsp;'
+                    |
+                    = link_to announcement.comments_count.to_s + ' Comments ', ediofy_group_announcement_path(id: announcement.id, group_id: @group.id)
+                    = raw '&nbsp;'
+                .col-sm-3.col-xs-3.col-md-3
+                  = render 'ediofy/shared/toolbar/votable', votable: announcement

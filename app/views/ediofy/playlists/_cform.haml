@@ -1,0 +1,19 @@
+= form_for @playlist, id: 'plform', url: ediofy_copy_playlist_path(@playlist)  do |f|
+  = f.label :title
+  %br
+  = f.text_field :title,  :maxlength => 40, class: "fullwidth"
+  %br
+  = f.label :description
+  %br
+  = f.text_area :description, :maxlength => 80
+  %br
+  = f.label "Hide playlist from group", class: 'biglabel'
+  = f.check_box :archived
+  %br
+  %br
+  = f.label "Duplicate to group: ", class: 'biglabel'
+  = f.select( :group_id, current_user.groups&.pluck(:title, :id) )
+  %br
+  .plist_f_actions
+    = link_to 'Cancel', ediofy_playlist_path(@playlist), class: 'btn btn-default cancel'
+    = f.submit "Duplicate Playlist",  class: 'btn btn-default'

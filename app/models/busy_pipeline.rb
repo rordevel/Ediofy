@@ -1,0 +1,2 @@
+class BusyPipeline < ApplicationRecord
+end

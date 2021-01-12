@@ -1,0 +1,48 @@
+.pageContent.b-ediofy-dashboard-index.manageContentMargin
+  - unless @user_onboarding_state
+    .not-completed-onboarding.recentlyViewedTop
+      .text-center
+        %p.shortDesc.text-muted 
+          You haven’t selected any interests. To see selected content relevant to your fields of study, finish 
+          %span 
+            =link_to 'setting up your profile', ediofy_interests_path
+          \. You can also search for specific hashtags using the search bar above.
+
+  - unless params[:q].blank?
+    =hidden_field_tag 'search-query', params[:q]
+  - if params[:q].blank?
+    .recentlyViewedTop
+      .container
+        %h2
+          Recently Viewed
+          %span.seeAlllink
+            =link_to 'See all', ediofy_histories_path
+        - if @histories.count > 0
+          .row
+            = render(:partial => 'ediofy/dashboard/history')
+        - else
+          .noRecentView.text-center
+            %p You don't have any viewing history yet.
+            %a.get-started.btn.button.color-blue Get Started
+  - else
+    .container
+      .row
+        .yourIntrest
+          .row
+            .col-md-12
+              %h2.h1.your-interests.h1= (params[:q].blank?) ? 'Related People' : "Search Results: <span class='searchFor'>#{params[:q]}</span>".html_safe
+              - unless params[:q].blank?
+                %span
+                  = @search_results.total_count rescue 0
+                  Results
+            -#.col-md-12
+              .sortBy.text-right.yourintrestFilter.topMargin0
+                %ul.list-inline.text-right{style: 'margin-left: 0;'}
+                  %li
+                    .sortBy.text-right
+                      %label Sort by:
+                      s= sort_by_select(:b_ediofy_dashboard_index_people_sort, false)
+
+  = render partial: 'ediofy/shared/results/related_content_section', locals: { content_results: @content_results, content_total_results: @content_total_results, has_more_content: @has_more_content }
+
+  = render partial: 'ediofy/shared/results/related_people_section', locals: { people_results: @people_results, people_total_results: @people_total_results, has_more_people: @has_more_people }

@@ -1,0 +1,25 @@
+.index-search
+  = form_tag [:ediofy_users], method: :get do
+    = hidden_field_tag :limit, params[:limit] if params[:limit].present?
+    %ol
+      %li.input.query
+        = label_tag :query, t('.query')
+        = text_field_tag :query, @query
+      %li.input.select
+        = label_tag :order_by, t('.order_by')
+        = select_tag :order_by, options_for_select({'Joined' => :created_at, 'Name' => :name, 'Points' => :points}, params[:order_by])
+      %li.input.select
+        = label_tag :direction, t('.direction')
+        = select_tag :direction, options_for_select({'Descending' => :desc, 'Ascending' => :asc}, params[:direction])
+      %li.actions
+        = submit_tag t('.do_search')
+        = link_to t('.clear'), ediofy_users_path(request.query_parameters.except(:query, :order_by, :direction))
+
+.content
+
+  .users-list
+    - if @users.any?
+      %ol.user-items= render @users
+      = paginate @users
+    - else
+      .no-items.no-users= t '.no_users_html'

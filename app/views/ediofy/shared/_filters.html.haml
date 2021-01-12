@@ -1,0 +1,13 @@
+= form_with url: url, method: :get, class: 'content-search-filters' do |f|
+  .yourintrestFilter
+    %ul.list-inline.text-right
+      - if content_type
+        %li
+          .sortBy.text-right
+            %label Type:
+            = content_type_dropdown
+      - if sort_by
+        %li
+          .sortBy.text-right
+            %label Sort by:
+            = sort_by_dropdown

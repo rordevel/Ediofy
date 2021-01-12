@@ -1,0 +1,12 @@
+= render 'university_header'
+
+.content
+
+  .media-collections-list
+    .items-header
+      %h2= t '.title'
+    - if @media_collections.any?
+      %ol.collection-items= render @media_collections
+      = paginate @media_collections
+    - else
+      .no-items= t '.no_items'

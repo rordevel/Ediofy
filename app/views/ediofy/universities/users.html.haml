@@ -1,0 +1,11 @@
+= render 'university_header'
+
+.content
+  .users-list
+    .items-header
+      %h2= t '.title'
+    - if @users.any?
+      %ol.user-items= render @users
+      = paginate @users
+    - else
+      .no-items= t '.no_items'

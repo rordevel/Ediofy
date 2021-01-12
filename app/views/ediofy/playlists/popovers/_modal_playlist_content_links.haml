@@ -1,0 +1,4 @@
+%p
+  %ul.popover-links
+    %ol= link_to 'Remove from playlist', ediofy_remove_playlist_content_path(klass: content.class, content_id: content.id, id: playlist_id), class: 'red-link'
+    %ol= link_to 'Set as playlist thumbnail', ediofy_set_photo_path(url: image_url(content.playlist_image), id: playlist_id)

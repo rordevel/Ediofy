@@ -1,0 +1,4 @@
+%div
+ = link_to 'Delete', ediofy_comment_destroy_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'comment-link-action delete'
+ = link_to polymorphic_url([:ediofy, comment.commentable, comment, :edit], edit_id: comment.id, cmnt: comment), class: 'comment-link-action comment-edit-link edit', remote: true do
+  Edit

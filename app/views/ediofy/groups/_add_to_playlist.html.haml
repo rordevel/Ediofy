@@ -1,0 +1,50 @@
+- css_class ||= 'playlist_modal'
+- title ||= 'Add to playlist'
+
+= render 'layouts/modal', id: id, css_class: css_class, title: title do
+  .row
+    .col-sm-12
+      .text-muted
+      Choose a playlist or create a new one.
+  %p
+  %br
+  .row.addtoplaylistblock
+    .col-md-12
+      = form_tag(action: :add_to_playlist) do
+        .row.line-height-30.pull-left
+          .col-sm-12.pull-left
+            = label_tag :playlist_id, 'Select playlist'
+        .row
+          .col-sm-12
+            .form-group
+              = select_tag :playlist_id, options_for_select(current_user.playlists&.pluck(:title, :id)), class: 'form-control rounded-select'
+        .row.pull-right
+          .col-sm-12
+            .form-group
+              = link_to '+ Create new playlist', '#', id: 'createplaylistlink'
+              = submit_tag 'Add', class: 'btn button clearboth'
+  %br
+  .row.hidden.newplaylistblock.plform
+    .col-sm-12
+    = form_for :playlist, url: ediofy_playlists_path, html: { 'data-type' => :json } do |f|
+      .form-group
+        = f.label :title, 'Playlist name'
+        %br
+        .field
+          = f.text_field :title, maxlength: 40, class: 'wideinput'
+          = f.label :description
+        .field
+          = f.text_area :description, maxlength: 80
+        .field
+          - if content != nil && content.groups.size > 0
+            = f.hidden_field :group_id, value: content.groups.first.id
+            = hidden_field_tag :content_id, content.id
+            = hidden_field_tag :content_type, content.class
+        .actions
+        .row.pull-right
+          .col.md-11.rightspace
+            %br
+            = link_to '← Back', '#', id: 'back-playlistlink', class: 'btn grayback hidden'
+            = f.submit 'Create', class: 'btn button clearboth'
+  .row
+  = link_to '<- Back', '#', id: 'back-playlistlink', class: 'hidden'

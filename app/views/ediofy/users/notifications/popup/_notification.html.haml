@@ -1,0 +1,9 @@
+%article.notification{ style: "display: none", class: notification.notification_type }
+  .image= image_tag notification.image_url, alt: notification.title unless notification.image_url.blank?
+  .text
+    .title= notification.title.html_safe
+    .description= notification.body.html_safe
+    - if notification.links.class == Array && notification.links.count > 0
+      .link
+        - notification.links.each do |link|
+          = notification_url_helper(link)

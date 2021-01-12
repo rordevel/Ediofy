@@ -1,0 +1,44 @@
+@media only screen and (max-width: 600px) {
+  .connection-filter-pad-left {
+    padding-left: 7px;
+  }
+  .connection-filter-pad-left ul{
+    margin-left: 0px !important;
+  }
+  #related-content {
+    margin-top: 15px;
+  }
+  .account-settings {
+    clear: both;
+    float: left;
+    width: 100%;
+  }
+  .account-settings .account-action {
+    width: auto;
+    text-align: right;
+    float: right;
+    position: relative;
+    top: 9px;
+  }
+  .account-settings .page-title {
+    width: auto;
+    float: left;
+  }
+  .privacySettingLi {
+    float: left;
+    width: 100%;
+    clear: both;
+    margin-bottom: 25px;
+  }
+  .privacySettingLi .linkareaSocial {
+    float: left;
+    width: auto;
+  }
+  .privacySettingLi .userconnectArea {
+    width: auto;
+    float: right;
+  }
+  .hide-menu {
+    display: none !important;
+  }
+}

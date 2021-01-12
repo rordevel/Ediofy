@@ -1,0 +1,44 @@
+.ImageUploadWrap
+  - if media_file.blank?
+    - if params["filetype"].include? "video"
+      = image_tag 'ediofy/default-placeholder-video-processing.png', id: 'content-video-player'
+    - elsif params["filetype"].include? "audio"
+      = audio_tag medium_url, controls: false, height: '100%', width: '100%', id: 'content-audio-player', onloadeddata: 'loadAudioPlayer();'
+      = render partial: 'audio_player'
+    - elsif params["filetype"].include? "pdf"
+      %embed{:height => "100%", :src => medium_url, :width => "100%"}
+    - else
+      = image_tag medium_url, alt: "media-file"
+  - else
+    - if media_file.video?
+      - if media_file.processed
+        = video_tag [media_file.video_url_mp4], controls: true, loop: true, id: 'content-video-player'
+      - else
+        = image_tag 'ediofy/default-placeholder-video-processing.png', id: 'content-video-player'
+    - elsif media_file.image?
+      = image_tag media_file.large_url
+    - elsif media_file.audio?
+      = audio_tag media_file.medium_url, controls: false, height: '100%', width: '100%', id: 'content-audio-player'
+      = render partial: 'audio_player'
+    - elsif media_file.pdf?
+      %embed{:height => "100%", :src => media_file.medium_url, :width => "100%"}
+  .file-name{class: media_type == 'image' ? 'imagedataUploaded' : ''}
+    - unless media_type == "image" || media_type == "audio"
+      - if media_type == "video"
+        %i.fa.fa-video-camera{"aria-hidden" => "true"}
+      - elsif media_type == "pdf"
+        %i.fa.fa-file-pdf-o{"aria-hidden" => "true"}
+      - else
+        %i.fa.fa-file-o{"aria-hidden" => "true"}
+      = file_name
+  - if media_type == "audio"
+    %a.remove-audio-file{:onclick => "delete_related_media_content(this); return false"} Remove File
+  - elsif media_type == "video" || media_type == "pdf"
+    .close-img
+      %a{:onclick => "delete_related_media_content(this); return false"}
+        %i.fa.fa-times-circle{"aria-hidden" => "true"}
+  - else
+    .close-img
+      %a{:onclick => "delete_top_media_file(this); return false"}
+        %i.fa.fa-times-circle{"aria-hidden" => "true"}      
+

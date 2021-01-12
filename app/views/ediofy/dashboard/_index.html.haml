@@ -1,0 +1,26 @@
+- media ||= nil
+- links ||= nil
+- groups ||= nil
+- questions ||= nil
+- conversations ||= nil
+- if search_result['type'] == 'contributors'
+  - user = users.select{|u| u.id == search_result['id']}.first
+  = render partial: 'ediofy/shared/contributor_card', locals: { related: false, user: user} unless user.blank?
+- elsif search_result['type'] == 'questions' && questions
+  - question = questions.select{|u| u.id == search_result['id']}.first
+  = render partial: 'ediofy/shared/question_card', locals: { related: false, question: question} unless question.blank?
+- elsif search_result['type'] == 'media' && media
+  - media = media.select{|m| m.id == search_result['id']}.first
+  = render partial: 'ediofy/shared/media_card', locals: { related: false, media: media} unless media.blank?
+- elsif (search_result['type'] == 'conversations' || search_result.class.name == "Conversation") && conversations
+  - conversation = conversations.select{|c| c.id == search_result['id']}.first
+  = render partial: 'ediofy/shared/conversation_card', locals: { related: false, conversation: conversation} unless conversation.blank?
+- elsif search_result['type'] == 'links' && links
+  - link = links.select{|c| c.id == search_result['id']}.first
+  = render partial: 'ediofy/shared/link_card', locals: { related: false, link: link} unless link.blank?
+- elsif search_result['type'] == 'groups' && groups
+  - group = groups.select{|c| c.id == search_result['id']}.first
+  = render partial: 'ediofy/shared/group_card', locals: { related: false, group: group} unless group.blank?
+
+  
+-#this whole filtering business should be refactored to use some polymorphism ...

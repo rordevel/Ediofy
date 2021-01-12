@@ -1,0 +1,18 @@
+.pageContent.b-ediofy-conversations-index.manageContentMargin
+  .container
+    .yourIntrest
+      .row
+        .col-md-7
+          %h2.h1 Conversations
+          %p
+            %span.total_records=@total
+            Records
+        .col-md-5
+          = render partial: 'ediofy/shared/filters', locals: { url: ediofy_conversations_path, content_type: false, sort_by: true }
+      #results-listing
+        .row.clearboth.fourCol.infinite-table
+          = render partial: 'ediofy/shared/results/content_results', locals: { content_results: @conversations }
+        .text-center.padd-btn
+          .pagination
+            - if @has_more
+              = link_to_next_results_page

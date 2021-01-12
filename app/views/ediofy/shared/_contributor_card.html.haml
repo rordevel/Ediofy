@@ -1,0 +1,14 @@
+.col-sm-6.col-md-3.post-cart
+  %div
+    .video-player.withBg-card{style: 'background-image: url('+user.avatar.medium.url+')'}
+      =link_to ediofy_user_path(user) do
+        .vid-con.vid
+          %p User
+    .video-content
+      = link_to ediofy_user_path(user) do
+        %h6= truncate(user.full_name.to_s.titleize, length: 28) rescue ''
+      .row.like-seen-msg
+        .like-icon.col-sm-5.col-xs-5.col-md-5
+          %span{:class => ("colorGrey" if user.view_count == 0)}
+            %i.fa.fa-eye{"aria-hidden" => "true"}
+            =user.view_count rescue 0

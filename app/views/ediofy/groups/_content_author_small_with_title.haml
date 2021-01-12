@@ -1,0 +1,10 @@
+%span
+  =image_tag content.user.ghost_mode || content.private? ? content.user.avatar.default_url : content.user.avatar.small.url, alt: "man-icon" unless content.posted_as_group?
+  =image_tag content.group.image.url, alt: content.group.title if (content.group != nil && content.posted_as_group?)
+=link_to ediofy_user_path(user) do
+  %p
+    =content.user.title.humanize.titleize rescue '' if !(content.user.ghost_mode || content.private?) unless content.posted_as_group?
+    =content.group.title.humanize.titleize if  (content.group != nil && content.posted_as_group?)
+    =content.user.ghost_mode || content.private? ? "Anonymous" : truncate(content.user.full_name.titleize, length: 30) rescue ''  unless content.posted_as_group?
+    %span
+      = content.user.ghost_mode || content.private? ? "Ghost mode" : content.user.specialty_name unless content.posted_as_group

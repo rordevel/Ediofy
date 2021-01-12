@@ -1,0 +1,29 @@
+// Append new data
+<%# if params[:page].blank? %>
+//$("#results-listing-g .infinite-table .items").html('')
+<%# end %>
+
+
+
+<% if params[:my_groups] %>
+  $(".my-groups #results-listing .infinite-table .items").html('')
+  $("<%=j render(:partial => 'ediofy/groups/index', collection: @mygroups, as: :group) %>").appendTo($(".my-groups #results-listing .infinite-table .items"));
+<% else %>
+  <% if params[:page].blank? || params[:page] == 1 %>
+    $('.discover-groups #results-listing-g .infinite-table .items').html(null);
+  <% end %>
+
+  $("<%=j render(:partial => 'ediofy/groups/index', collection: @groups, as: :group) %>").appendTo($(".discover-groups #results-listing-g .infinite-table .items"));
+
+  <% if @groups.last_page? %>
+    $('#results-listing-g .pagination').html(null);
+  <% else %>
+    $('#results-listing-g .pagination').html('<%= link_to_next_page @groups, 'Load more', remote: true, class: 'btn button color-blue back-hov-clr' %>');
+  <% end %>
+<% end %>
+
+
+<% if params[:my_playlists] %>
+  $(".my-groups #results-listing .infinite-table .items").html('')
+  $("<%=j render(:partial => 'ediofy/groups/index', collection: @myplaylists, as: :group) %>").appendTo($(".my-groups #results-listing .infinite-table .items"));
+<% end %>

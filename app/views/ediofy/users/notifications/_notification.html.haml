@@ -1,0 +1,25 @@
+.col-md-12
+  .notificationArea
+    %ul.list-unstyled.notificationpageOuter
+      %li
+        - unread = notification.read? ? '' : 'unread'
+        -#- private = notification.notifiable ? notification.notifiable.private ? 'private' : '' : ''
+        .notify{class: "#{unread}"}
+          .userimage
+            %span.myAccount
+              %a{:href => notification.sender ? ediofy_user_path(notification.sender) : '#'}
+                = image_tag notification.sender.avatar.x_small.url, alt: 'man-icon' if notification.sender
+          .notifyContent
+            - if notification.notification_type == 'FollowRequest' || notification.notification_type == 'Unfollow'
+              =  link_to notification.sender, notification.sender ? ediofy_user_path(notification.sender) : ''
+            - else
+              = link_to notification.sender, notification.sender ? ediofy_user_path(notification.sender) : ''  
+            = notification.title&.html_safe
+            = notification.body.html_safe if notification.notification_type == 'Follow' || notification.notification_type == 'Unfollow' || notification.notification_type == 'MediaProcessed'
+            - if notification.notifiable
+              - type = notification.notifiable_type.downcase
+              - if ["question", "media", "link", "conversation"].include? type
+                at 
+                = link_to notification.notifiable.title, send("ediofy_#{type}_path", notification.notifiable)
+            .notifyTime
+              = time_tag notification.created_at, t('.time_ago', time: time_ago_in_words(notification.created_at)), title: notification.created_at, class: 'created-at'            

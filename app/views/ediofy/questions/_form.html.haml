@@ -1,0 +1,140 @@
+.pageContent
+  %section.upload-content.manageContentMargin.main-submit
+    .container.contentwrapper
+      = semantic_form_for [ :ediofy, @question ], :html => { :multipart => true, id: 'question-form' } do |f|
+        = f.input :duplicate_from_id, as: :hidden
+        .upload-data.main-start
+          %h3.exclr.marginBottom0
+            = @question.new_record? ? "Submit" : "Edit"
+            Question and Answers
+          %p.exclass Quiz your peers by creating multiple choice questions
+          .row
+            .col-md-12
+              .upload-filds.not-rad
+                .mul-que
+                  = f.inputs do
+                    = f.input :title, label: false, required: false, placeholder: 'Title', input_html: {class: 'form-control'}
+                    %br
+                    %label.bigLabel Multiple Choice Question:
+                    = f.input :body, as: :text, label: false, :required => false, :placeholder => "Enter a question, or a true or false statment...", input_html: {class: 'form-control fullBorderInput', rows: "4"}
+                    %nav
+                      #question_images.multi-add-img.text-left
+                        - @question.images.each_with_index do |image|
+                          = render partial: 'ediofy/shared/image', :locals => { resource: 'question', file_url: image.s3_file_url, file_name: image.s3_file_name, file_id: image.id, small_url: image.small_url, position: image.position }
+                        .extra-img-add-btn{ :style => ("display: none" unless @question.images.count < 4) }
+                          %button.btn.button.clearboth.edit-me.clrpink.brd{id: "upload-question-images-holder",:type => "button"}
+                            %i.fa.fa-picture-o{"aria-hidden" => "true"}>
+                            Custom thumbnail
+                          %span Max file size is 2 MB
+                      #question_images_progress_bar{:style => "display: none"}
+                        .upload.js-progress-bars
+                          .progress
+                            .bar
+                .mul-que.que-click
+                  = f.inputs do
+                    .row
+                      .col-sm-10.col-xs-10.col-md-10
+                        .que-head
+                          %h6.bottommar0.exclass Answer Choices
+                          %p.min-hei Your question should include at least two answers.
+                      .col-sm-2.col-xs-2.col-md-2.exlr-pd
+                        .que-head
+                          %h6.bottommar0.text-center Correct
+                          %p.min-hei{:style => "opacity:0;"} Ygj
+
+                    %p.inline-errors
+                      =f.semantic_errors :answers
+                    = f.nested_fields_for :answers do |b|
+
+                      .row.padd-bottom
+                        .col-sm-10.col-xs-10.col-md-10
+                          .clearboth
+                            .selectAnswerWrap.clearboth
+                              .col16.displayTable.fix-hight.full-color.text-center.fb-color
+                                .displayCell
+                                  %h5.order A
+                              .col86
+                                = b.input :body, input_html: { class: 'form-control mul-area answer-body', rows: "2"}, label: false, placeholder: "Answer body"
+                            = b.remove_nested_fields_link "Remove",class: "remove-answer"
+                        .col-sm-2.col-xs-2.col-md-2.exlr-pd
+                          .displayTable.fix-hight.text-center
+                            .displayCell.radi-btn
+                              = radio_button_tag 'correct', "correct", b.object.correct, class: "correct-incorrect-radio", onClick: "select_question_answer(this)"
+                              = b.input :correct, as: :hidden, input_html: {value: b.object.correct ? "1" : "0", class: "correct-incorrect"},:wrapper_html => false
+                      - if b.object.errors
+                        %p.inline-errors.text-left
+                          =b.object.errors.messages[:body][0]
+                    = f.add_nested_fields_link :answers, ('<span class="pluse-icon">+</span>').html_safe << 'Add another answer', class: 'btn button clearboth edit-me clrpink brd', id: "add-answer"
+
+
+                .explation
+                  = f.inputs do
+                    %h6.exclass
+                      Explanations
+                      = '&nbsp;'.html_safe
+                      = image_tag 'ediofy/info.png'
+                    = f.input :explanation, :required => false, label: false, placeholder: 'Include an explanation to help your peers understand the correct answer…'
+                .explation
+                  %h6.exclass
+                    References
+                    = '&nbsp;'.html_safe
+                    = image_tag 'ediofy/info.png'
+                  = f.nested_fields_for :references do |r|
+                    .clearfix.con-pd.back-exp
+                      = f.inputs do
+                        .col-md-6
+                          = r.input :url, label: false, placeholder: 'URL', input_html: {class: 'form-control'}
+                        .col-md-6
+                          = r.input :title, label: false, placeholder: 'Title', input_html: {class: 'form-control'}
+                  = f.add_nested_fields_link :references, ('<span class="pluse-icon">+</span>').html_safe << 'Add another reference', class: 'btn button clearboth edit-me clrpink brd'
+                  -#= f.inputs title: t('.question_details') do
+                  -#  = f.input :difficulty, :as => :select, :collection => Question::DIFFICULTY, :include_blank => false, :hint => t('.question_difficulty_hint')
+                .two-lab
+                  %label.text-left.tagDisplay Tags
+                  = f.input :tag_list, as: :tagger, label: false, input_html: { id: "ignored", data: { :'tagger-source' => ediofy_autocomplete_tags_url, :'tagger-hint' => 'Enter some tags', :'no-results' => 'No matching tags' } }
+                  %label.text-left.instructionInfo These will help people search for your question
+          = render partial: 'ediofy/groups/share', locals: { resource: 'question', f: f }
+          .row
+            .col-md-12
+              .upload-filds.not-rad
+                .res-mode.start-con.row
+                  .full-wid.sub-on
+                    .on-off-mode
+                      .main-pub.col-md-12.text-right.display-inline
+                        .checkbox-container.display-inline
+                          %h6 Go Ghost
+                        %p.display-inline.margin-right-18px
+                          Your post will be anonymous.
+                          %a{href: 'javascript:void(0)', :'data-toggle' => "tooltip", :title => 'When you enter ghost mode, any posts and comments you make will be anonymous. Instead of appearing under your account name, they\'ll appear as "Ediofy Ghost". You can enable and disable ghost mode at any time in the user menu.'}
+                            = image_tag 'ediofy/info.png'
+                        .checkbox-container.display-inline
+                          = check_box 'question', 'private', {class: 'custom-switch', checked: @question.private }, 'true', 'false'
+          .uplbtn.display-flex.align-center
+            - if @question.new_record?
+              .cpd-msg.hidden.text-red
+                - if @question.duplicate_from_id.present?
+                  Duplicate question provides:
+                - else
+                  New question provides:
+                = @cpd_point
+                cpd points
+            .btns.ml-auto
+              - unless @question.new_record?
+                =link_to 'Delete', "#", "data-request-url": ediofy_question_path(@question), "data-type": "Question", class: 'colorRed delete-content-btn'
+                |
+              = link_to 'Cancel', (@question.new_record? && @question.duplicate_from_id.present?) ? ediofy_question_path(@question.duplicate_from_id) : ediofy_upload_path
+              =f.button @question.new_record? ? 'Upload' : 'Save', type: 'submit', class: 'btn button clearboth', id: 'question-submit-btn', disabled: true
+            - if @question.errors[:duplicate_from_id].present?
+              %ul.errors
+                %li
+                  = @question.errors[:duplicate_from_id].first
+      .s3_upload_none
+        = s3_uploader_form callback_url: add_images_ediofy_questions_path, callback_param: "question[images]", key_starts_with: "question/images/", id: "s3-uploader-question-images", max_file_size: 20.megabytes do
+          = file_field_tag :file, multiple: false, id: "upload-question-images", class: "image-dispaly", :accept => ".jpg, .jpeg, .png, .gif"
+:javascript
+  $(document).ready(function(){
+    var tag_observer = new MutationObserver(function() {
+        $('.token-input-list-facebook .token-input-input-token-facebook input').focus();
+    });
+    tag_observer.observe($('#question_tag_list_input ul').get(0), {childList: true });
+  });

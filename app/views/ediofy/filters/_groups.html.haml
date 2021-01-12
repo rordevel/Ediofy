@@ -1,0 +1,16 @@
+= semantic_form_for('', :url => ediofy_root_path, :html => {:method => :get, :role => 'form'}) do |f|
+  .yourintrestFilter
+    %ul.list-inline.text-right
+      %li{style: 'display:none'}
+        .sortBy.text-right
+          %label Type:
+          = content_type_select(:group)
+      %li
+        .sortBy.text-right
+          %label Sort by:
+          = sort_group_by_select(:my_group_sort_by)
+      %li
+        = link_to new_ediofy_group_path, data: { target: '#',toggle: 'modal'}, class: "btn button clearboth edit-me brd create-group-btn" do
+          %span.pluse-icon +
+          Create Group
+

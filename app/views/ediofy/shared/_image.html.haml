@@ -1,0 +1,17 @@
+- position_id = Time.current.to_i
+.add-img
+  %input{:name => "#{resource}[images_attributes][][s3_file_name]", :type => "hidden", :value => file_name}/
+  %input{:name => "#{resource}[images_attributes][][s3_file_url]", :type => "hidden", :value => file_url}/
+  - if defined? position
+    %input{:name => "#{resource}[images_attributes][][position]", :type => "hidden", :value => position}/
+  - else
+    %input{:id => position_id, :name => "#{resource}[images_attributes][][position]", :type => "hidden"}/
+  - if defined? file_id
+    %input{:name => "#{resource}[images_attributes][][id]", :type => "hidden", :value => file_id}/
+  %input.destroy{:name => "#{resource}[images_attributes][][_destroy]", :type => "hidden", :value => "0"}/
+  %image{:src => small_url, :style => "height:50px"}
+  .close-img
+    %a{:onclick => "delete_#{resource}_file(this); return false"}
+      %i.fa.fa-times-circle{"aria-hidden" => "true"}
+:javascript
+  $("##{position_id}").val($("##{resource}_images .add-img:visible").length)

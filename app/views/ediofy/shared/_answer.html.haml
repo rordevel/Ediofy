@@ -1,0 +1,14 @@
+- if answer.correct?
+  %li.correct
+    %span.answer-label= answer_label answer_counter
+    %span.result-label= t 'ui.correct_answer_label'
+    %span.answer-body= answer.body
+- elsif answer == @selected_answer.answer
+  %li.incorrect
+    %span.answer-label= answer_label answer_counter
+    %span.result-label= t 'ui.your_answer_label'
+    %span.answer-body= answer.body
+- else
+  %li
+    %span.answer-label= answer_label answer_counter
+    %span.answer-body= answer.body

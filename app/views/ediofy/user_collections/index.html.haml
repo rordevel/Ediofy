@@ -1,0 +1,31 @@
+%ul.nav.nav-tabs
+  %li{ :class => ('active' unless params[:limit]) }= link_to t('.tabs.all'), ediofy_user_collections_path(request.query_parameters.except(:limit))
+  - if current_user.present?
+    %li{ :class => ('active' if params[:limit] == 'friends') }= link_to t('.tabs.friends'), ediofy_user_collections_path(request.query_parameters.merge({:limit => 'friends'}))
+    %li{ :class => ('active' if params[:limit] == 'mine') }= link_to t('.tabs.mine'), ediofy_user_collections_path(request.query_parameters.merge({:limit => 'mine'}))
+
+.index-search
+  = form_tag [:ediofy_user_collections], method: :get do
+    = hidden_field_tag :limit, params[:limit] if params[:limit].present?
+    %ol
+      %li.input.query
+        = label_tag :query, t('.query')
+        = text_field_tag :query, @query
+      %li.input.select
+        = label_tag :order_by, t('.order_by')
+        = select_tag :order_by, options_for_select({'Date' => :created_at, 'Title' => :title}, params[:order_by])
+      %li.input.select
+        = label_tag :direction, t('.direction')
+        = select_tag :direction, options_for_select({'Descending' => :desc, 'Ascending' => :asc}, params[:direction])
+      %li.actions
+        = submit_tag t('.do_search')
+        = link_to t('.clear'), ediofy_user_collections_path(request.query_parameters.except(:query, :order_by, :direction))
+
+.tab-content
+  .tab-pane.fade.in.active
+  .index-action= link_to t('.new'), new_ediofy_user_collection_path
+  - if @collections.any?
+    %ol.collection-items= render @collections
+    = paginate @collections
+  - else
+    .no-collections= t '.no_collections_html'

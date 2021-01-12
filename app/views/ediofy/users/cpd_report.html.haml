@@ -1,0 +1,95 @@
+.pageContent.b-ediofy-users-show
+  .back-color
+    .recentlyViewedTop
+      .row
+        .clearfix.head-title-pro
+        .title
+          %h3.text-center
+            Continuous Professional Development (CPD) Report
+          %br
+        .content
+        .point
+          .filter
+            = form_tag cpd_report_ediofy_user_path(@user), method: :get do
+              - from = params[:from].present? ? params[:from].to_date : ( @user.cpd_from.present? ? @user.cpd_from : @user.created_at)
+              - to   = params[:to].present? ? params[:to].to_date : ( @user.cpd_to.present? ?  @user.cpd_to.to_date : Date.today)
+              = text_field_tag :from, from.strftime('%d/%m/%Y'), class: "flatdateselector"
+              = text_field_tag :to, to.strftime('%d/%m/%Y'),   class: "flatdateselector"
+              = submit_tag 'Filter by date', id: "cpd_date_filter_submit", class: "btn btn-link filterButtonCpd"
+              %br
+          .total
+            %span.report-label.totalColor
+              Total Points:
+            %span
+              = Time.at(@cpd_times.total).utc.strftime("%H:%M")
+          .category
+            %div.totalColor
+              %span.report-label.teachingColor
+                Teaching:
+              %span
+                = Time.at(@teaching.total).utc.strftime("%H:%M")
+            %div
+              %span.report-label.learningColor
+                Learning:
+              %span
+                = Time.at(@learning.total).utc.strftime("%H:%M")
+      .row
+        %br
+      .row
+        .clearfix
+        .title
+          %h4.text-center
+            CPD Detailed report
+          - if @cpd_times.count > 0
+            .table-responsive
+              %table.table.table-striped.table-hover.table-bordered.cpd_table
+                %thead.cpd_head
+                  %tr
+                    %th.cpd_h
+                      Content
+                    %th.cpd_h
+                      Type
+                    %th.cpd_h
+                      Time accured 
+                    %th.cpd_h
+                      Category
+                    %th.cpd_h
+                      Add/edit reflective comments
+                - @cpd_times.each do |cpd_time|
+                  - relation = cpd_time.activity.relations.values.first
+                  %tr{"data-id" => cpd_time.id}
+                    %td
+                      - if ( (relation.nil?) ) 
+                        Content Removed
+                      - else
+                        - if (relation.class == MediaFile)
+                          - if Media.exists?(relation.id)
+                            = link_to relation.media&.title, controller: "media", action: "show", id: relation
+                          - else
+                            Content Removed
+                        - else
+                          = link_to relation&.title,  controller: relation.class.name.downcase.pluralize, action: "show", id: relation
+                    %td
+                      - if !relation.nil?
+                        = relation.class == MediaFile ? relation.media_type : relation.class.name
+                    %td
+                      = Time.at(cpd_time.value).utc.strftime("%M:%S")
+                    %td
+                      = cpd_time.category
+                    %td.comment{'contenteditable' => 'true'}
+                      = cpd_time.comment
+            .row.text-center
+              = form_tag pdf_cpd_report_ediofy_user_path(@user), method: :get do
+                = hidden_field_tag :from, params[:from]
+                = hidden_field_tag :to, params[:to]
+                = button_tag "Save PDF", class: "button btn btn-info"
+                %br
+                %label.commentLabel{for: "includeComment"} with comments
+                = check_box_tag 'include_comment', 'yes', false, id: 'includeComment'
+          - else
+            %div.noCpd
+              = "No cpd points were collected during this date range. Please try another date range."               
+
+                    
+          
+   

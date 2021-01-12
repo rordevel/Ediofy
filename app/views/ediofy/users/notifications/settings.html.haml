@@ -1,0 +1,86 @@
+.pageContent
+  .manageContentMargin
+    .container.contentwrapper
+      .row
+        .col-md-4
+          = render 'ediofy/users/settings/settings_left_menu'
+        .col-md-8
+          .contentAreaBox
+            .boxOuterWhite.InnerBoxPages
+              %h1.h2.topMargin0 Notifications
+              = semantic_form_for(@notification_setting, :url => settings_ediofy_user_notifications_path, :html => { :method => :put, :role => 'form', class: 'notiftyFormOuter'}) do |f|
+                %h6 On Ediofy
+                %label
+                  %span When someone follows me
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :notify_follows, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.notify_follows}
+                %label
+                  %span When someone comments on my post
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :notify_comments, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.notify_comments}
+                %label
+                  %span When someone likes my post
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :notify_likes, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.notify_likes}
+                %label
+                  %span When someone tags me
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :notify_tags, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.notify_tags}
+                %label{style: 'border-bottom: none;'}
+                  %span When a contributor I follow makes a post
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :notify_followed_contributor_post, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.notify_followed_contributor_post}
+                %label{style: 'border-bottom: none;'}
+                  %span When content has been added to one of my groups
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :notify_group_members_post, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.notify_group_members_post}
+                %label{style: 'border-bottom: none;'}
+                  %span When content has been added to playlists
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :notify_group_members_playlist_post, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.notify_group_members_playlist_post}
+                %h6 Via Email
+                %label
+                  %span When a user follows me
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :email_follows, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.email_follows}
+                %label
+                  %span When a user comments on my post
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :email_comments, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.email_comments}
+                %label
+                  %span When a user likes my post
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :email_likes, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.email_likes}
+                %label{style: 'border-bottom: none;'}
+                  %span When someone tags me
+                  %span.userconnectArea.acc
+                    .on-off-switch.on-off-mode
+                      .checkbox-container
+                        = f.input :email_tags, label: false, input_html: {class: 'custom-switch switch', checked: current_user.notification_setting.email_tags}
+                .notifySaveButton.text-right
+                  = f.submit "Save changes", class: 'btn button', disabled: 'true'
+
+:javascript
+  $('.notification_setting input[type="checkbox"]').change(function(){
+    $('.notification_setting input[type="submit"]').prop("disabled", false);
+  });

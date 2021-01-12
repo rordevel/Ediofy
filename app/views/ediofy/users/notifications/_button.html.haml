@@ -1,0 +1,8 @@
+- if member_signed_in?
+  - notifications_count = current_member.notifications.unread.count || 0
+  - if notifications_count > 0
+    #notifications-button
+      = link_to '#notifications', class: 'notifications' do
+        %span.count= notifications_count
+        %span.label= t '.new_notifications', count: notifications_count
+      = link_to content_tag(:span, t('.clear')), mark_all_read_gmep_member_notifications_path, class: 'clear', title: t('.clear')

@@ -1,0 +1,24 @@
+- style_button = 'background: #1cbff5; background: linear-gradient(top, #1cbff5, #09a2d6); background: -webkit-linear-gradient(top, #1cbff5, #09a2d6); background: -moz-linear-gradient(top, #1cbff5, #09a2d6); background: -ms-linear-gradient(top, #1cbff5, #09a2d6); background: -khtml-linear-gradient(top, #1cbff5, #09a2d6); background: -o-linear-gradient(top, #1cbff5, #09a2d6);'
+
+%h1 Welcome to EDIOFY
+
+%p Welcome to EDIOFY, the Global Medical Education Project. You've just started your new journey to the future of continued professional development.
+
+- unless @profile_complete
+  %p As a new EDIOFY user we recommend you take a moment to #{link_to 'update your profile', edit_user_registration_url}, completing your profile will earn you 50 points and put you on your way to your next level.
+
+- unless @has_answers
+  %p Ready to test your knowledge? #{link_to 'Answer some EDIOFY questions', new_ediofy_user_ediofy_user_exam_url} to earn points for every correct answer. Be sure to rate the quality of the questions to help us find the best and toughest.
+
+- unless @has_questions
+  %p Want to earn big points? #{link_to 'Submitting multi-choice questions', new_ediofy_question_url} is the fastest way to boost your points and prove your continued professional development.
+
+- unless @has_media
+  %p Media and Clinical Scenarios are the cornerstone of EDIOFY, they serve as an invaluable resource to write questions on and share knowledge. You can #{link_to 'upload new media', new_ediofy_media_url} now to earn even more points.
+
+- unless @friend_count > 10
+  %p Looking for some #{link_to 'new friends', ediofy_users_url} or to #{link_to 'connect with people you already know', ediofy_user_invites_url}? Connecting with friends allows you to easily stay up to date with their latest submissions and you can compare your performance.
+
+%h3 Are you excited and ready to participate in the Global Medical Education Project?
+
+= link_to 'View your EDIOFY Dashboard', ediofy_root_url, class: 'button', style: style_button

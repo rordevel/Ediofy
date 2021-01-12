@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <style media="screen">
+      .user-profile {
+        text-align: center;
+      }
+      .text-center {
+        color: #3854DB;
+        font-size: large;
+      }
+
+      .report-label {
+        font-weight: bold;
+      }
+
+      .row {
+        border-bottom: 0px;
+      }
+      .user-profile .name {
+        font-size: 35px;
+      }
+      .user-profile .speciality {
+        font-size: 18px;
+        color: #5c6275;
+      }
+      .title {
+        text-align: center;
+      }
+      .filter {
+        display: flex;
+        display: -ms-flexbox;
+        align-items: center;
+        -ms-flex-align: center;
+        justify-content: center;
+        -ms-flex-pack: center;
+        margin: 0 auto;
+      }
+
+      .filter .tag-label {
+        margin-right: 10px;
+        margin-bottom: 0;
+        color: inherit;
+        font-size: 14px;
+      }
+
+      .total,
+      .category {
+        max-width: 350px;
+        margin: 0 auto;
+      }
+
+      .report-label {
+        display: inline-block;
+        min-width: 200px;
+        text-align: left;
+      }
+
+      table.cpd-details {
+        width: 100%;
+      }
+      table.cpd-details td, th {
+        border: 1px solid;
+      }
+
+      .control {
+        margin-top: 10px;
+      }
+
+      .control .commentLabel {
+        font-size: 15px;
+        color: #878da0;
+        margin-right: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="back-color">
+      <div class="recentlyViewedTop">
+        <div class="row user-profile">
+          <div class="col-3">
+            <%= wicked_pdf_image_tag @user.avatar.url(:x_medium), alt: 'profile avatar' %>
+          </div>
+          <div class="col-7">
+            <span class="name"><%= @user.full_name.to_s.titleize %></span>
+            <br>
+            <i aria-hidden="true" class="fa fa-address-card-o marrig"></i>
+            <span class="speciality"><%= @user.specialty_name %></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="clearfix head-title-pro"></div>
+          <div class="title">
+            <h4 class="text-center">
+              CPD Report
+            </h4>
+          </div>
+          <div class="point">
+            <div class="category">
+
+              <div>
+                <span class="report-label">
+                  From:
+                </span>
+                <span>
+                  <%= @from %>
+                </span>
+              </div>
+              <div>
+                <span class="report-label">
+                  To:
+                </span>
+                <span>
+                  <%= @to %>
+                </span>
+              </div>
+              <div>
+                <span class="report-label">
+                  Total Time:
+                </span>
+                <span>
+                  <%= Time.at(@cpd_times.total).utc.strftime("%H:%M:%S") %>
+                </span>
+              </div>
+
+
+              <div>
+                <span class="report-label">
+                  Teaching:
+                </span>
+                <span>
+                  <%= Time.at(@teaching.total).utc.strftime("%H:%M:%S") %>
+                </span>
+              </div>
+              <div>
+                <span class="report-label">
+                  Learning:
+                </span>
+                <span>
+                  <%= Time.at(@learning.total).utc.strftime("%H:%M:%S") %>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="clearfix"></div>
+          <div class="title">
+            <h4 class="text-center">
+              Details 
+            </h4>
+          </div>
+          <table class="cpd-details">
+          <thead class="black text-white">
+            <tr>
+              <th>
+                Content
+              </th>
+              <th>
+                Type
+              </th>
+              <th>
+                Length of time
+              </th>
+              <th>
+                Category
+              </th>
+              <% if @include_comment == 'yes' %>
+                <th>
+                  Reflective Commentary
+                </th>
+              <% end %>
+            </tr>
+            </thead>
+            <tbody>
+            <% @cpd_times.each do |cpd_time| %>
+              <% relation = cpd_time.activity.relations.values.first %>
+              <tr>
+                <td>
+                  <% if relation.nil? %>
+                    Content Removed
+                  <% else %>
+                    <%= relation.class == MediaFile ? relation.media&.title : relation&.title %>
+                  <% end %>
+                </td>
+                <td>
+                  <% if !relation.nil? %>
+                    <%= relation.class == MediaFile ? relation.media_type : relation.class.name %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= Time.at(cpd_time.value).utc.strftime("%M:%S") %>
+                </td>
+                <td>
+                  <%= cpd_time.category %>
+                </td>
+                <% if @include_comment == 'yes' %>
+                  <td class="comment">
+                    <%= cpd_time.comment %>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+%section#question-meta
+  %ul
+    %li= t '.answered_count', count: question.selected_answers.count
+    - if question.user.present?
+      %li= t '.submitted_by_html', link: link_to(question.user.full_name.blank? ? "Anonymous" : question.user.full_name, ediofy_user_questions_path(question.user))
+    %li= t '.comment_count', count: question.comments.count

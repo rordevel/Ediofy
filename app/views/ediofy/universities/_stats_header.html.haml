@@ -1,0 +1,31 @@
+.university-header
+
+  %nav#nav-university
+    %ul.nav.nav-tabs
+      %li{:class => "#{'active' if current_page?(ediofy_university_overview_path(@university))}"}
+        = navigation_link_to t('.nav.overview'), ediofy_university_overview_path(@university)
+      %li{:class => "#{'active' if current_page?(ediofy_university_users_path(@university))}"}
+        = navigation_link_to t('.nav.users'), ediofy_university_users_path(@university)
+      %li{:class => "#{'active' if current_page?(ediofy_university_questions_path(@university))}"}
+        = navigation_link_to t('.nav.questions'), ediofy_university_questions_path(@university)
+      %li{:class => "#{'active' if current_page?(ediofy_university_media_path(@university))}"}
+        = navigation_link_to t('.nav.media'), ediofy_university_media_path(@university)
+      %li{:class => "#{'active' if current_page?(ediofy_university_folders_path(@university))}"}
+        = navigation_link_to t('.nav.user_collections'), ediofy_university_folders_path(@university)
+
+  .university-stats
+    %figure.stat
+      .value= number_with_delimiter(@university.rating)
+      %figcaption= t '.stats.rank'
+    %figure.stat
+      .value= number_with_delimiter(@university.users.count)
+      %figcaption= t '.stats.users'
+    %figure.stat
+      .value= number_with_delimiter(@university.questions.count)
+      %figcaption= t '.stats.questions'
+    %figure.stat
+      .value= number_with_delimiter(@university.media_collections.count)
+      %figcaption= t '.stats.media_collections'
+    %figure.stat
+      .value= number_with_delimiter(@university.user_collections.count)
+      %figcaption= t '.stats.user_collections'

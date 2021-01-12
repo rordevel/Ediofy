@@ -1,0 +1,3 @@
+module Ediofy::DashboardHelper
+
+end

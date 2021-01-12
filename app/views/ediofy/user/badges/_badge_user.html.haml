@@ -1,0 +1,6 @@
+%li.badge[badge_user.badge]
+  %span.badge<
+    %span.image<>= image_tag badge_user.badge.image.thumb.url, size: "128x128", alt: badge_user.badge
+    %span.name<>= badge_user.badge
+  %span.reason= badge_user.reason
+  = time_tag badge_user.created_at, "#{time_ago_in_words(badge_user.created_at)} ago", class: "created_at"

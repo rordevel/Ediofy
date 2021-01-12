@@ -1,0 +1,8 @@
+- if user_signed_in?
+  .comments
+    - unless commentable.comments.blank?
+      %h2= t('.comments', count: commentable.comments.count)
+      %ol#comments
+        = render partial: 'ediofy/comments/comment', collection: commentable.comments
+    -# unless @parent.user == current_user
+    =# render :template => "ediofy/comments/_form"

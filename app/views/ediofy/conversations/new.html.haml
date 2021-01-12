@@ -1,0 +1,71 @@
+.pageContent
+  %section.upload-content.manageContentMargin
+    .container
+      = semantic_form_for [:ediofy, @conversation], html: {multipart: true} do |f|
+        %h4.exclr
+          = @conversation.new_record? ? "Start a" : "Edit"
+          Conversation
+        .upload-data.main-start
+          = f.inputs do
+            .row
+              .col-md-12
+                .upload-filds.not-rad
+                  = f.input :title, label: false, :placeholder => 'Title', :input_html => {:class => 'form-control'}
+                  %br
+                  = f.input :description, label: false, placeholder: "Start a discussion on a subject or issue...", :input_html => { :class => 'form-control con-he', rows: 4 }
+                  .row.con-pd
+                    .col-md-12
+                      .two-lab.row
+                        %label.text-left.col-sm-6.col-xs-6.col-md-6.tagDisplay Tags
+                        %label.text-right.col-sm-6.col-xs-6.col-md-6 Separate tags with commas
+                        .col-md-12.clearboth
+                          = f.input :tag_list, as: :tagger, label: false, input_html: { id: "ignored", :class => 'form-control', data: { :'tagger-source' => ediofy_autocomplete_tags_url, :'tagger-hint' => 'Enter some tags', :'no-results' => 'No matching tags' } }
+                  .res-mode.start-con
+                    .row
+                      .col-md-2.full-wid
+                        .pdt-bo
+                          %nav
+                            %button.btn.button.clearboth.edit-me.clrpink.brd{id: "upload-conversation-images-holder",:type => "button"}
+                              %i.fa.fa-picture-o{"aria-hidden" => "true"}>
+                              Custom thumbnail
+                    = render partial: 'ediofy/groups/share', locals: { resource: 'conversation', f: f }
+                    .row
+                      .full-wid
+                        .on-off-mode
+                          .main-pub.col-md-12.text-right.display-inline
+                            .checkbox-container.display-inline
+                              %h6 Go Ghost
+                            %p.display-inline.margin-right-18px
+                              Your post will be anonymous.
+                              = image_tag 'ediofy/info.png'
+                            .checkbox-container.display-inline
+                              = check_box 'conversation', 'private', {class: 'custom-switch', checked: @conversation.private }, 'true', 'false'
+                  .res-mode.start-con
+                    #conversation_images_progress_bar{:style => "display: none"}
+                      .upload.js-progress-bars
+                        .progress
+                          .bar
+                    #conversation_images.multi-add-img.text-left
+                      - @conversation.images.each_with_index do |image|
+                        = render partial: 'ediofy/shared/image', :locals => { resource: 'conversation', file_url: image.s3_file_url, file_name: image.s3_file_name, file_id: image.id, small_url: image.small_url, position: image.position }
+          .uplbtn.display-flex.align-center
+            .cpd-msg.hidden.text-red
+              Starting conversations provides:
+              = @cpd_point
+              cpd points
+            .btns.ml-auto
+              - unless @conversation.new_record?
+                =link_to 'Delete', "#", "data-request-url": ediofy_conversation_path(@conversation), "data-type": "Conversation", class: 'colorRed delete-content-btn'
+                |
+              = link_to 'Cancel', @conversation.new_record? ? ediofy_upload_path : ediofy_conversation_path(@conversation)
+              =f.button @conversation.new_record? ? 'Post' : 'Save', type: 'submit', class: 'btn button clearboth', id: 'conversation-submit-btn', disabled: true
+      .s3_upload_none
+        = s3_uploader_form callback_url: add_images_ediofy_conversations_path, callback_param: "conversation[images]", key_starts_with: "conversation/images/", id: "s3-uploader-conversation-images", max_file_size: 20.megabytes do
+          = file_field_tag :file, multiple: false, id: "upload-conversation-images", class: "image-dispaly", :accept => ".jpg, .jpeg, .png, .gif"
+:javascript
+  $(document).ready(function(){
+    var tag_observer = new MutationObserver(function() {
+        $('.token-input-list-facebook .token-input-input-token-facebook input').focus();
+    });
+    tag_observer.observe($('#conversation_tag_list_input ul').get(0), {childList: true });
+  });

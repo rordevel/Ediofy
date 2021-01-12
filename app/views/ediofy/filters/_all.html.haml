@@ -1,0 +1,11 @@
+= semantic_form_for('', :url => ediofy_root_path, :html => {:method => :get, :role => 'form'}) do |f|
+  .yourintrestFilter
+    %ul.list-inline.text-right
+      %li
+        .sortBy.text-right
+          %label Type:
+          = content_type_select
+      %li
+        .sortBy.text-right
+          %label Sort by:
+          = sort_by_select

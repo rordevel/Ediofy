@@ -1,0 +1,29 @@
+.audioPlayer{style: 'display:none;'}
+  %div
+    .time.text-right
+      %span#currentTime
+        00:00
+      %span /
+      %span#duration
+        00:00
+    .div
+      #progressbar.ui-progressbar.ui-corner-all.ui-widget.ui-widget-content{"aria-valuemax" => "257", "aria-valuemin" => "0", "aria-valuenow" => "57", :role => "progressbar"}
+    .playerCOntroller.clearboth
+      .buttonController
+        %span.backward
+          %i.fa.fa-backward
+        %span.play
+          %i.fa.fa-play
+        %span.forward
+          %i.fa.fa-forward
+      .audioController
+        %span.volume-down
+          %i.fa.fa-volume-down
+        %span.volumn-progressbar
+          %span.active{'data-position' => 1}
+          %span.active{'data-position' => 2}
+          %span.active{'data-position' => 3}
+          %span.active{'data-position' => 4}
+          %span.active{'data-position' => 5}
+        %span.volume-up
+          %i.fa.fa-volume-up

@@ -1,0 +1,6 @@
+%fieldset.inputs
+  %legend
+    %span= t('.choose_tags')
+  .description= t('.choose_tags_html')
+  = render 'ediofy/tags/selector'
+  %ol.tags= nested_tags @tags.arrange( :order => :name ), f

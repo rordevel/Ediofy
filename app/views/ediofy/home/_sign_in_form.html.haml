@@ -1,0 +1,41 @@
+%button.closeme
+  %i.fa.fa-close
+%h1.signtitle Sign In
+%p{class: 'signupNote'}
+  New to Ediofy?
+  = link_to 'Sign up now', new_user_registration_path
+= semantic_form_for("user", :as => "user", :url => ediofy_home_user_signin_path, :html => { :role => 'form', id: 'signin-form'}, remote: true) do |f|
+  - if flash[:email_empty]
+    %p.inline-errors
+      = flash[:email_empty]
+  - if flash[:invalid_email]
+    %p.inline-errors
+      = flash[:invalid_email]
+  - if flash[:wrong_password]
+    %p.inline-errors
+      = flash[:wrong_password]
+  = f.inputs do
+    .form-group
+      = f.input :email, label: false, :placeholder => 'Username or Email', :input_html => { :class => 'form-control', type: :email }
+    .form-group
+      = f.input :password, label: false, :placeholder => 'Password', :input_html => { :class => 'form-control', type: :password }
+    = link_to "Forgot?", "/users/password/new", class: 'toggleForm'
+  = f.submit 'Start learning', class: 'btn button', style: 'display: none'
+%button{ class: 'btn button', id: 'signin-submit'} Start learning
+.orLogin.text-center or
+.form-group.expd.sociaSignIn
+  %span.singInwith
+    Sign in with
+  - User.omniauth_providers.each do |provider|
+    %a{href: omniauth_authorize_path('user', provider), style: 'text-decoration: none'}
+      - if provider.to_s == 'google'
+        %i.fa{class: 'fa-'+provider.to_s+'-plus-square'}
+      - else
+        %i.fa{class: 'fa-'+provider.to_s+'-square'}
+:javascript
+  $(document).ready(function(e){
+    $('#signin-submit').click(function(e){
+      e.preventDefault();
+      $('#signin-form').submit();
+    });
+  });

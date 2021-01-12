@@ -1,0 +1,6 @@
+- group_content.each do |content|
+  = render "ediofy/shared/#{content.class.to_s.downcase}_card", related: false, group_content: true,  content.class.to_s.downcase.to_sym => content do
+    - if group.able_edit? current_user 
+      - if content.class.name != 'Playlist'
+        = link_to remove_content_ediofy_group_path(content_id: content.id, klass: content.class) do
+          %i.remove-group-content-button.red-link.fa.fa-times-circle{title: "Remove #{content.class} from current group?"}

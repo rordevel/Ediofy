@@ -1,0 +1,7 @@
+%li{:class => "#{'active' if current_page?(ediofy_questions_path)}"}= link_to 'Questions', ediofy_questions_path
+%li{:class => "#{'active' if current_page?(ediofy_user_collections_path)}"}= navigation_link_to t(".stories"), ediofy_user_collections_path
+%li{:class => "#{'active' if current_page?(ediofy_media_index_path)}"}= navigation_link_to t(".gallery"), ediofy_media_index_path
+%li{:class => "#{'active' if current_page?(ediofy_users_path)}"}= navigation_link_to t(".users"), ediofy_users_path
+%li{:class => "#{'active' if current_page?(ediofy_universities_path)}"}= navigation_link_to t(".universities"), ediofy_universities_path
+%li{:class => "#{'active' if current_page?(ediofy_about_path)}"}= navigation_link_to t(".about"), ediofy_about_path
+%li{:class => "#{'active' if current_page? page_path('faq')}"}= navigation_link_to t(".faqs"), page_path('faq')

@@ -1,0 +1,13 @@
+<% if params[:page].present? && params[:page].to_i > 1 %>
+  <% content_results.each do |result| %>
+    $('#results-listing .items').append('<%= j render partial: "ediofy/shared/results/content/#{result.class.name.downcase}", locals: { related: false, result.class.name.downcase.to_sym => result } %>');
+  <% end %>
+<% else %>
+  $('#results-listing .infinite-table').html('<%= j render partial: 'ediofy/shared/results/content_results', locals: { content_results: content_results } %>');
+<% end %>
+
+<% if has_more_content %>
+  $('#results-listing .pagination').html('<%= link_to_next_results_page(action) %>');
+<% else %>
+  $('#results-listing .pagination').html(null);
+<% end %>

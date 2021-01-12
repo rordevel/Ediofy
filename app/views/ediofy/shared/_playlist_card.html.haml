@@ -1,0 +1,50 @@
+- if related
+  = link_to ediofy_playlist_path(playlist) do
+    .main-related.clearboth
+      .video-col
+        - file = (playlist.images.blank?) ? '' : playlist.images.first
+        - if file.present?
+          = image_tag(file.small_url, alt: (playlist.title rescue ''))
+        - else
+          = image_tag(default_placeholder('Conversation', playlist.id, 'small'))
+      .vid-con
+        %h6= truncate(playlist.title, length: 31)
+        .author-name#playlist
+        %span        
+          =image_tag  playlist.group.image.small.url, alt: "man-icon" 
+        %p
+          =truncate(playlist.group.title.humanize.titleize, length: 30) rescue '' 
+        %span.like-seen-msg
+          %span{:class => "#{playlist.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(playlist) ? 'likedPost' : ''}"}
+            %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+            = playlist.count_votes_up
+- else
+  .col-sm-6.col-md-3.post-cart
+    = yield
+    %div
+      - file = nil #playlist.images.first 
+      - unless file.blank?
+        - background_image = file.medium_url
+      - else
+        -background_image = image_url(default_placeholder('Conversation', playlist.id, 'medium'))
+      .video-player.withBg-card{style: 'background-image: url('+background_image+')'}
+        =link_to ediofy_playlist_path(playlist) do
+          .vid-con.vid
+            %p playlist
+          - if playlist.archived?
+            .vid-con.vid.archlabel
+              %p ARCHIVED
+      .video-content{id: ("playlist_card" if playlist.archived?) }
+        = link_to ediofy_playlists_path(playlist) do
+          .card-title
+            = truncate(playlist.title, length: 20)
+          .card-subtitle
+            = playlist.content.count.to_s  +  ' items' + ' • Last updated ' + playlist.updated_at.strftime('%b %e %Y')
+          .card-description
+            = truncate(playlist.description, length: 50)
+          = link_to ediofy_playlist_path(playlist) do
+            .author-name#playlist
+              %span        
+                =image_tag  playlist.group.image.small.url, alt: "man-icon" 
+              %p
+                =truncate(playlist.group.title.humanize.titleize, length: 30) rescue '' 

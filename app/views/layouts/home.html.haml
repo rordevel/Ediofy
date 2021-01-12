@@ -1,0 +1,55 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title= content_for?(:title) ? yield(:title) : "Ediofy"
+    = favicon_link_tag 'ediofy/favicon.png', rel: 'shortcut icon', type: 'image/png'
+    %meta{:content => "#{content_for?(:description) ? yield(:description) : "Ediofy"}", :name => "description"}
+    %meta{:content => "Learn. Share. Teach", :property => "og:title"}
+      %meta{:content => "Open access videos, multiple choice questions, playlists, images, podcasts, discussions and groups for all health professionals. Tailored to suit your chosen speciality and individual learning journey, all while earning CPD.", :property => "og:description"}
+    %meta{:content => "website", :property => "og:type"}
+    %meta{:content => "Ediofy", :property => "og:site_name"}
+    %meta{:content => "http://ediofy.com", :property => "og:url"}
+    %meta{:content => og_image_path , :property => "og:image"}
+    %meta{:content => "Ediofy is an online educational platform for health professionals and students to connect, learn and share their knowledge.", :property => "og:description"}
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+    %link{href: "https://use.typekit.net/yea4ovx.css", rel: "stylesheet", type: "text/css"}
+    %link{href: "https://fonts.googleapis.com/css?family=Cabin:400,400i,500,500i,600,600i,700", rel: "stylesheet", type: "text/css"}
+    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+    -# = javascript_include_tag 'custom/jquery.onepage-scroll', 'data-turbolinks-track' => 'reload'
+    = csrf_meta_tags
+  :javascript
+    var window_width = $(window).width();
+    $(function(){
+      email = localStorage.getItem('signedUpEmail')
+      if (email) {
+        $('#user_email').val(email)
+        localStorage.removeItem('signedUpEmail')
+      } else {
+        $('#signin-slide-container').css({right: "-"+ window_width +"px"})
+      }
+
+      $('.signin-btn, .start-btn').on("click",function() {
+         toggleAnimation.call(this, 'right')
+      });
+      $('.closeme').on("click",function() {
+         toggleAnimation.call(this, 'left')
+      });
+      $('.signinLeft').on("click",function() {
+        if(parseInt($('#signin-slide-container').css('right')) == 0){
+          toggleAnimation.call(this, 'left')
+        }
+      });
+    });
+    function toggleAnimation(dir) {
+      $('#products').animate({
+        left: dir === 'left' ? '0px' : '-'+ window_width +'px'
+      }, 1000)
+
+      $('#signin-slide-container').animate({
+        right: dir === 'left' ? '-'+ window_width +'px' : '0px'
+      }, 1000)
+    }
+  %body
+    = yield

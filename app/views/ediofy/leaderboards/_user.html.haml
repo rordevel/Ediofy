@@ -1,0 +1,16 @@
+- top_ranks = 3
+- user_classes = Array.new << ('current-user' if current_user == user) << "rank_#{leaderboard_rank_for(user)}"
+%article.user{ class: user_classes }
+  .rank= leaderboard_rank_for(user)
+  .info
+    - if leaderboard_rank_for(user) <= top_ranks
+      = link_to image_tag(user.avatar.thumb.url, size: "128x128", alt: user), ediofy_user_activities_path(user), class: "avatar"
+    - else
+      = link_to image_tag(user.avatar.comment.url, size: "48x48", alt: user), ediofy_user_activities_path(user), class: "avatar"
+    %strong.name
+      = link_to user, ediofy_user_activities_path(user)
+      / = manage_friendship_link user unless current_user == user
+      = manage_follow_link user unless current_user == user
+  .points
+    %span.value= number_with_delimiter(leaderboard_points_for(user))
+    %span.label= t '.points', count: leaderboard_points_for(user)

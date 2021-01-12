@@ -1,0 +1,8 @@
+%li
+  = link_to(ediofy_root_path('[q]' => interest.name, :button => 'Search', :utf8 => '✓')) do
+    %label
+      .labelOuter
+        .labelImage
+          = image_tag(interest.image.url(:medium), alt: '') rescue image_tag('ediofy/subject.jpg', alt: '')
+          %i.fa.fa-check{"aria-hidden" => "true"}
+        %p.text-left=interest.name

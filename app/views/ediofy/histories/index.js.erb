@@ -1,0 +1,13 @@
+// Append new data
+<% if params[:page].blank? || params[:page] == 'null' %>
+$("#results-listing .infinite-table .items").html('')
+<% end %>
+$("<%=j render(:partial => 'ediofy/dashboard/history') %>").appendTo($("#results-listing .infinite-table .items"));
+
+// Update pagination link
+<% if @histories.last_page? %>
+  $('.loading').hide();
+  $('#results-listing .pagination').html("");
+<% else %>
+  $('#results-listing .pagination').html("<%=j link_to_next_page(@histories, 'Load more', :remote => true, class: 'btn button color-blue back-hov-clr b-ediofy-load-more') %>");
+<% end %>

@@ -1,0 +1,17 @@
+- class_name = votable.class.name.underscore
+- voted_class = ''
+- if user_signed_in?
+  - voted_class = 'voted' if current_user.voted_up_on?(votable) or current_user.voted_down_on?(votable)
+%ul.voting{class: voted_class, data: {no: url_for([:novote, :ediofy, votable]), up: url_for([:upvote, :ediofy, votable]), down: url_for([:downvote, :ediofy, votable])}}
+  - if user_signed_in?
+    %li.vote.up{title: t(".#{class_name}.instructions.up"), data: {vote: "up"}, class: ('voted' if current_user.voted_up_on?(votable))}
+      %span.icon ↑
+      %span.value= votable.count_votes_up
+    %li.vote.down{title: t(".#{class_name}.instructions.down"), data: {vote: "down"}, class: ('voted' if current_user.voted_down_on?(votable))}
+      %span.icon ↓
+      %span.value= votable.count_votes_down
+  %li.display
+    %div.instructions
+      %div.up= t ".#{class_name}.instructions.up"
+      %div.down= t ".#{class_name}.instructions.down"
+      %div.voted= t ".#{class_name}.instructions.voted"

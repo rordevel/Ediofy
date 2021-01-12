@@ -1,0 +1,62 @@
+$('#comment_<%= params[:edit_id] %> .brd-bot').after("<%= escape_javascript( render partial: 'form', locals: { commentable: @commentable, parent_id: params[:edit_id] } ) %>");
+
+var config;
+
+config = {
+  at: '@',
+  displayTpl: '<li>${username} - ${name}</li>',
+  insertTpl: '@${username}',
+  data: null,
+  callbacks: {
+    remoteFilter: function(query, callback) {
+      $.getJSON('/users/notifications/mentions?q=' + query, function(data) {
+        console.log(data);
+        callback(data);
+      });
+    }
+  }
+};
+
+$('.com-box textarea').on('froalaEditor.initialized', function(e, editor) {
+  editor.$el.atwho(config);
+  editor.html.set('<%= @comment.comment.html_safe %>');
+  editor.events.on('keydown', (function(e) {
+    if (e.which === $.FroalaEditor.KEYCODE.ENTER && editor.$el.atwho('isSelecting')) {
+      return false;
+    }
+  }), true);
+}).froalaEditor(
+    {
+      key: froala_editor_key,
+      toolbarBottom: true,
+      placeholderText: 'Edit comment...',
+      toolbarButtons: [
+        'bold',
+        'italic',
+        'underline',
+        '|',
+        'formatOL',
+        'formatUL',
+        '|',
+        'quote'
+      ]
+    }
+);
+
+
+
+//var previous_ghost = $('.checkbox-container').first().html();
+$('.main-comment .checkbox-container').first().html('');
+$('#comment_<%= params[:edit_id] %> .custom-switch').addClass('reply-comment-switch');
+new DG.OnOffSwitchAuto({
+  cls:'.reply-comment-switch',
+  textOn: 'On',
+  textOff: 'Off',
+});
+$('#comment_<%= params[:edit_id] %> .custom-switch').removeClass('custom-switch');
+$('.main-comment .checkbox-container').first().html('<h6>Go Ghost</h6> <input class="custom-switch" name="switch1" type="checkbox">');
+new DG.OnOffSwitchAuto({
+  cls: '.main-comment .custom-switch',
+  textOn: 'On',
+  textOff: 'Off',
+});

@@ -1,0 +1,17 @@
+// Append new data
+<% if params[:page].blank? %>
+$("#results-listing .infinite-table .items").html('')
+<% end %>
+<%- if params[:type].blank? %>
+    $("<%=j render(:partial => 'ediofy/dashboard/index', collection: @search_results, as: :search_result, locals: {users: @users, conversations: @conversations, media: @media, questions: @questions, links: @links}) %>").appendTo($("#results-listing .infinite-table .items"));
+<% else %>
+    $("<%=j render(:partial => 'ediofy/dashboard/history') %>").appendTo($("#results-listing .infinite-table .items"));
+<% end %>
+
+// Update pagination link
+<% if @search_results.last_page? %>
+  $('.loading').hide();
+  $('#results-listing .pagination').html("");
+<% else %>
+  $('#results-listing .pagination').html("<%=j link_to_next_page(@search_results, 'Load more', :remote => true, class: 'btn button color-blue back-hov-clr b-ediofy-load-mor') %>");
+<% end %>

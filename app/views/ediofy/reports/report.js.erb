@@ -1,0 +1,13 @@
+if (!$("#content-<%= @reportable.id %>-report-container").hasClass('reported')) {
+  $("#content-<%= @reportable.id %>-report-container").html("<%= escape_javascript render partial: 'ediofy/shared/toolbar/report', object: @reportable, as: :reportable %>");
+
+  $('.report-close-btn').on('click', function(){
+    $(this).parents('.brd-bottom').html('');
+  });
+} else {
+  new PNotify({
+      title: 'Already reported',
+      text: 'Thanks, You have already reported this content.',
+      type: 'success'
+    });
+}      

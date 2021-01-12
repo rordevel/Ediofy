@@ -1,0 +1,92 @@
+- provide :title do
+  Ediofy Link #{@link.title}
+.pageContent
+  %section.content-page-video.content-page-img.manageContentMargin
+    .container
+      .row
+        .col-md-8
+          .contentAreaBox
+            .boxOuterWhite
+              - class_name = @link.class.name.downcase
+              .publishedAt
+                .row
+                  .col-sm-6.col-xs-6.col-md-6.vid-tit.wid-blk
+                    .row
+                      .col-sm-12.col-xs-12.auth-name.commet-icon.col-md-12
+                        = render 'ediofy/groups/content_author', content: @link
+                  .col-sm-6.col-xs-6.col-md-6.text-right.wid-blk.pub-pd.conver
+                    = render 'ediofy/groups/add_to_playlist',  id: 'add_content_to_playlist', content:@link, form_action: '/'
+                    - if (user_signed_in? && @link.group_exclusive)
+                      = link_to "Back to group", ediofy_group_path(@link.groups.first), class: 'btn'   
+                    - if (user_signed_in? && @link.group_exclusive && current_user == @link.user )
+                      .span.link.addToPlaylistBtn.clrpink.btn.button{'data-target' => '#add_content_to_playlist', 'data-toggle'  => 'modal'}
+                        Add to playlist
+                    - if user_signed_in? && current_user == @link.user
+                      %a{href: send("edit_ediofy_#{class_name}_path", @link), class: 'btn button secoundryBtn edit-me follow-btn clrpink'}
+                        %i.fa.fa-pencil
+                        Edit
+              .row
+                .col-sm-12.col-xs-12.col-md-12.vid-tit.wid-blk
+                  %h1=@link.title
+                .col-sm-12.col-xs-12.col-md-12.wid-blk.pub-pd
+                  %p
+                    %span= @link.created_at.strftime("Published on %B %d, %Y")
+              .row
+                .col-sm-12.col-xs-12.col-md-12
+                  - link_page = MetaInspector.new(@link.url) rescue ''
+                  -if link_page == ''
+                    %p Invalid URL
+                    =@link.url
+                  -else
+                    %a.url-meta-tags.getdata{ href: link_page.url, id: @link.id, target: :_blank, style: 'display: block;' }
+                      .best-image{style: "background-image: url(#{@link.page_image.blank? ? link_page.images.best : @link.page_image})"}
+                      .best-description
+                        %p
+                          = link_page.best_description.blank? ? "" : link_page.best_description[0,250]
+                        %span
+                          = link_page.url
+              %br
+              .con-del
+                = simple_format(@link.description)
+              .three-col-btn
+                - @link.tags.each do |tag|
+                  = link_to tag.name, ediofy_root_path('[q]' => tag.name, :button => 'Search', :utf8 => '✓')
+              .row.brd-bot.ex-pd
+                .col-sm-6.col-xs-6.col-md-6.soc-me.wid-blk.msg-seen
+                  = render 'ediofy/groups/share_to_group', id: 'share_link_to_group', form_action: share_to_group_ediofy_link_path
+                  -unless @link.group_exclusive? && !@link.groups.first.ispublic?
+                    %p SHARE:
+                    %ul
+                      %li
+                        .span.link.btn.button.secoundryBtn.edit-me.group.follow-btn.clrpink{'data-target' => '#share_link_to_group', 'data-toggle' => 'modal'}
+                          Share to group
+                      %li
+                        = facebook_share(ediofy_link_path(@link), @link.title)
+                      %li
+                        = twitter_share(ediofy_link_path(@link), @link.title)
+                      %li
+                        = linkedin_share(ediofy_link_path(@link), @link.title)
+
+                .col-sm-3.col-xs-3.col-md-3
+                  = render 'ediofy/playlists/playlist_links', locals: { playlist: @playlist, previous_playlist_content: @previous_playlist_content, next_playlist_content: @next_playlist_content } if @playlist
+
+                .col-sm-3.col-xs-3.col-md-3.text-right.rep-lik-un.wid-blk
+                  = render 'ediofy/shared/toolbar/votable', votable: @link
+              .brd-bottom{ id: ("content-#{@link.id}-report-container"),  class: ('reported' if @link.reports.by(current_user).exists?) }
+            = render 'ediofy/shared/comments/section', commentable: @link
+        .col-md-4
+          = render 'ediofy/playlists/miniplaylist', locals: { playable: @link } if @playlist
+          .row
+            .rel-con
+              #related-content.slid-con-tab
+                %ul#related-content-tabs.nav.nav-tabs
+                  %li.active
+                    %a{"data-url" => ediofy_related_index_path({type: 'links', return_type: 'media', id: @link.id}), "data-link" => 'media', :href => "#Media"} Media
+                  %li
+                    %a{"data-url" => ediofy_related_index_path({type: 'links', return_type: 'questions', id: @link.id}), "data-link" => 'questions', :href => "#Questions"} Questions
+                  %li
+                    %a{"data-url" => ediofy_related_index_path({type: 'links', return_type: 'conversations', id: @link.id}), "data-link" => 'conversations', :href => "#Conversations"} Conversations
+                .tab-content.infinite-table
+                  .items
+                  .load-more
+                %br

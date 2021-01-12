@@ -1,0 +1,29 @@
+// Append new data
+if ($("#related-content-tabs li.active a").attr("data-link") == 'media') {
+  <% if @media.blank? %>
+    $("#related-content .infinite-table .items").html("<p class='no-related-content'>There are currently no Media with the same or similar tags.</p>")
+  <% end %>
+} else if ($("#related-content-tabs li.active a").attr("data-link") == 'conversations') {
+  <% if @conversations.blank? %>
+    $("#related-content .infinite-table .items").html("<p class='no-related-content'>There are currently no Conversations with the same or similar tags.</p>")
+  <% end %>
+} else if ($("#related-content-tabs li.active a").attr("data-link") == 'questions') {
+  <% if @questions.blank? %>
+    $("#related-content .infinite-table .items").html("<p class='no-related-content'>There are currently no Questions with the same or similar tags.</p>")
+  <% end %>
+} else if ($("#related-content-tabs li.active a").attr("data-link") == 'links') {
+  <% if @links.blank? %>
+    $("#related-content .infinite-table .items").html("<p class='no-related-content'>There are currently no Links with the same or similar tags.</p>")
+  <% end %>
+}
+$("<%=j render(:partial => 'ediofy/related/index', locals: {users: @users, conversations: @conversations, media: @media, questions: @questions, links: @links}) %>").appendTo($("#related-content .infinite-table .items"));
+
+<% if @total > 0 %>
+  // Update pagination link
+  <% if @related_contents.last_page? %>
+    $('.loading').hide();
+    $('#related-content .infinite-table .load-more').html("");
+  <% else %>
+    $('#related-content .infinite-table .load-more').html("<%=j link_to_next_page(@related_contents, 'Load more suggestions', :remote => true, class: 'btn button color-blue back-hov-clr') %>");
+  <% end %>
+<% end %>

@@ -1,0 +1,53 @@
+- if related
+  = link_to  controller_name == 'groups' ?  ediofy_group_link_path(link, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_link_path(link, :playlist => params["playlist"] ) do
+
+    .main-related.clearboth
+      .video-col
+        - if link.page_image.blank?
+          - if !link.images.blank?
+            = image_tag link.images.first.small_url
+          - else
+            = image_tag image_url(default_placeholder('Link', link.id, 'small'))
+        - else
+          = image_tag(link.page_image, alt: (link.title rescue ''))
+      .vid-con
+        %h6= truncate(link.title, length: 31)
+        .author-name
+          %span
+            = image_tag link.user.ghost_mode || link.private? ? link.user.avatar.default_url : link.user.avatar.xxx_small.url, alt: link.user.full_name
+          %span
+            = link.user.title.humanize.titleize rescue '' if !(link.user.ghost_mode || link.private?)
+            = link.user.ghost_mode || link.private? ? "Anonymous" : truncate(link.user.full_name.to_s.titleize, length: 20) rescue ''
+- else
+  .col-sm-6.col-md-3.post-cart
+    = yield
+    %div
+      - if link.page_image.blank?
+        - if !link.images.blank?
+          - background_image = link.images.first.medium_url
+        - else
+          - background_image = image_url(default_placeholder('Link', link.id, 'medium'))
+      - else
+        - background_image = link.page_image
+      .video-player.withBg-card{style: 'background-image: url('+background_image+')'}
+        =link_to  controller_name == 'groups' ?  ediofy_group_link_path(link, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_link_path(link, :playlist => @paylist )    do
+          .vid-con.vid
+            %p Link
+      .video-content
+        //= link_to ediofy_link_path(link, :playlist => @paylist) do
+        = link_to  controller_name == 'groups' ?  ediofy_group_link_path(link, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_link_path(link, :playlist => @paylist )    do
+          %h6= truncate(link.title, length: 28)
+        .author-name
+          = render 'ediofy/groups/content_author_small_with_title', content: link, user: link.user
+        .row.like-seen-msg
+          .like-icon.col-sm-5.col-xs-5.col-md-5
+            %span{:class => "#{link.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(link) ? 'likedPost' : ''}"}
+              %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+              =link.count_votes_up unless params[:playlist].present?
+          .text-right.col-sm-7.col-xs-7.col-md-7
+            %span{:class => ("colorGrey" if link.comments.count == 0)}
+              %i.fa.fa-comment{"aria-hidden" => "true"}
+              =link.comments.count rescue 0
+            %span{:class => ("colorGrey" if link.view_count == 0)}
+              %i.fa.fa-eye{"aria-hidden" => "true"}
+              =link.view_count rescue 0

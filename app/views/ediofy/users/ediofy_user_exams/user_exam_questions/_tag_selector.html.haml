@@ -1,0 +1,9 @@
+.tab-pane.fade#tag_selector
+  %span.close ×
+  = semantic_form_for [:ediofy, :user, @exam] do |f|
+    %h2= t '.select_tags'
+    .description= t '.select_tags_html', settings_path: ediofy_user_setting_path
+    %fieldset.inputs
+      = render 'ediofy/tags/selector'
+      %ol.tags= nested_tags @tags, f
+    = f.action :submit, label: 'Start Revision'

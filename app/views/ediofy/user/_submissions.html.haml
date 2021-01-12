@@ -1,0 +1,22 @@
+%section.submissions
+  - unless questions.visible_to(current_user).blank?
+    .questions-block
+      %h2= t '.recent_questions_html', link: link_to(t('.all_questions'), ediofy_user_questions_path(@user))
+      %ol.question-items= render partial: 'ediofy/questions/question_item', collection: questions, as: :question
+
+  - unless media.visible_to(current_user).blank?
+    .media-block
+      %h2= t '.recent_media_html', link: link_to(t('.all_media'), ediofy_user_media_path(@user))
+      %ol.media-items
+        - media.each do |media_item|
+          - if media_item.type == 'MediaCollection'
+            = render 'ediofy/media_collections/media_collection', media_collection: media_item
+          - else
+            = render 'ediofy/media/media', media: media_item
+
+  - unless collections.blank?
+    .collections-block
+      %h2= t '.recent_collections_html', link: link_to(t('.all_collections'), ediofy_user_collections_path(@user))
+      %ol.media-items
+        - collections.each do |collection|
+          = render 'ediofy/user_collections/user_collection', user_collection: collection

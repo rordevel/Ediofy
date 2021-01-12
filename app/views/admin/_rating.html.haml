@@ -1,0 +1,29 @@
+- unless collection.first.blank?
+  %table#data_table.index_table.index
+    %thead
+      - collection.first.keys.each do |key|
+        %th{class: "col col-#{key}"}
+          = key.split(/_|\ /).map(&:capitalize).join(' ')
+      %th{class: "col"}            
+    - collection.each_with_index do |hash, index|
+      - link = "#"
+      - if hash["type"] == "Question"
+        - link = admin_question_path(hash["id"])
+      - elsif hash["type"] == "Media"
+        - link = admin_media_index_path(hash["id"])
+      %tr{class: "#{( index%2 == 1 ) ? 'even' : 'odd'}"}
+        - hash.each do |k,v|
+          %td
+            - if ["id","type","content_title"].include?(k)
+              %a{href: "#{link}"}= v
+            - elsif k == "user_name" || k == "user_id"
+              =link_to v, admin_user_path(hash["user_id"])  
+            - else
+              = (k == "last_voted_thumbs_down") ? DateTime.parse(v).strftime("%B %d, %Y %H:%M:%S") : v
+        %td.col.col-actions
+          .table_actions
+            %a.view_link.member_link{href: "#{admin_ratings_view_path(hash)}", title: "View"} View
+            %a.edit_link.member_link{href: "#{link}/edit", title: "Edit"} Edit
+            %a.delete_link.member_link{"data-confirm" => "Are you sure you want to delete this?", "data-method" => "delete", href: "#{link}", rel: "nofollow", title: "Delete"} Delete
+- else
+  %h2 No record found!

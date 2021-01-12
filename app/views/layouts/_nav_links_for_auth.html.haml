@@ -1,0 +1,20 @@
+- if user_signed_in?
+  %li{:class => "#{'active' if current_page?(ediofy_leaderboard_path)}"}= navigation_link_to t(".leaderboard"), ediofy_leaderboard_path
+  %li.dropdown
+    %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :role => "button"}
+      / The Profile picture inserted via div class below, with shaping provided by Bootstrap
+      .img-rounded.profile-img
+        = image_tag current_user.avatar.profile.url, size: "30x30", alt: current_user.full_name
+      = current_user
+      %span.caret
+    %ul.dropdown-menu
+      %li{:class => "#{'active' if current_page?(ediofy_user_activities_path(current_user))}"}= navigation_link_to t(".profile"), ediofy_user_activities_path(current_user)
+      %li{:class => "#{'active' if current_page?(edit_user_registration_path)}"}= navigation_link_to t(".edit_profile"), edit_user_registration_path
+      %li{:class => "#{'active' if current_page?(ediofy_user_friends_path(current_user))}"}= navigation_link_to t(".friends"), ediofy_user_friends_path(current_user)
+      %li{:class => "#{'active' if current_page?(ediofy_user_notifications_path)}"}= navigation_link_to t(".notifications"), ediofy_user_notifications_path
+      %li{:class => "#{'active' if current_page?(ediofy_user_setting_path)}"}= navigation_link_to t(".settings"), ediofy_user_setting_path
+      %li.divider{:role => "separator"}
+      %li= navigation_link_to t(".sign_out"), destroy_user_session_path, :method=>'delete'
+- else
+  %li{:class => "#{'active' if current_page?(new_user_session_path)}"}= navigation_link_to t(".sign_in"), new_user_session_path
+  %li{:class => "#{'active' if current_page?(new_user_registration_path)}"}= navigation_link_to t(".register"), new_user_registration_path

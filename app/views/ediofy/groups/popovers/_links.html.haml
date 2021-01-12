@@ -1,0 +1,10 @@
+%p
+  %ul.popover-links
+    - if @group.able_edit? current_user
+      %ol= link_to 'Edit group', edit_ediofy_group_path(@group)
+    - if @group.admin?(current_user) || @group.regular_user?(current_user)
+      %ol= link_to 'Leave group', leave_ediofy_group_path, class: 'normal-group-action-link'
+      %ol= link_to 'Report group', report_ediofy_group_path(@group), data: {toggle: 'modal', target: '#', type: 'Group', 'request-url': report_ediofy_group_path(@group)},  class: 'report-group-btn normal-group-action-link'
+    - if @group.owner? current_user
+      %ol= link_to 'Manage admin users', '#', 'data-target' => '#group_members', 'data-toggle' => 'modal'
+      %ol= link_to 'Delete Group',  ediofy_group_path(@group), data: {toggle: 'modal', target: '#', type: 'Group'},  class: 'delete-group-btn red-link'

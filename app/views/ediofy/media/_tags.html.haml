@@ -1,0 +1,19 @@
+.tags-box.aside-box
+  %h3
+    = t '.title'
+    - if current_user.present?
+      %span.add
+        = surround '(', ')' do
+          = link_to t('.add_tags'), '#'
+  - if tags.exists?
+    %ul.tags
+      - tags.each do |tag|
+        %li.tag
+          = link_to tag.name, ediofy_media_index_path(query: "[#{tag.name}]")
+          - if media.user == current_user
+            = link_to '×', destroy_tag_ediofy_media_path(media, tag: tag.name), method: :delete, remote: true, class: :destroy
+  - else
+    .no-tags= t '.no_tags_html'
+  %form{action: create_tag_ediofy_media_path(media), "data-id" => media.id}
+    %input.tag_input{ type: "text", 'data-tagger-source' => ediofy_autocomplete_tags_url, 'data-tagger-hint' => 'Enter some tags', 'data-no-results' => 'No matching tags' }
+    %p= t '.instructions'

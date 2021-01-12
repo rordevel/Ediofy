@@ -1,0 +1,13 @@
+- machine_tags_parent = ['Patient']
+- machine_tags_child = ['Heart Rate', 'Blood Pressure']
+
+%li.input.select.tag-builder
+  %label Tag Builder
+  %select.tag-builder-parent
+    - machine_tags_parent.each do |tag|
+      %option{ value: tag.parameterize('_') }= tag
+  %select.tag-builder-child
+    - machine_tags_child.each do |tag|
+      %option{ value: tag.parameterize('_') }= tag
+  %input.tag-builder-value
+  .tag-builder-button= t '.add_tag'

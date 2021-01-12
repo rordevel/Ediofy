@@ -1,0 +1,4 @@
+= semantic_form_for [:ediofy, comment.commentable, comment.commentable.comments.new] do |f|
+  = f.input :comment, input_html: { rows: 3, cols: 50, id: "comment_comment_#{comment.id}" }
+  = f.input :parent_id, as: :hidden, input_html: { value: comment.id }
+  = f.action :submit, label: 'Submit edited'

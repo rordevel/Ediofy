@@ -1,0 +1,26 @@
+.contentAreaBox#show-playlist-card
+  .card
+    .header
+      =image_tag(@playlist.default_photo.nil? ? default_placeholder('Conversation', @playlist.id, 'large') : @playlist.default_photo)
+    .card-body
+      .row
+        .col-sm-12.col-xs-12.col-md-12
+          %h2.playlist-title= @playlist.title.truncate_words(50)
+          %p.playlist-subtitle= @playlist.media.sum(&:video_count).to_s +  ' videos • ' + @playlist.media.sum(&:audio_count).to_s + ' audio • ' +   @playlist.media_count.to_s + ' media • ' +  @playlist.question_count.to_s + ' questions • ' +  @playlist.link_count.to_s + ' links'
+          %p.playlist-sub-subtitle= 'Created ' + @playlist.created_at.strftime('%b %e %Y') + '• Last updated ' + @playlist.updated_at.strftime('%b %e %Y')
+          %p= @playlist.description.truncate_words(50)
+          %hr
+          .row
+            .col-md-8
+              = link_to ediofy_group_path(@playlist.group) do
+                .author-name#playlist
+                  %span        
+                    =image_tag  @playlist.group.image.small.url, alt: "man-icon" 
+                  %p
+                    =truncate(@playlist.group.title.humanize.titleize, length: 30) rescue '' 
+            .col-md-4
+              - if ((@playlist.group.able_edit? current_user))
+                %span.popOverDrop#joined-popover{"data-container" => "body", "data-content" => "#{render 'ediofy/playlists/popovers/playlist_actions'}", "data-placement" => "bottom", "data-toggle" => "popover", "type" => "button", "data-trigger" => "focus", "tabindex" => "0", "role" => "button"}
+                  More ...
+                  = raw '&nbsp;'
+                  %i.fa.fa-caret-down

@@ -1,0 +1,32 @@
+-if comment.user
+  .main-comment.sm-pd{ id: "comment_#{comment.id}" }
+    .row.comment-sort
+      .col-sm-7.col-md-7.vid-tit.commet-icon.wid-blk
+        = link_to comment.private ? '#' : ediofy_user_path(comment.user) do
+          = image_tag comment.private ? comment.user.avatar.default_url : comment.user.avatar.x_small.url, alt: 'user-comment'
+        .authinfoWrapName
+          %h6
+            = comment.user_title.titleize rescue '' unless comment.private
+            = comment.private ? 'Anonymous' : comment.user_full_name.titleize rescue ''
+            %span.button_flow{class: "follows-container-#{comment.user.id}" }
+              - if user_signed_in? && current_user != comment.user && !comment.private
+                = manage_follow_link comment.user
+          %p= comment.private ? 'Ghost mode' : comment.user.specialty_name.titleize rescue ''
+      .col-sm-3.col-xs-3.col-md-3.text-right.soc-me.wid-blk
+        - if user_signed_in? && current_user == comment.user
+          = render partial: 'actions',  locals: { comment: comment }
+      .col-sm-2.col-md-2.text-right.checkbox-container.wid-blk
+        = link_to polymorphic_url([:ediofy, comment.commentable, comment, :reply], reply_id: comment.id), class: 'btn button clearboth reply-btn cancel-btn ex-cl', remote: true do
+          Reply
+    .text-area-content
+      %p#froala-editor= serialized_comment(comment.comment.html_safe).html_safe
+    .row.brd-bot
+      .col-sm-6.col-xs-6.col-md-6.soc-me.wid-blk
+        %p= (time_ago_in_words(comment.created_at) + ' ago').gsub('about', '')
+      .col-sm-6.col-xs-6.col-md-6.text-right.rep-lik-un.wid-blk
+        = render 'ediofy/shared/toolbar/votable', votable: comment
+  .brd-bottom{ id: ("content-#{comment.id}-report-container"), class: ('reported' if comment.reports.by(current_user).exists?) }
+  - unless comment.replies.blank?
+    - comment.replies.each do |reply|
+      .comment-replies
+        = render partial: 'index', locals: { comment: reply, parent_id: comment.id }

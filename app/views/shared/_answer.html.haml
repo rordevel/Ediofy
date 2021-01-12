@@ -1,0 +1,14 @@
+- if answer.correct?
+  %li.correct
+    %span.answer-label= answer_label(answer_counter)
+    = answer.body
+    %span.result-label= t(:correct_answer_label, :scope => :ui)
+- elsif answer == @selected_answer.answer
+  %li.incorrect
+    %span.answer-label= answer_label(answer_counter)
+    = answer.body
+    %span.result-label= t(:your_answer_label, :scope => :ui)
+- else
+  %li
+    %span.answer-label= answer_label(answer_counter)
+    = answer.body

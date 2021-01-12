@@ -1,0 +1,122 @@
+$blue: #0ab5ee
+
+ul.token-input-list
+  overflow: hidden
+  height: auto !important
+  border: 1px solid #ddd
+  border-radius: 2px
+  height: 1%
+  cursor: text
+  min-height: 1px
+  z-index: 999
+  margin: 0
+  list-style-type: none
+  padding: 5px
+  font-size: 12px
+  font-weight: bold
+  li input
+    border: 0
+    width: 100px
+    padding: 3px 8px
+    background-color: white
+    margin: 2px 0
+    -webkit-appearance: caret
+    font-size: 12px
+    font-weight: bold
+
+aside#side ul.token-input-list
+  width: auto
+
+li
+  &.token-input-token
+    overflow: hidden
+    height: auto !important
+    height: 16px
+    margin: 3px
+    padding: 1px 3px
+    background-color: #f8f8f8
+    color: #666
+    cursor: default
+    border: 1px solid #ddd
+    font-size: 12px
+    font-weight: bold
+    border-radius: 3px
+    float: left
+    white-space: nowrap
+    text-shadow: 0 1px 0 white(0.5)
+    p
+      display: inline
+      padding: 0
+      margin: 0
+    span
+      color: #aaa
+      margin-left: 5px
+      font-weight: bold
+      cursor: pointer
+      &:hover
+        color: #222
+  &.token-input-selected-token
+    background-color: $blue
+    border: 1px solid darken($blue, 10%)
+    color: #fff
+    text-shadow: 0 -1px 0 black(0.2)
+    span
+      color: white(0.5)
+      &:hover
+        color: #fff
+  &.token-input-input-token
+    float: left
+    margin: 0
+    padding: 0
+    list-style-type: none
+
+div.token-input-dropdown
+  position: absolute
+  width: 400px
+  background-color: #fff
+  overflow: hidden
+  border: 1px solid #ddd
+  border-width: 0 1px 1px 1px
+  cursor: default
+  font-size: 12px
+  font-weight: bold
+  z-index: 1
+  p
+    margin: 0
+    padding: 5px
+    font-weight: bold
+    color: #666
+  ul
+    margin: 0
+    padding: 0
+    li
+      background-color: #fff
+      padding: 3px
+      margin: 0
+      list-style-type: none
+      &.token-input-dropdown-item, &.token-input-dropdown-item2
+        background-color: #fff
+      em
+        font-weight: bold
+        font-style: normal
+      &.token-input-selected-dropdown-item
+        background-color: $blue
+        color: #fff
+
+ul.token-input-list-facebook
+  border-top-right-radius: 20px
+  border-bottom-right-radius: 20px
+  max-height: 40px
+  li.token-input-input-token-facebook
+    height: 40px
+
+
+.tagger ul li
+  clear: none
+  input
+    font-size: 14px
+
+#token-input-myInput
+  padding-top: 8px
+
+

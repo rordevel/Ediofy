@@ -1,0 +1,9 @@
+- if user_signed_in? && answer.correct? && answer.answered_correct_by(current_user)
+  %li.correct
+    %span.answer-label= answer_label answer_counter
+    %span.result-label= t 'ui.correct_answer_label'
+    %span.answer-body= answer.body
+- else
+  %li
+    %span.answer-label= answer_label answer_counter
+    %span.answer-body= answer.body

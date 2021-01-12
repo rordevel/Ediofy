@@ -1,0 +1,23 @@
+.displayTable.clearfix
+  .col-md-6.signinLeft.displayCell{style: 'background-image: url('+image_url("ediofy/signin_bg.jpg")+')'}
+  .col-md-6.displayCell{style: 'z-index: 1000; padding: 0;'}
+    .formOuter#signInForm{style: 'background-color:#FFF; max-width: 100%; padding: 50px'}
+      %h1.signtitle Resend Confirmation
+      %p{class: 'signupNote'}
+        New to Ediofy?
+        = link_to 'Sign up now', new_user_registration_path
+      = semantic_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :role => 'form'}) do |f|
+        = f.inputs do
+          .form-group
+            %label Email
+            = f.input :email, label: false, :input_html => { :class => 'form-control' , :value => params[:email] ? params[:email] : ''}
+        = f.submit 'Send Confirmation Instructions', class: 'btn button'
+
+      -#- if devise_mapping.omniauthable?
+      -#  .orLogin.text-center or
+      -#  - resource_class.omniauth_providers.each do |provider|
+      -#    .form-group.expd
+      -#      %a.btn.button{href: omniauth_authorize_path(resource_name, provider), style: 'text-decoration: none'}
+      -#        %i.fa{class: 'fa-'+provider.to_s+'-square'}
+      -#        = 'Sign in with '+provider.to_s.titleize
+      -#      %br

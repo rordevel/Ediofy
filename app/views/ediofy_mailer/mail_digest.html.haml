@@ -1,0 +1,18 @@
+- style_button = 'background: #1cbff5; background: linear-gradient(top, #1cbff5, #09a2d6); background: -webkit-linear-gradient(top, #1cbff5, #09a2d6); background: -moz-linear-gradient(top, #1cbff5, #09a2d6); background: -ms-linear-gradient(top, #1cbff5, #09a2d6); background: -khtml-linear-gradient(top, #1cbff5, #09a2d6); background: -o-linear-gradient(top, #1cbff5, #09a2d6);'
+
+%h1 Global Medical Education Project
+
+%p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet risus sem. Quisque pretium orci eu elit pretium sed ornare enim pellentesque.
+%p Fusce condimentum, sapien et vulputate sodales, ipsum metus egestas odio, vel vestibulum dolor nisi vitae enim. Quisque porttitor commodo posuere. Quisque lobortis elit ac velit volutpat ut tempor velit tempor. Donec placerat aliquam eleifend. Duis pellentesque, enim eu convallis dignissim, eros mi auctor neque, in sollicitudin lectus lorem et nibh.
+
+= link_to 'Large Call To Action', '#', class: 'button', style: style_button
+
+- unless @user.inverse_friendships.pending.empty?
+  %table.friends{ width: '100%', cellpadding: '10', cellspacing: '0', border: '0' }
+    %tbody
+      = render partial: 'ediofy_mailer/digest/friend_request', collection: @user.inverse_friendships.pending
+
+- unless @badges.empty?
+  %table.badge{ width: '100%', cellpadding: '0', cellspacing: '0', border: '0' }
+    %tbody
+      = render partial: 'ediofy_mailer/digest/badge_user', collection: @badges

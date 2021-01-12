@@ -1,0 +1,109 @@
+users:
+  - id: 1
+    username: username
+    first_name: Testing
+    last_name: User
+    email: user@example.com
+    password: password
+    locale: de
+    ediofy_terms_accepted: true
+
+admin_users:
+  - id: 1
+    email: admin@example.com
+    password: password
+
+addresses:
+  - id: 1
+    street: 1 Hay Street
+    suburb: West Perth
+    postcode: 6000
+    state: Western Australia
+    country: Australia
+
+interests:
+  - id: 1
+    name: Medicine
+    remote_image_url: https://robohash.org/sitsequiquia.png?size=300x300&set=set1
+
+  - id: 2
+    name: Surgery
+    remote_image_url: https://robohash.org/sitsequiquia.png?size=300x300&set=set1
+
+question_sources:
+  - id: 1
+    title: Importing
+
+questions:
+  - id: 1
+    body: &body A 58 yr old female with a bicuspid aortic valve presents with fever, tachycardia, dyspnoea on exertion, and anaemia. Five blood cultures grew em  Strep viridans. Following a response to Pen G therapy, which of the following tests should be performed?
+    title: *body
+    explanation: The answer is Echocardiography because ....
+    question_source_id: 1
+    answers_attributes:
+      - question_id: 1
+        body: Echocardiography
+        correct: true
+      - question_id: 1
+        body: ANA factor
+      - question_id: 1
+        body: Indium scan
+      - question_id: 1
+        body: IVP
+      - question_id: 1
+        body: 24 hour urinary protein excretion test
+
+  - id: 2
+    body: &body Regarding Mitral Valve prolapse, which one of the following is true?
+    title: *body
+    explanation: This occurs most often in women for various reasons.
+    question_source_id: 1
+    answers_attributes:
+      - question_id: 2
+        body: It occurs most often in women.
+        correct: true
+      - question_id: 2
+        body: It is a disease of the elderly.
+      - question_id: 2
+        body: It is the end of rheumatic mitral insufficiency.
+      - question_id: 2
+        body: It is a manifestation of Lidman-Sacks disease.
+      - question_id: 2
+        body: ECG has typical anterior ST depressions.
+
+universities:
+  - name: "University of New South Wales"
+    abbreviation: "UNSW"
+  - name: "Kings College London"
+  - name: "University of Freiburg"
+  - name: "University of Jordan"
+  - name: "University of Manchester"
+  - name: "Trinity College Dublin"
+  - name: "University of Ruhuna"
+  - name: "Oklahoma State University"
+  - name: "University of Western Australia"
+  - name: "University of Otago"
+  - name: "The Australasian College for Emergency Medicine"
+  - name: "University of Toronto"
+  - name: "University College London"
+  - name: "Tehran University of Medical Sciences"
+  - name: "University of Auckland"
+  - name: "University of Texas Medical Branch"
+  - name: "Royal College of Surgeons in Ireland"
+  - name: "Wichita State Univeristy"
+  - name: "Manchester Metropolitan"
+  - name: "University of the Sunshine Coast"
+  - name: "Georgetown University"
+  - name: "University of Western Australia"
+    abbreviation: "UWA"
+  - name: "St. George's Hospital Medical School, University of London."
+  - name: "University of Queensland"
+  - name: "University of Colombo"
+  - name: "Griffith University"
+  - name: "University of Southampton"
+  - name: "Jacksonville University"
+  - name: "University of Notre Dame Australia"
+  - name: "University of Edinburgh"
+  - name: "University of Sheffield & HYMS"
+  - name: "Leiden University, The Netherlands"
+  - name: "University of Saskatchewan"

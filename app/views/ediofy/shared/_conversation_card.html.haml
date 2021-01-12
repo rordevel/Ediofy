@@ -1,0 +1,51 @@
+- if related
+  = link_to  controller_name == 'groups' ?  ediofy_group_conversation_path(conversation, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_conversation_path(conversation, :playlist => @paylist )  do
+    .main-related.clearboth
+      .video-col
+        - file = (conversation.images.blank?) ? '' : conversation.images.first
+        - if file.present?
+          = image_tag(file.small_url, alt: (conversation.title rescue ''))
+        - else
+          = image_tag(default_placeholder('conversation', conversation.id, 'small'))
+      .vid-con
+        %h6= truncate(conversation.title || conversation.body, length: 31)
+        .author-name
+          %span
+            = image_tag conversation.user.ghost_mode || conversation.private? ? conversation.user.avatar.default_url : conversation.user.avatar.xxx_small.url, alt: conversation.user.full_name
+          %span
+            = conversation.user.title.humanize.titleize rescue '' if !(conversation.user.ghost_mode || conversation.private?)
+            = conversation.user.ghost_mode || conversation.private? ? "Anonymous" : truncate(conversation.user.full_name.to_s.titleize, length: 20) rescue ''
+        %span.like-seen-msg
+          %span{:class => "#{conversation.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(conversation) ? 'likedPost' : ''}"}
+            %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+            = conversation.count_votes_up
+- else
+  .col-sm-6.col-md-3.post-cart
+    = yield
+    %div
+      - file = conversation.images.first
+      - unless file.blank?
+        - background_image = file.medium_url
+      - else
+        -background_image = image_url(default_placeholder('conversation', conversation.id, 'medium'))
+      .video-player.withBg-card{style: 'background-image: url('+background_image+')'}
+        = link_to  controller_name == 'groups' ?  ediofy_group_conversation_path(conversation, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_conversation_path(conversation, :playlist => @paylist )  do
+          .vid-con.vid
+            %p Conversation
+      .video-content
+        = link_to  controller_name == 'groups' ?  ediofy_group_conversation_path(conversation, :playlist => @paylist,  :group_id => params["id"] ) : ediofy_conversation_path(conversation, :playlist => @paylist )  do
+          %h6=truncate(conversation.title, length: 40)
+        .author-name
+          = render 'ediofy/groups/content_author_small_with_title', content: conversation, user: conversation.user
+        .row.like-seen-msg
+          .like-icon.col-sm-5.col-xs-5.col-md-5
+            %span{:class => "#{conversation.count_votes_up == 0 ? 'colorGrey' : ''} #{current_user.voted_up_on?(conversation) ? 'likedPost' : ''}"}
+              %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+              =conversation.count_votes_up
+          .text-right.col-sm-7.col-xs-7.col-md-7
+            %span{:class => ("colorGrey" if conversation.comments.count == 0)}
+              %i.fa.fa-comment{"aria-hidden" => "true"}
+              =conversation.comments.count rescue 0
+            %span{:class => ("colorGrey" if conversation.view_count == 0)}
+              %i.fa.fa-eye{"aria-hidden" => "true"}
+              =conversation.view_count rescue 0

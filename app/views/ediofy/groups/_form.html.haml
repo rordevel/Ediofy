@@ -1,0 +1,65 @@
+= semantic_form_for [:ediofy, @group] do |f|
+  .share-a-con.shareAlink
+    %h1.exclr.h2
+      = @group.new_record? ? "Create a New" : "Edit"
+      Group
+
+    Groups allow you to connect with other users in a private space. From study to interest-based groups,
+    share content and create discussions exclusively with your group.
+    %p
+
+    .row
+      .col-md-12
+        .group-image{class: @group&.image&.file.present? ? '' : 'hidden'}
+          .remove-image.img-circle
+            %i.fa.fa-times
+          %img.group-pic{src: @group.image}
+
+      #group_image_upload.noRecentView.text-center{class: @group&.image&.file.present? ? 'hidden' : '' }
+        .hidden
+          = f.file_field :image, class: 'file-upload', id: 'group_image_upload_button', as: :hidden
+
+        %button#group-upload-link-images-holder.btn.button.clearboth.edit-me.clrpink.brd{type: 'button'}
+          %i.fa.fa-picture-o{"aria-hidden" => "true"}>
+          Custom cover image
+        %p
+          %b Max file size is 2 MB
+          %br
+          Upload an image (jpg, jpeg, png)
+
+    .row
+      .col-md-12
+        .upload-filds.input-group
+          = f.inputs do
+            = f.input :title, label: false, placeholder: 'Name your group', input_html: { class: 'form-control' }
+            = f.text_area :description, cols: '30', placeholder: "Description", rows: '10', input_html: { id: 'ignored'}
+            = f.input :group_url, label: false, placeholder: 'URL', input_html: { class: 'form-control' }
+    .row
+      .col-md-12
+        .input-group
+          = f.inputs do
+            -# just make sure there will no be any members without full_name
+            - users_collection = User.all.reject { |u| u.full_name.nil? }.map do |user|
+              - [user.full_name, user.id, {'data-name' => user.full_name, 'data-title' => user.title, 'data-image' => user.avatar.x_small.url}]
+            = f.input :users, as: :select, collection: users_collection, input_html: { class: 'form-control', multiple: true }, label: 'Add members by name or email'
+
+    %p
+    %br
+
+    .row
+      .col-md-6.col-md-offset-6
+        Select privacy
+        %select.form-control{name: 'group[ispublic]', id: 'privacy_select'}
+          %option{value: 'true', 'data-icon' => 'fa-globe', 'data-additional' => 'Anyone on Ediofy'}
+            Public Group
+          %option{value: 'false', 'data-icon' => 'fa-lock', 'data-additional' => 'Only members can see shared content'}
+            Private Group
+
+    .row
+      .col-md-12
+        .text-right.uplbtn
+          - unless @group.new_record?
+            =link_to 'Delete', "#", "data-request-url": ediofy_group_path(@group), "data-type": "Link", class: 'colorRed delete-content-btn'
+            |
+          = link_to 'Cancel', @group.new_record? ? ediofy_upload_path : ediofy_group_path(@group)
+          =f.button @group.new_record? ? 'Create' : 'Save', type: 'submit', class: 'btn button clearboth', id: 'link-submit-btn'

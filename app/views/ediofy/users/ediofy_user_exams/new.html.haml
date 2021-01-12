@@ -1,0 +1,13 @@
+%h1= t('.exam_mode', mode: (params[:mode] == 0 ? "Shuffle" : "Exam" ) )
+
+.content
+  = semantic_form_for [:ediofy, :user, @exam] do |f|
+    %h2= t('.select_tags')
+    .description= t('.select_tags_html', settings_path: ediofy_user_setting_path)
+    = f.inputs do
+      = f.input :exam_mode, label: "Revision Type", as: :radio, collection: EdiofyUserExam::EXAM_MODES.invert
+    %fieldset.inputs
+      = render 'ediofy/tags/selector'
+      %ol.tags= nested_tags @tags, f
+
+    = f.action :submit, label: 'Start Revision'

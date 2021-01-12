@@ -1,0 +1,8 @@
+<% if params[:invite_modal] %>
+  $('#invite_group_members .modal-body').find("#user-card-<%=j @user.id.to_s %>").replaceWith("<%=j render(partial: 'ediofy/groups/member_card', locals: {user: @user, actions: true, invite_modal: true}) %>")
+<% else %>
+  $('#group_members .modal-body').find("#user-card-<%=j @user.id.to_s %>").remove()
+<% end %>
+$('#related-content .members-size').html('<%=j @group.members.size.to_s %>')
+$('#related-content .group-first-6-members').html('<%=j render 'related_card_group_members', users: @group.users.first(6) %>')
+$('.modal-popover').popover({html: true})

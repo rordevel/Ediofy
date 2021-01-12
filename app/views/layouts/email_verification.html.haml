@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title= content_for?(:title) ? yield(:title) : "Ediofy"
+    = favicon_link_tag 'ediofy/favicon.png', rel: 'shortcut icon', type: 'image/png'
+    %meta{:content => "#{content_for?(:description) ? yield(:description) : "Ediofy"}", :name => "description"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+    %link{href: "https://use.typekit.net/yea4ovx.css", rel: "stylesheet", type: "text/css"}
+    %link{href: "https://fonts.googleapis.com/css?family=Cabin:400,400i,500,500i,600,600i,700", rel: "stylesheet", type: "text/css"}
+    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+    = csrf_meta_tags
+  %body
+    %header{class: 'mainHeader whiteBg'}
+      .logo
+        %a
+          =image_tag('ediofy/logo.png', alt: 'Ediofy')
+      .rightHeader.text-right
+        / .userAccount
+        /   %ul
+        /     %li.pointsLi
+        /       %a{href: '#'}
+        /         %span#points
+        /           = '0'
+        /         Points
+        %span.myAccount
+
+    .formareaOuter.pageContent.emailVarify
+      = yield

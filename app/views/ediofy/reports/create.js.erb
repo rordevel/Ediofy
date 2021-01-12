@@ -1,0 +1,3 @@
+$("#content-<%= @reportable.id %>-report-container").html("");
+$("#content-<%= @reportable.id %>-report-container").addClass('reported');
+$("#voting_<%= @reportable.class.name %>_<%= @reportable.id %> li.report-form-li").addClass('updown-arrow-seen');

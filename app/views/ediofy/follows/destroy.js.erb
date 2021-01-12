@@ -1,0 +1,7 @@
+$('.modal-body').find("#user-card-<%=j @user.id.to_s %> .unfollow").removeClass('unfollow').addClass('follow')
+    .html('<a data-remote="true" rel="nofollow" data-method="post" href="/follows?user_id=<%=j @user.id.to_s %>"><i class="fa fa-plus"></i>&nbsp; Follow</a>')
+<% if current_user.follows_selected? %>
+  $(".follows-container-<%= @user.id.to_s %>").html("<%=j manage_follow_link(@user) %>");
+<% else %>
+  $("#user-container-<%= @user.id.to_s %>").html("<%=j render('ediofy/follows/follow', :user => @user) %>");
+<% end %>

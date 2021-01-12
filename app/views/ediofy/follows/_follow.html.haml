@@ -1,0 +1,38 @@
+%a.hidden = user.full_name
+
+- show_less = false
+- if defined?(is_on_profile) && is_on_profile
+  - show_less = true
+
+- if current_user.following?(user)
+  =check_box_tag :followable_id, '1', true, id: 'user_'+user.id.to_s, onchange: "window.request_follow_unfolow(this)",data: { id: user.id, pending: showPending } 
+  %label{:for => 'user_'+user.id.to_s}
+    .labelOuter
+      .labelImage
+        .followsImgOuter
+          = link_to ediofy_user_path(user) do
+            -#= image_tag user.avatar.medium.url, alt: user, style: 'height: 110px'
+            = image_tag show_less ? user.avatar.url(:x_medium) : user.avatar.medium.url, alt: user
+        - if user != current_user
+          %i.fa.fa-check{"aria-hidden" => "true"}
+      - unless show_less
+        %p.userName
+          = link_to user.full_name.to_s.titleize, ediofy_user_path(user)
+          =# image_tag show_less ? user.avatar.url(:x_medium) : user.avatar.medium.url, alt: user
+        %p.shortDesc
+          = link_to user.specialty_name, ediofy_user_path(user) unless user.specialty_name.blank?
+- else
+  =check_box_tag :followable_id, '1', false, id: 'user_'+user.id.to_s, onchange: "window.request_follow_unfolow(this)",data: { id: user.id, pending: showPending }
+  %label{:for => 'user_'+user.id.to_s}
+    .labelOuter
+      .labelImage
+        .followsImgOuter
+          = link_to ediofy_user_path(user) do
+            = image_tag user.avatar.medium.url, alt: user
+            -#= image_tag show_less ? user.avatar.url(:x_medium) : user.avatar.medium.url, alt: user
+        %i.fa.fa-check{"aria-hidden" => "true"}
+      - unless show_less
+        %p.userName
+          = link_to user.full_name.to_s.titleize, ediofy_user_path(user)
+        %p.shortDesc
+          = link_to user.specialty_name, ediofy_user_path(user) unless user.specialty_name.blank?

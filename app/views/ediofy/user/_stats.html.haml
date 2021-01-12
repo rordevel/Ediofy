@@ -1,0 +1,57 @@
+%header#profile-head
+  #level-progress-tooltip
+    = t '.progress.current_level', :current_points => number_with_delimiter(@user.points.total), :next_level_points => number_with_delimiter(@user.points_to_next_level)
+    %br
+    = t '.progress.total_points', :points => number_with_delimiter(@user.points.total)
+
+  = render :partial => 'points_bar', :locals => { :user => @user }
+  %table.table
+    %tr
+      %td
+        .value= si_number @user.level
+        %figcaption= t '.figure.level', count: @user.level
+      %td
+        = link_to ediofy_user_questions_path(@user) do
+          .value= si_number @user.questions.count
+          %figcaption= t '.figure.questions', count: @user.questions.count
+      %td
+        = link_to this_week_ediofy_leaderboard_path do
+          .value= si_number @user.rank_this_week
+          %figcaption= t '.figure.weekly_rank', count: @user.rank_this_week    
+    %tr  
+      %td
+        = link_to ediofy_user_badges_path(@user) do
+          .value= si_number @user.badges.count
+          %figcaption= t '.figure.badges', count: @user.badges.count
+      %td
+        = link_to ediofy_user_media_path(@user) do
+          .value= si_number @user.media.count
+          %figcaption= t '.figure.media', count: @user.media.count
+      %td
+        = link_to this_month_ediofy_leaderboard_path do
+          .value= si_number @user.rank_this_month
+          %figcaption= t '.figure.monthly_rank', count: @user.rank_this_month    
+    %tr  
+      %td
+        = link_to ediofy_user_friends_path(@user) do
+          .value= si_number @user.friends.count
+          %figcaption= t '.figure.friends', count: @user.friends.count  
+      %td
+        = link_to '#ediofy_user_collections_path(@user)' do
+          .value= si_number @user.questions.count
+          %figcaption= t '.figure.collections', count: @user.questions.count
+      %td
+        = link_to all_time_ediofy_leaderboard_path do
+          .value= si_number @user.rank_all_time
+          %figcaption= t '.figure.all_time_rank', count: @user.rank_all_time    
+
+  %nav#nav-profile
+    %ul.nav.nav-tabs
+      %li{:class => "#{'active' if current_page?(ediofy_user_activities_path(@user))}"}= navigation_link_to t('.navigation.activities'), ediofy_user_activities_path(@user)
+      %li{:class => "#{'active' if current_page?(ediofy_user_questions_path(@user))}"}= navigation_link_to t('.navigation.questions'), ediofy_user_questions_path(@user)
+      %li{:class => "#{'active' if current_page?(ediofy_user_media_path(@user))}"}= navigation_link_to t('.navigation.media'), ediofy_user_media_path(@user)
+      %li{:class => "#{'active' if current_page?(ediofy_user_user_collections_path(@user))}"}= navigation_link_to t('.navigation.collections'), ediofy_user_user_collections_path(@user)
+      %li{:class => "#{'active' if current_page?(ediofy_user_badges_path(@user))}"}= navigation_link_to t('.navigation.badges'), ediofy_user_badges_path(@user)
+      %li{:class => "#{'active' if current_page?(ediofy_user_friends_path(@user))}"}= navigation_link_to t('.navigation.friends'), ediofy_user_friends_path(@user)
+      %li{:class => "#{'active' if current_page?(ediofy_user_points_path(@user))}"}= navigation_link_to t('.navigation.points'), ediofy_user_points_path(@user)
+          

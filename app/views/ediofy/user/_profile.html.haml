@@ -1,0 +1,30 @@
+.user-info
+  %h1.name= @user
+  - if @user.university_group.present? && with_privacy(@user, Setting::PRIVACY_STEALTH)
+    .groups
+      = @user.hospital
+      - if @user.hospital.present? && @user.university_group.present?
+        %span.div /  
+      = link_to @user.university_group, [:ediofy, @user.university_group]
+  - if @user.biography.present? && with_privacy(@user, Setting::PRIVACY_STEALTH)
+    .bio= @user.biography
+  - if @user.website? && with_privacy(@user, Setting::PRIVACY_STEALTH)
+    .website-link= link_to_url @user.website
+  %ol.social-links
+    - if with_privacy(@user, Setting::PRIVACY_STEALTH)
+      - if @user.twitter?
+        %li= link_to "twitter", @user.twitter_url, class: 'twitter', title: t('ui.social.twitter')
+      - if @user.facebook?
+        %li= link_to "facebook", @user.facebook_url, class: 'facebook', title: t('ui.social.facebook')
+      - if @user.google?
+        %li= link_to "google plus", @user.google_url, class: 'google', title: t('ui.social.google')
+      - if @user.linkedin?
+        %li= link_to "linkedin", @user.linkedin_url, class: 'linkedin', title: t('ui.social.linkedin')
+      - if @user.website?
+        %li= link_to "website", @user.website, class: 'website', title: t('ui.social.website')
+  .profile-photo
+    - if @user != current_user
+      = manage_friendship_link @user
+    .image
+      = with_privacy(@user, Setting::PRIVACY_STEALTH) do
+        = image_tag @user.avatar.profile.url, size: "100x100", alt: @user

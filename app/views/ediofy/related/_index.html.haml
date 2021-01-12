@@ -1,0 +1,18 @@
+- unless @related_contents.blank?
+  - @related_contents.each do |related_content|
+    - if related_content.class.name == "Link" && params[:return_type] === "link"
+      - link = links.select{|u| u.id == related_content["id"]}.first
+      .main-related.clearboth.main-related-sidebar
+        =render partial: 'ediofy/shared/link_card', locals: { related: true, link: link} unless link.blank?
+    - elsif related_content.class.name == "Question"  && params[:return_type] === "questions"
+      - question = questions.select{|u| u.id == related_content["id"]}.first
+      .main-related.clearboth.main-related-sidebar
+        =render partial: 'ediofy/shared/question_card', locals: { related: true, question: question} unless question.blank?
+    - elsif related_content.class.name == "Media"  && params[:return_type] === "media"
+      - medium = related_content unless media.blank?
+      .main-related.clearboth.main-related-sidebar
+        =render partial: 'ediofy/shared/media_card', locals: { related: true, media: medium} unless media.blank?
+    - elsif related_content.class.name == "Conversation"  && params[:return_type] === "conversations"
+      - conversation = conversations.select{|c| c.id == related_content["id"]}.first
+      .main-related.clearboth.main-related-sidebar
+        =render partial: 'ediofy/shared/conversation_card', locals: { related: true, conversation: conversation} unless conversation.blank?

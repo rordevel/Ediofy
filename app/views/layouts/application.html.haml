@@ -1,0 +1,133 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1", :name => "viewport"}/
+    %meta{:content => "website", :property => "og:type"}
+    %meta{:content => "Ediofy", :property => "og:site_name"}
+    %meta{:content => "http://ediofy.com", :property => "og:url"}
+    %meta{:content => og_image_path , :property => "og:image"}
+    %meta{:content => "Ediofy is an online educational platform foth professionals and students to connect, learn and share their knowledge.", :property => "og:description"}
+    %title= content_for?(:title) ? yield(:title) : "Ediofy"
+    = favicon_link_tag 'ediofy/favicon.png', rel: 'shortcut icon', type: 'image/png'
+    %meta{:content => "#{content_for?(:description) ? yield(:description) : "Ediofy"}", :name => "description"}
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+    %link{href: "https://use.typekit.net/yea4ovx.css", rel: "stylesheet", type: "text/css"}
+    %link{href: "https://fonts.googleapis.com/css?family=Cabin:400,400i,500,500i,600,600i,700", rel: "stylesheet", type: "text/css"}
+    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+    = csrf_meta_tags
+    :javascript
+      (function(h,o,t,j,a,r){
+      h.hj=h.hj||function()
+
+      {(h.hj.q=h.hj.q||[]).push(arguments)}
+      ;
+      h._hjSettings=
+
+      {hjid:927398,hjsv:6}
+      ;
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    = google_analytics if Rails.env.production?
+  %body
+    %header{class: 'mainHeader whiteBg'}
+      .logo{style: 'min-width: 130px'}
+        %a
+          =link_to(image_tag('ediofy/logo.png', alt: 'Ediofy'), ediofy_root_path)
+      .rightHeader.text-right
+        .mobileNavOuter
+          %ul.list-inline
+            - if user_signed_in? && is_mobile?
+              %li.pointsLi
+                %a{href: '#'}
+                  %span#pointss
+                    - total_seconds = current_user.cpd_times_in_window.total > 0 ? current_user.cpd_times_in_window.total : 0
+                    = total_seconds > 0 ? humanize_seconds(total_seconds) : 0
+                  CPD Time
+            %li{:class => ("hide-menu" unless user_signed_in?)}
+              %span.mobileNav
+                .bar1
+                .bar2
+                .bar3
+        - if user_signed_in?
+          .userAccount#home-navlist
+            %ul
+              - if current_user.on_boarding_process_completed
+                %li
+                  .input-group.stylish-input-group
+                    = semantic_form_for('', :url => ediofy_root_path, :html => {class: 'input-group stylish-input-group search-form', :method => :get, :role => 'form'}) do |f|
+                      %span.input-group-addon
+                        = f.button :submit, value: "Search" do
+                          %i.fa.fa-search{"aria-hidden" => "true"}
+                      %span.tagger.input.required.stringish.top-bar-search
+                        -#= f.input :q, as: :tagger, label: false, input_html: { id: 'myInput', :placeholder => 'Search by keywords or #tag', data: { :'tagger-source' => ediofy_autocomplete_tags_url, :'tagger-hint' => 'Enter some tags', :'no-results' => 'No matching tags', :'tagger-initial' => @tags } }
+                        -#= f.input :q, as: :tagger, label: false, input_html: { id: 'myInput', :placeholder => 'Search by keywords or #tag'}
+                        = "<span class='tagger input required stringish'><li class='tagger input required stringish' id='q_input'><ul class='token-input-list-facebook'><li class='token-input-input-token-facebook'><input autocomplete='off' autocapitalize='off' style='width: 154px;' name='[q]' id='q' placeholder='Search by keywords or #tag' type='text'><tester style='position: absolute; top: -9999px; left: -9999px; width: auto; font-size: 12px; font-family: 'proxima-soft'; font-weight: 400; letter-spacing: 0px; white-space: nowrap;'>Search for a subject</tester></li></ul></li></span>".html_safe
+                %li{class: active_tab == "learn" ? "active" : ''}
+                  %a{:href => "#{ediofy_root_path}"} Learn
+                %li{class: active_tab == "groups" ? "active" : ''}
+                  = link_to 'Groups', ediofy_groups_path, id: 'groups'
+                %li{class: active_tab == "share" ? "active" : ''}
+                  = link_to ediofy_upload_path do
+                    %i.fa.fa-share-square-o{"aria-hidden" => "true"}
+                    Share
+                %li{class: active_tab == "conversation" ? "active" : ''}
+                  = link_to 'Conversations', ediofy_conversations_path
+              - unless is_mobile?
+                %li.pointsLi
+                  %a{href: cpd_report_ediofy_user_path(current_user)}
+                    %span#points
+                      - if current_user.cpd_times.count > 0 
+                        = Time.at(current_user.cpd_times_in_window.total).utc.strftime("%H:%M") 
+                    CPD Time
+
+          %span.myAccount
+            - if user_signed_in?
+              %a{href: is_mobile? ? '#' : ediofy_user_path(current_user)}
+                = image_tag current_user.avatar.x_small.url, alt: 'man-icon'
+                - if current_user.unread_notifications.count > 0
+                  %span.onprofileLink.notifyCount
+                    = current_user.unread_notifications.count
+              .myaccountInner.arrow_box
+                %ul
+                  %li
+                    = link_to 'Ghost Mode', 'javascript:void(0)'
+                    .on-off-switch.on-off-mode
+                      .checkbox-container.user_ghost_mode_top_menu
+                        =check_box_tag 'user_ghost_mode_top_menu', current_user.ghost_mode ? 1:0, current_user.ghost_mode, class: 'custom-switch'
+                  %li{style: 'border-bottom:none;'}= link_to('User Profile', ediofy_user_path(current_user), style:'color:#aac7dd;')
+                  %li
+                    = link_to ediofy_user_notifications_path do
+                      Notifications
+                      - if current_user.unread_notifications.count > 0
+                        %span.notifyCount
+                          = current_user.unread_notifications.count
+                  %li= link_to 'Your Connections', ediofy_follows_path(request.query_parameters.merge({:follow_type => 'mine'}))
+                  %li= link_to 'Account Settings', ediofy_user_setting_path
+                  %li= navigation_link_to 'Sign Out', destroy_user_session_path, :method=>'delete'
+            - else
+              = link_to 'Sign In', new_user_session_path
+              = link_to 'Register', new_user_registration_path
+    .container
+      .loading
+      =# render 'layouts/messages'
+    .managePadding
+    = yield
+    %footer.footer{class: (hide_footer_class)}
+      .container-fluid
+        .row
+          .foot-nav.col-md-6.text-left
+            %ul
+              %li
+                = link_to 'About Ediofy', about_path
+              %li
+                = link_to 'Help  FAQs', faq_path
+              %li
+                = link_to 'Terms & conditions', ediofy_terms_path
+              %li
+                = link_to 'Privacy Policy', privacy_path
+          .foot-copy.col-md-6.text-right
+            %p &#xA9; 2018 Ediofy Pty Ltd

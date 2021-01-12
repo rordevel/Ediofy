@@ -1,0 +1,113 @@
+- alphabet = ('A'..'Z').to_a
+.pageContent
+  %section.content-page-video.content-page-img.manageContentMargin
+    .container
+      .row
+        .col-md-8
+          .contentAreaBox
+            .boxOuterWhite.publish-underline
+              - class_name = @question.class.name.downcase
+              .publishedAt.brd-bottom.margin-bottom-25px
+                .row
+                  .col-sm-7.col-xs-7.col-md-7.vid-tit.wid-blk
+                    .row
+                      .col-sm-12.col-xs-12.auth-name.commet-icon.col-md-12
+                        = link_to @question.user.ghost_mode || @question.private? ? "#" : ediofy_user_path(@question.user) do
+                          = image_tag @question.user.ghost_mode || @question.private? ? @question.user.avatar.default_url : @question.user.avatar.x_small.url
+                        .authinfoWrapName
+                          %h6
+                            = link_to @question.user.ghost_mode || @question.private? ? "Anonymous" : @question.user.complete_name.to_s.titleize, @question.user.ghost_mode || @question.private? ? "#" : ediofy_user_path(@question.user)
+                            - if current_user != @question.user && !(@question.user.ghost_mode || @question.private?)
+                              %span.button_flow{class: "follows-container-#{@question.user.id}"}
+                                = manage_follow_link(@question.user)
+                          %p= @question.user.ghost_mode || @question.private? ? "Ghost mode" : @question.user.specialty_name
+                    .row
+                      .col-sm-12.col-xs-12.col-md-12.wid-blk.pub-pd
+                        %p.margin-top-25px
+                          %span= @question.created_at.strftime("Published on %B %d, %Y")      
+                  .col-sm-5.col-xs-5.col-md-5.text-right.wid-blk.pub-pd.conver
+                    = render 'ediofy/groups/add_to_playlist',  id: 'add_content_to_playlist', content:@question, form_action: '/'
+                    - if (user_signed_in? && @question.group_exclusive)
+                      = link_to "Back to group", ediofy_group_path(@question.groups.first), class: 'btn'                   
+                    - if (user_signed_in? && @question.group_exclusive && current_user == @question.user )
+                      .span.link.addToPlaylistBtn.clrpink.btn.button{'data-target' => '#add_content_to_playlist', 'data-toggle'  => 'modal'}
+                        Add to playlist
+                      - if user_signed_in? && current_user == @question.user
+                        %a{href: send("edit_ediofy_#{class_name}_path", @question), class: 'btn button secoundryBtn edit-me follow-btn clrpink'}
+                          %i.fa.fa-pencil
+                          Edit question
+                                     
+              .row
+                .col-sm-12.col-xs-12.col-md-12.vid-tit.wid-blk
+                  %h1=@question.title
+                .col-sm-12.col-xs-12.col-md-12.vid-tit.wid-blk
+                  %p=@question.body
+              - if @images.count > 0
+                .que-slider
+                  - if @images.count == 1
+                    = image_tag @images.first.large_url
+                  - else
+                    .banner-slider
+                      - @images.each do |image|
+                        %div
+                          = image_tag image.large_url
+                    .inner-slider
+                      - @images.each do |image|
+                        .pad
+                          = image_tag image.small_url
+              -#= render partial: "ediofy/shared/detail", locals:{record: @question}
+              #exam-question-answer
+                = render partial: @review ? 'review' : 'form', locals: { alphabet: alphabet}
+              .row.brd-bot.ex-pd
+                .col-sm-6.col-xs-6.col-md-6.soc-me.wid-blk
+                  -unless @question.group_exclusive? && !@question.groups.first.ispublic?
+                    = render 'ediofy/groups/share_to_group', id: 'share_question_to_group', form_action: share_to_group_ediofy_user_ediofy_user_exam_user_exam_question_path
+
+                    %p SHARE:
+                    %ul
+                      %li
+                        .span.link.btn.button.secoundryBtn.edit-me.group.follow-btn.clrpink{'data-target' => '#share_question_to_group', 'data-toggle' => 'modal'}
+                          Share to group
+                      %li
+                        = facebook_share(answer_ediofy_question_path(@question), @question.title)
+                      %li
+                        = twitter_share(answer_ediofy_question_path(@question), @question.title)
+                      %li
+                        = linkedin_share(answer_ediofy_question_path(@question), @question.title)
+
+                .col-sm-3.col-xs-3.col-md-3
+                  = render 'ediofy/playlists/playlist_links', locals: { playlist: @playlist, previous_playlist_content: @previous_playlist_content, next_playlist_content: @next_playlist_content } if @playlist
+
+                .col-sm-3.col-xs-3.col-md-3.text-right.rep-lik-un.wid-blk
+                  = render 'ediofy/shared/toolbar/votable', votable: @question
+              .brd-bottom{ id: ("content-#{@question.id}-report-container"),  class: ('reported' if @question.reports.by(current_user).exists?) }
+              .row.clearfix.pad-max-top
+                -unless @question.group_exclusive? && !@question.groups.first.ispublic?
+                  .col-md-6
+                    = link_to duplicate_ediofy_question_path(@question), class: "btn button clearboth edit-me clrpink brd que-btn wid-half" do
+                      %span.pad-rig>
+                        = image_tag 'ediofy/duplicate-question.png'
+                      Duplicate and create new question
+                  .col-md-6
+                    = link_to new_ediofy_question_path, class: "btn button clearboth edit-me clrpink brd que-btn wid-half" do
+                      %span.pad-rig>
+                        = image_tag 'ediofy/question-icon.png'
+                      Create a new question
+            = render 'ediofy/shared/comments/section', commentable: @question
+        .col-md-4
+          = render 'ediofy/playlists/miniplaylist', locals: { playable: @question } if @playlist
+          .row
+            .rel-con
+              #related-content.slid-con-tab
+                %ul#related-content-tabs.nav.nav-tabs
+                  %li
+                    %a{"data-url" => ediofy_related_index_path({type: 'questions', return_type: 'media', id: @question.id}), "data-link" => 'media', :href => "#Media"} Media
+                  %li.active
+                    %a{"data-url" => ediofy_related_index_path({type: 'questions', return_type: 'questions', id: @question.id}), "data-link" => 'questions', :href => "#Questions"} Questions
+                  %li
+                    %a{"data-url" => ediofy_related_index_path({type: 'questions', return_type: 'conversations', id: @question.id}), "data-link" => 'conversations', :href => "#Conversations"} Conversations
+                .tab-content.infinite-table
+                  .items
+                  .load-more
+                %br
+          

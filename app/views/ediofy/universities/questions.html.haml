@@ -1,0 +1,12 @@
+= render 'university_header'
+
+.content
+
+  .question-list
+    .items-header
+      %h2= t '.title'
+    - if @questions.any?
+      %ol.question-items= render partial: 'ediofy/questions/question_item', collection: @questions, as: :question
+      = paginate @questions
+    - else
+      .no-items= t '.no_items'

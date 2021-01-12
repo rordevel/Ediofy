@@ -1,0 +1,19 @@
+%li.university-item
+  = link_to ediofy_university_path(university), class: 'logo' do
+    = image_tag university.badge.thumb.url, alt: university.name
+  %ul.stats
+    %li
+      .value= number_with_delimiter university.users.count
+      .label= t '.users'
+    %li
+      .value= number_with_delimiter university.questions.count
+      .label= t '.questions'
+    %li
+      .value= number_with_delimiter university.media.count
+      .label= t '.media'
+    %li
+      .value= number_with_delimiter university.rating
+      .label= '.points'
+  .info
+    %h2.name= university.name
+    = link_to t('.view'), ediofy_university_path(university), class: 'button'

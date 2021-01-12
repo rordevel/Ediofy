@@ -1,0 +1,17 @@
+#for
+= semantic_form_for('', :url => ediofy_root_path, :html => {:method => :get, :role => 'form'}) do |f|
+  .yourintrestFilter
+    %ul.list-inline.text-right
+      - if (controller_name == 'groups') && ( (Group.find(params[:id]).owners.include? current_user) || (Group.find(params[:id]).admins.include? current_user) )
+        %li.archivedcb
+          .sortBy.text-right
+            %label#archived_label Show archived
+            = check_box_tag 'archived_c', 'archived'
+      %li
+        .sortBy.text-right
+          %label Type:
+          = content_type_select(nil, false)
+      %li
+        .sortBy.text-right
+          %label Sort by:
+          = sort_by_select(:sort_by, false)

@@ -1,0 +1,357 @@
+$(function() {
+  if ($('#leave-media-page').length) {
+    $("#leave-media-page").unbind("click");
+  }
+  if ($("#top_media_file_caption").length) {
+    $('.showHideOnUpload').show();
+  } else {
+    $('.showHideOnUpload').hide();
+  }
+  // $("#media_files").sortable({
+  //   revert: true,
+  //   stop: function(event, ui) {
+  //     $('.ui-sortable li:visible').each(function(index){
+  //       $(this).find("input[name='media[media_files_attributes][][position]']").val(index+1);
+  //     });
+  //   }
+  // });
+  // $("#upload_media").change(function(){
+  //   setS3Options('video');
+  // })
+  $("#s3-uploader-media-files").S3Uploader({
+    progress_bar_target: $('#media_files_progress_bar .js-progress-bars'),
+    allow_multiple_files: false,
+    before_add: function(file) {
+      return validate_attachement(file, <%= MediaFile::VALID_EXTENTIONS.to_json %>)
+    },
+    remove_completed_progress_bar: false
+  });
+
+  $('#s3-uploader-media-files').bind('s3_uploads_start', function(e) {
+    disable_upload_fields();
+    $("#media_files_progress_bar").show();
+    $("#file_upload").hide();
+    
+    $('.circularProgress').attr('class', 'circularProgress --0');
+    $('.circularProgress__overlay .progressPerText .perText').text(0+'%');
+
+    $("#media_files_progress_bar .progress .bar").css("width","0");
+  });
+
+  $('#s3-uploader-media-files').bind('s3_upload_complete', function(e) {
+    afterS3UploadComplete();
+  });
+  $( "#upload_media_holder, #top_media_file_caption" ).click(function() {
+    $( "#upload_media" ).trigger( "click" );
+  });
+});
+
+function afterS3UploadComplete() {
+  $("#file_upload").show();
+  enable_upload_fields();
+  $("#media_files_progress_bar").hide();
+  $(".displayCell").addClass('UploadedData');
+  $('.showHideOnUpload').hide();
+
+  $('.circularProgress').attr('class', 'circularProgress --0');
+  $('.circularProgress__overlay .progressPerText .perText').text(0+'%');
+
+  $("#media_files_progress_bar .progress .bar").css("width","0");
+}
+
+/*************  Audio player for new upload *************/
+var getProgressBarClickInfo, getTime, loadAudioPlayer, updateVolumeBar;
+
+loadAudioPlayer = function() {
+  var duration, maxtime, play_button, player, progress_bar, time;
+  player = $('#content-audio-player')[0];
+  if (player) {
+    progress_bar = $('#progressbar');
+    time = $('#currentTime');
+    maxtime = $('#duration');
+    play_button = $('.playerCOntroller .play i');
+    progress_bar.progressbar({
+      value: player.currentTime
+    });
+    $('.audioPlayer').show();
+    duration = player.duration;
+    progress_bar.progressbar('option', {
+      'max': duration
+    });
+    maxtime.text(getTime(duration));
+
+    player.addEventListener('timeupdate', (function() {
+      progress_bar.progressbar('value', player.currentTime);
+      time.text(getTime(player.currentTime));
+    }), false);
+
+    player.addEventListener('ended', (function() {
+      play_button.toggleClass('fa-pause');
+      play_button.toggleClass('fa-play');
+    }), false);
+
+    progress_bar.click(function(e) {
+      var info;
+      info = getProgressBarClickInfo($(this), e);
+      player.currentTime = player.duration / info.max * info.value;
+    });
+    play_button.click(function() {
+      player[player.paused ? 'play' : 'pause']();
+      $(this).toggleClass('fa-pause', !player.paused);
+      $(this).toggleClass('fa-play', player.paused);
+    });
+    $('.playerCOntroller .forward i').on('click', function(event) {
+      event.preventDefault();
+      return player.currentTime += 3;
+    });
+    $('.playerCOntroller .backward i').on('click', function(event) {
+      event.preventDefault();
+      return player.currentTime -= 3;
+    });
+    $('.audioController .volume-down i').on('click', function(event) {
+      event.preventDefault();
+      if (player.volume > 0.1) {
+        player.volume -= 0.2;
+      }
+      return updateVolumeBar(player.volume);
+    });
+    $('.audioController .volume-up i').on('click', function(event) {
+      event.preventDefault();
+      if (player.volume < 1) {
+        player.volume += 0.2;
+      }
+      return updateVolumeBar(player.volume);
+    });
+    return $('.audioController .volumn-progressbar span').on('click', function(event) {
+      var volume;
+      volume = $(this).data('position') / 5.0;
+      player.volume = volume;
+      return updateVolumeBar(volume);
+    });
+  }
+};
+
+updateVolumeBar = function(volume) {
+  var bar, bars, i, index, len, results;
+  bars = $('.audioController .volumn-progressbar span');
+  bars.removeClass('active');
+  results = [];
+  for (index = i = 0, len = bars.length; i < len; index = ++i) {
+    bar = bars[index];
+    if (volume * 5 >= $(bar).data('position')) {
+      results.push($(bar).addClass('active'));
+    } else {
+      results.push(void 0);
+    }
+  }
+  return results;
+};
+
+getTime = function(t) {
+  var m, s;
+  m = ~~(t / 60);
+  s = ~~(t % 60);
+  return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+};
+
+getProgressBarClickInfo = function(progress_bar, e) {
+  var max, offset, value, x, y;
+  offset = progress_bar.position();
+  x = e.pageX - offset.left;
+  y = e.pageY - offset.top;
+  max = progress_bar.progressbar('option', 'max');
+  value = x * max / progress_bar.width();
+  return {
+    x: x,
+    y: y,
+    max: max,
+    value: value
+  };
+};
+/**********************************************************/
+function delete_related_media_content(elem) {
+  console.log('elem', elem);
+  $('.displayCell').removeClass('videoUploadData');
+  $("#media_files .add-img").each(function(index){
+    $(this).hide();
+    $(this).find(".destroy").val(1);
+  });
+  $(".upload-data #file_upload").html('<div id="top_media_file_caption" onclick=$("#upload_media").trigger("click"); ><%= image_tag "ediofy/upload-icon.png" %><h4>Upload</h4><h6>Drag a file here, or<br><a href="#">browse</a> for a file to upload.</h6></div>');
+  if ($(".add-img:visible").size() > 0 && $(".add-img:visible").size() < 4 ) {
+    $(".extra-img-add-btn").show();
+  } else {
+    $(".extra-img-add-btn").hide();
+    $('.showHideOnUpload').show();
+  }
+  toggle_form_file_accept_extentions();
+  toggle_cancel_href(elem, true);
+}
+function delete_top_media_file(ele) {
+  $('.displayCell').removeClass('videoUploadData');
+  var add_img = $("#media_files .add-img:visible").first();
+  $(add_img).hide();
+  $(add_img).find(".destroy").val(1);  
+  toggle_add_more_images_holder();
+  toggle_cancel_href(ele);
+}
+function delete_media_file(ele){
+  $(ele).parents(".add-img").hide();
+  $(ele).parents(".add-img").find(".destroy").val(1);
+  $('.ui-sortable .add-img:visible').each(function(index){
+    $(this).find("input[name='media[media_files_attributes][][position]']").val(index+1);
+  });
+  toggle_cancel_href(ele);
+  toggle_add_more_images_holder();
+}
+
+function toggle_cancel_href(ele, force_bind) {  
+  var id = $(ele).parents(".add-img").find("input[name='media[media_files_attributes][][id]']");
+  if ($(id).length || force_bind) {
+    if ($(id).val() != "" || force_bind) {
+      $("#leave-media-page").attr('href', 'javascript:void(0)');
+      $('#leave-media-page').bind("click", function(){
+        var elm;
+        elm = $(this);
+        prompt_cancel_popup_box(elm);
+      });
+    }
+  } else {
+    $("#leave-media-page").unbind("click");
+    $("#leave-media-page").attr('href', $("#leave-media-page").attr('redirect_url'));
+  }
+}
+
+function toggle_add_more_images_holder() {
+  if (!($("#content-audio-player").length || $("#content-video-player").length || $("embed").length)) {
+   if ($("#media_files .add-img:visible").length) {
+      var img_src = $("#media_files .add-img:visible").first().find('img.large-preview-url').attr('src');
+      $(".upload-data #file_upload").find('img').attr('src', img_src);
+    } else {
+      $(".upload-data #file_upload").html('<div id="top_media_file_caption" onclick=$("#upload_media").trigger("click"); ><%= image_tag "ediofy/upload-icon.png" %><h4>Upload</h4><h6>Drag a file here, or<br><a href="#">browse</a> for a file to upload.</h6></div>');
+    } 
+  }
+  if ($(".add-img:visible").size() > 0 && $(".add-img:visible").size() < 4 ) {
+    $(".extra-img-add-btn").show();
+  } else if($(".add-img:visible").size() < 1 && ($("#content-audio-player").length || $("#content-video-player").length || $("embed").length)) {
+    $(".extra-img-add-btn").show();
+  } else {
+    $(".extra-img-add-btn").hide();
+    $('.showHideOnUpload').show();
+  }
+  toggle_form_file_accept_extentions();
+}
+
+function toggle_form_file_accept_extentions(){
+  if ($("#media_files .add-img:visible").length && $("input[name='media[media_files_attributes][][media_type]']:last").val() == "image" ) {
+    $("#s3-uploader-media-files input[name=file]").attr("accept", ".jpg, .jpeg, .png, .gif");
+  } else {
+    $("#s3-uploader-media-files input[name=file]").attr("accept", ".pdf, .jpg, .jpeg, .png, .gif, .mp4, .mpg, .m4v, .mov, .mkv, .avi, .ogg, .ogv, .wmv, .webm, .3gp, .3g2, .wav, .mp3, .m4a, .aac");
+  }
+}
+function disable_upload_fields(){
+  $("#media-upload-submit").addClass('upload-in-progress');
+  $("#media-upload-submit").attr('disabled', 'disabled');
+  $("#upload_media_holder").attr('disabled', 'disabled');
+}
+function enable_upload_fields(){
+  $("#media-upload-submit").removeClass('upload-in-progress');
+  if ($('#media_title').val() != '' || $('#media_description').val() != '' || $('#ignored').val() != '' ) {
+    $("#media-upload-submit").removeAttr('disabled');
+  }
+  $("#upload_media_holder").removeAttr('disabled');
+}
+function validate_attachement(file, allowed_extentions){
+  ext = file.name.split('.').pop().toLowerCase();
+  if ($(".add-img:visible").size() > 0 && !($.inArray(ext, <%= MediaFile::VALID_IMAGE_EXTENTIONS.to_json %>) != -1) ) {
+    new PNotify({
+      title: 'Wrong File',
+      text: 'You can upload only image files.',
+      type: 'error'
+    });
+    return false;
+  } else if ($(".add-img:visible").size() >= 4 ) {
+    new PNotify({
+      title: 'Max Upload Error',
+      text: 'You can upload maximum 4 images.',
+      type: 'error'
+    });
+    return false;
+  }
+  if ($.inArray(ext, allowed_extentions) != -1) {
+    // if (file.size > 2000000){
+    //   new PNotify({
+    //     title: 'Larger File',
+    //     text: 'Maximum file size is 2MB',
+    //     type: 'error'
+    //   });
+    //   return false;
+    // }
+    // if ($.inArray(ext, <%= MediaFile::VALID_VIDEO_EXTENTIONS.to_json %>) != -1) {      
+    //   setS3Options('video');
+    // } else {
+    //   setS3Options('image');
+    // }
+    // return true;
+    <% url = Rails.application.routes.url_helpers %>
+    var s3_form_updated = false;
+    var upload_type = "image"
+    if ($.inArray(ext, <%= MediaFile::VALID_VIDEO_EXTENTIONS.to_json %>) != -1) {
+      upload_type = "video";
+    } else if ($.inArray(ext, <%= MediaFile::VALID_AUDIO_EXTENTIONS.to_json %>) != -1) {
+      upload_type = "audio";
+    }
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: '<%= url.ediofy_aws_s3_access_token_path %>',
+      data: {upload_type: upload_type},
+      success: function(json) {
+        
+        if (upload_type == "video") {
+          $("#s3-uploader-media-files").attr('action', 'https://<%= ENV["AMAZON_S3_BUCKET_VIDEO_INPUT"] %>.s3.amazonaws.com/');
+        } else {
+          $("#s3-uploader-media-files").attr('action', 'https://<%= ENV["AMAZON_S3_BUCKET"] %>.s3.amazonaws.com/');
+        }
+        
+        $("#s3-uploader-media-files input[name=policy]").val(json.policy);
+        $("#s3-uploader-media-files input[name=signature]").val(json.signature);
+        $("#s3-uploader-media-files input[name=utf8]").remove();
+        $("#s3-uploader-media-files input[name='X-Requested-With']").remove();
+
+        s3_form_updated =  true;
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert(errorThrown+': An error occurred...');
+        s3_form_updated =  false;
+      }
+    });
+    return s3_form_updated;
+  }
+  else {
+    new PNotify({
+      title: 'Wrong Extension',
+      text: 'Allowed extensions are ' + allowed_extentions.join(", "),
+      type: 'error'
+    });
+  }
+}
+
+function prompt_cancel_popup_box(elm) {
+  bootbox.confirm({
+    title: 'Leave Content',
+    message: 'Are you sure you want to leave this page? Your uploaded media will not be saved.',
+    buttons: {
+      cancel: {
+        label: 'No'
+      },
+      confirm: {
+        label: 'Yes'
+      }
+    },
+    callback: function(result) {
+      if (result) {
+        window.location = location.protocol + '//' + location.host + $(elm).attr('redirect_url');
+      }
+    }
+  });
+}

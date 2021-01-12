@@ -1,0 +1,9 @@
+<% people_results.each do |result| %>
+  $('#people-results-listing .items').append('<%= j render partial: "ediofy/shared/results/people/#{result.class.name.downcase}", locals: { related: false, result.class.name.downcase.to_sym => result } %>');
+<% end %>
+
+<% if has_more_people %>
+  $('#people-results-listing .pagination').html('<%= link_to_next_results_page('people') %>');
+<% else %>
+  $('#people-results-listing .pagination').html(null);
+<% end %>

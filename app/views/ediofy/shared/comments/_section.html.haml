@@ -1,0 +1,30 @@
+- if user_signed_in?
+  .main-comment
+    .row.dis-inline.comment-sort
+      .col-sm-5.col-xs-5.col-md-5.vid-tit.wid-blk
+        %h6
+          %i.fa.fa-comments.pad-rig{ 'aria-hidden' => 'true' }>
+          %span#comments-count
+          %span#comments-caption
+      .col-sm-4.col-xs-4.col-md-4.text-left.wid-blk
+        .sortBy.comm-sortby
+        - if params[:group_id].present?
+          %p
+            = link_to "Group comments" ,  params.permit(:all_comments, :group_id, :id).merge(all_comments: false), class: ("active" if params["all_comments"] != "true") 
+            = " | "
+            = link_to "Public comments ",  params.permit(:all_comments, :group_id, :id).merge(all_comments: true),  class: ( "active" if params["all_comments"] == "true") 
+      .col-sm-3.col-xs-3.col-md-3.text-right.wid-blk
+        .sortBy.comm-sortby
+          %label Sort by:
+          %select.form-control{ style: "background-image: url('#{image_url('ediofy/down4.png')}')" }
+            %option Latest
+            %option Top Rated
+            %option Most Popular
+            %option Trending
+    = render partial: 'ediofy/comments/form', locals: { commentable: commentable }
+  #results-listing{ 'data-url' => polymorphic_path([:ediofy, commentable, :comments],  :all_comments => params["all_comments"] )  }
+    .brd-bottom
+    .infinite-table
+      .items
+      .text-center
+        .pagination

@@ -1,0 +1,64 @@
+.pageContent
+  %section.content-page-video.content-page-img.manageContentMargin
+    .container
+      .row
+        .col-md-8
+          .contentAreaBox
+            .boxOuterWhite
+
+              .row
+                .col-sm-8.col-xs-8.auth-name.commet-icon.col-md-8.vid-tit.wid-blk
+                  = link_to ediofy_user_path(@announcement.user) do
+                    = image_tag @announcement.user.avatar.small.url
+                  .authinfoWrapName
+                    %h6
+                      = link_to @announcement.user.complete_name.to_s.titleize, ediofy_user_path(@announcement.user)
+                      - if current_user != @announcement.user && !@announcement.user.ghost_mode
+                        %span.button_flow{class: "follows-container-#{@announcement.user.id}"}
+                          = manage_follow_link(@announcement.user)
+                    %p= @announcement.user.specialty_name
+
+                .col-sm-4.col-xs-4.col-md-4.text-right
+                  .announcement-head.green
+                    %b
+                      Announcements
+                      = raw '&nbsp;'
+                      %i.fa.fa-bullhorn.announcement-icon.green
+
+              %br
+              %p
+              .row
+                .col-sm-12.col-xs-12.col-md-12.vid-tit.wid-blk
+                  %h4
+                    = link_to @announcement.group.title, ediofy_group_path(@announcement.group.id)
+
+              %br
+              .con-del
+                = @announcement.text
+
+              .row.publishedAt
+                %br
+                .col-sm-12.col-xs-12.col-md-12.wid-blk.pub-pd
+                  %p
+                    %span.text-muted= @announcement.created_at.strftime("Published on %B %d, %Y")
+
+              .row
+                .col-sm-12.col-xs-12.col-md-12.text-right.rep-lik-un.wid-blk
+                  = render 'ediofy/shared/toolbar/votable', votable: @announcement
+              .brd-bottom{ id: ("content-#{@announcement.id}-report-container"),  class: ('reported' if @announcement.reports.by(current_user).exists?) }
+
+            = render 'ediofy/shared/comments/section', commentable: @announcement
+
+        .col-md-4
+          .rel-con
+            #related-content.slid-con-tab
+              %ul#related-content-tabs.nav.nav-tabs
+                %li.active
+                  %a{"data-url" => ediofy_related_index_path({type: 'links', return_type: 'media', id: @announcement.id}), "data-link" => 'media', :href => "#Media"} Media
+                %li
+                  %a{"data-url" => ediofy_related_index_path({type: 'links', return_type: 'questions', id: @announcement.id}), "data-link" => 'questions', :href => "#Questions"} Questions
+                %li
+                  %a{"data-url" => ediofy_related_index_path({type: 'links', return_type: 'conversations', id: @announcement.id}), "data-link" => 'conversations', :href => "#Conversations"} Conversations
+              .tab-content.infinite-table
+                .items
+                .load-more

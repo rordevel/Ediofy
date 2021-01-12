@@ -1,0 +1,31 @@
+- class_name = votable.class.name.underscore
+%div{id:"voting_#{votable.class.to_s}_#{votable.id}"}
+  %ul
+    - if user_signed_in?
+      %li{:class => ('updown-arrow-seen' if votable.votes_for.up.count > 0) }
+        = link_to send("#{current_user.voted_up_on?(votable) ? 'no' : 'up' }_ediofy_#{class_name}_votes_path", votable), remote: true do
+          %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+        = votable.votes_for.up.count
+      %li{:class => ('updown-arrow-seen' if votable.votes_for.down.count > 0) }
+        = link_to send("#{current_user.voted_down_on?(votable) ? 'no' : 'down' }_ediofy_#{class_name}_votes_path", votable), remote: true do
+          %i.fa.fa-thumbs-down{"aria-hidden" => "true"}>
+        = votable.votes_for.down.count
+      - if user_signed_in? && current_user != votable.user
+        %li.report-form-li{ class: ('updown-arrow-seen' if votable.reports.by(current_user).exists?) }
+          =link_to send("report_ediofy_#{votable.class.name.singularize.downcase}_reports_path", "#{votable.class.name.singularize.downcase}_id": votable.id), remote: true do
+            %i.fa.fa-flag{"aria-hidden" => "true"}>
+            Report
+    - else
+      %li{:class => ('updown-arrow-seen' if votable.votes_for.up.count > 0) }
+        = link_to "javascript:void(0)", class: "not-signed-in-alert" do
+          %i.fa.fa-thumbs-up{"aria-hidden" => "true"}>
+        = votable.votes_for.up.count
+      %li{:class => ('updown-arrow-seen' if votable.votes_for.down.count > 0) }
+        = link_to "javascript:void(0)", class: "not-signed-in-alert" do
+          %i.fa.fa-thumbs-down{"aria-hidden" => "true"}>
+        = votable.votes_for.down.count
+      - if user_signed_in? && current_user != votable.user
+        %li
+          %a{:href => "#report_selector_#{votable.id}_#{class_name}", class: "not-signed-in-alert"}
+            %i.fa.fa-flag{"aria-hidden" => "true"}>
+            Report}

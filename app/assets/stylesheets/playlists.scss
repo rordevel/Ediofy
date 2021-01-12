@@ -1,0 +1,415 @@
+// Place all the styles related to the Playlists controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// index
+
+//.playlist_modal {
+//  width: 371px;
+//  height: 347px;
+//}
+//
+
+
+#show-playlist-card {
+	background-color: white;
+}
+
+#show-playlist-card .card-body {
+	padding:12px;
+}
+
+
+#show-playlist-card .card-body .p.playlist-subtitle 
+{
+  width: 298px;
+  height: 18px;
+  font-family: Cabin;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #878da0;
+}
+
+#show-playlist-card .card-body p.playlist-sub-subtitle
+{
+  height: 15px;
+  font-family: Cabin;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #d5dfe8;
+ }
+
+ .tab-content.infinite-table #playlists
+ {
+   padding: 20px;
+ }
+
+ .row.plrow
+ {
+   cursor: pointer;
+   display: block;
+   margin: 10px;
+ }
+
+ .addToPlaylistBtn
+ {
+   display: inline;
+   margin-right: 10px;
+
+ }
+
+ .popOverDrop {
+    color: gray;
+    cursor: pointer;
+    transition:0.3s all;
+    -webkit-transition:0.3s all;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #aac7dd;
+    padding: 5px 12px 5px 12px;
+    -webkit-column-span: all; /* Chrome, Safari, Opera */
+    column-span: all;
+  }
+
+.author-name#playlist 
+{
+  padding-top: 0;
+}
+
+h2.playlist-title
+{  
+  width: 400px;
+  font-family: Cabin;
+  font-size: 22px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  margin-bottom:0;
+  margin-top: 0;
+  color: #3f536e;
+}
+
+.img-border
+{
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 155px;
+  background-position: center center;
+  border-width: 1px;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #d5dfe8;
+}
+
+
+.img-border-mini
+{
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 30px;
+  background-position: center center;
+  border-width: 1px;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #d5dfe8;
+}
+
+
+tr.row.plrow.spaceUnder>td {
+  margin-bottom: 1em;
+  vertical-align: top;
+  border-width: 1px;
+  height: 130px;
+  width: 155px;
+
+}
+
+.cancel 
+{
+  background-color: #d5dfe8;
+}
+
+.button.cancel, .btn.cancel.btn-default, .btn.cancel.btn-primary {
+    border: 1px solid transparent;
+    padding: 7px 25px;
+    text-transform: uppercase;
+    transition: 0.3s all;
+    -webkit-transition: 0.3s all;
+    cursor: pointer;
+    background-color:#d5dfe8;
+    color: #fff;
+    text-transform: none;
+    font-size: 14px;
+    border-radius:30px;
+    font-weight: normal;
+    font-weight:600;
+}
+
+.plform
+{ 
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+
+.plist_f_actions
+{
+   margin-left: auto;
+   width: 60%;
+   margin-top: 20px;
+}
+
+.plform .fullwidth
+{
+  width: 100%;
+}
+
+.td-elipsis
+{
+  color: #17b2ff;
+}
+
+#playlists {
+  i.fa.fa-ellipsis-v.td-elipsis.modal-popover {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+  }
+}
+
+
+table.plist {
+
+    /*border-spacing: 15px 50px;*/
+}
+
+#spacingrows {
+    // border-collapse: separate;
+    // border-spacing: 4px 20px;
+    display:table;
+}
+
+#spacingrows-mini {
+    border-collapse: separate;
+    border-spacing: 0px 3px;
+    display:table;
+}
+
+
+
+td.plist {
+ 
+     padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+td.plist.sortable_mark {
+  min-width: 3px;
+  width: 3px!important;
+  border-width: 2px!important;
+  border-top-width: 0!important;
+  border-bottom-width: 0!important;
+  border-style: dotted;
+  border-color: #17b2ff;
+  padding: 0;
+}
+
+td.plist.sortable_mark.hidden {
+  display: none;
+}
+
+table.plist .rollOverBtn {
+  display:none;
+}
+
+table.plist tr:hover .rollOverBtn {
+  display:none;
+}
+
+.classtitle 
+{
+  
+color: #FFF;
+    background-color: rgba(43, 0, 77, 0.5);
+    font-size: 10px;
+    border-radius: 2px;
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: 30%;
+    margin-top:10px;
+    margin-left:2px;
+}
+
+#playlist_card
+{
+  background-color: #e9eef3;
+}
+
+
+.wideinput 
+{
+  width: 100%;
+}
+#archived
+{
+  display: inline;
+}
+
+.clickable 
+{
+  
+  background-color: #cccc
+}
+
+h2 a {
+  vwidth: 437px;
+  height: 27px;
+  font-family: Cabin;
+  font-size: 22px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3f536e;
+}
+
+
+
+
+  a {
+    font-family: Cabin;
+    color: initial;
+
+    &.red-link {
+      color: #F4027D;
+    }
+  }
+
+
+
+  .vid-con.vid.archlabel {
+
+  float: right;
+  position: relative;
+  padding-right: 20px;
+
+  }
+  
+  #plp
+  {
+   left:0;
+   top: 0;
+  }
+
+  .vid-con.vid.archlabel p {
+   color: white;
+   background-color:transparent;
+
+  }
+
+
+  #archived_c {
+    margin-right: 20px;
+  }
+
+  .grayback {
+  
+    font-family: Cabin;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #878da0;
+    border: none;
+
+  }
+
+  .rightspace {
+    margin-right: 12px;
+  }
+
+
+  #playlist_id {
+    width: 307px;
+  }
+
+
+  a#createplaylistlink
+  {
+    width: 106px;
+    height: 18px;
+    font-family: Cabin;
+    font-size: 14px;
+    margin-right: 10px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.4px;
+    color: #17b2ff;
+ }
+
+.playlist_modal {
+    width:400px;
+    margin-left:30%;
+    height:100%;
+ background-color:transparent;
+}
+
+.biglabel {
+   width: 162px;
+  height: 18px;
+  font-family: Cabin;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  color: var(--dusk);
+}
+
+.smallauth {
+  border-radius: 15;
+  float: left;
+}
+
+.currentrow {
+  background-color: #f7f8f9;
+}
+
+.pos
+{
+  
+
+  position: relative;
+  left: 0px;
+
+}
+
+.minipl
+{
+  width:100%;
+}
+
+.tight {
+  padding: 0;
+}
+
+.spaceBelow{
+  margin-bottom:20px;
+}

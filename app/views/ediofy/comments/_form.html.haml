@@ -1,0 +1,30 @@
+.com-box
+  = semantic_form_for [:ediofy, commentable, commentable.comments.new], remote: true do |f|
+    .comment-box
+      .row.comment-sort
+        #user-detail.col-sm-6.col-xs-6.col-md-6.vid-tit.commet-icon.wid-blk
+          %input{type: :hidden, id: 'default-url', value: current_user.avatar.default_url}
+          = image_tag current_user.avatar.x_small.url, alt: 'user-comment'
+          .authinfoWrapName
+            %h6
+              = current_user.title.titleize rescue ''
+              = current_user.full_name.to_s.titleize rescue ''
+            %p= current_user.specialty_name
+        .col-sm-6.col-xs-6.col-md-6.text-right.on-off-btn.wid-blk.ex-cl
+          .checkbox-container
+            %h6 Go Ghost
+            = check_box 'comment', 'private', { class: 'custom-switch', checked: current_user.ghost_mode }, 'true', 'false'
+      .text-area-content
+        = f.input :comment, as: :text, placeholder: 'Add a Comment...', input_html: { class: 'ignore-comment-box form-text' }
+        - if defined?(parent_id)
+          = f.input :parent_id, as: :hidden, input_html: { value: parent_id }
+        - if params[:reply_id].present?
+          = f.input :replied_to, as: :hidden, input_html: { value: params[:reply_id] }  
+        - if params[:edit_id].present?
+          = f.input :edit_id, as: :hidden, input_html: { value: params[:edit_id] }  
+        .confirm-comm
+          .row
+            -#.col-md-6.vid-tit.wid-blk
+            .col-md-6.text-right.wid-blk.can-sub
+              %button.btn.button.clearboth.cancel-btn.cancel-comment{ type: 'button' } Cancel
+              %button.btn.button.clearboth.submit-btn{ type: 'submit' } Submit

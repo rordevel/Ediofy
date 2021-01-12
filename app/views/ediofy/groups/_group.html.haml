@@ -1,0 +1,19 @@
+- show_join ||= false
+
+%a.hidden = group.title
+=check_box_tag :followable_id, '', group.ispublic, id: "group#{group.id.to_s}", disabled: true, class: 'group', data: { id: group.id }
+%label{for: "group_#{group.id.to_s}"}
+  .labelOuter
+    .labelImage
+      .followsImgOuter
+        = link_to ediofy_group_path(group) do
+          = image_tag group.image, style: 'height: 110px' rescue image_tag('ediofy/subject.jpg', alt: '')
+      %i.fa.fa-globe{"aria-hidden" => "true"}
+    %p.userName
+      = link_to group.title.to_s.titleize, ediofy_group_path(group)
+    %p.shortDesc.text-muted
+      -#= link_to group.description, ediofy_group_path(group) unless group.description.blank?
+      = link_to "#{group.members.size} members", ediofy_group_path(group)
+    - if show_join && !group.in_group?(current_user)
+      %p.join
+        %small= link_to group.ispublic ? 'Join group' : 'Request Invite', join_ediofy_group_path(group)

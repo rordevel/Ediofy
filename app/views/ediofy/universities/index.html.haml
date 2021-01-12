@@ -1,0 +1,34 @@
+%h2= t('.results_for', search: params[:query]) if params[:query].present? and params[:query] != ''
+
+%ul.nav.nav-tabs
+  %li{ :class => ('active' unless params[:limit]) }
+    = link_to t('.tabs.all'), ediofy_universities_path(request.query_parameters.except(:limit))
+  - if user_signed_in? && current_user.university_group.present?
+    %li{ :class => ('active' if params[:limit] == 'mine') }
+      = link_to t('.tabs.mine'), ediofy_university_path(current_user.university_group)
+
+.index-search
+  = form_tag [:ediofy_universities], method: :get do
+    = hidden_field_tag :limit, params[:limit] if params[:limit].present?
+    %ol
+      %li.input.query
+        = label_tag :query, t('.query')
+        = text_field_tag :query, @query
+      %li.input.select
+        = label_tag :order_by, t('.order_by')
+        = select_tag :order_by, options_for_select({'Rating' => :rating, 'Date' => :created_at, 'Name' => :name, 'Attendees' => :attendees}, params[:order_by])
+      %li.input.select
+        = label_tag :direction, t('.direction')
+        = select_tag :direction, options_for_select({'Descending' => :desc, 'Ascending' => :asc}, params[:direction])
+      %li.actions
+        = submit_tag t('.do_search')
+        = link_to t('.clear'), ediofy_universities_path(request.query_parameters.except(:query, :order_by, :direction))
+
+.tab-content
+  .tab-pane.fade.in.active
+    .university-list
+      - if @universities.any?
+        %ol.university-items= render @universities
+        = paginate @universities
+      - else
+        .no-items.no-universities= t '.no_universities_html'

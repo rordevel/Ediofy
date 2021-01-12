@@ -1,0 +1,41 @@
+.row
+  .main-pub.col-md-12.text-right.group-share-row
+    .checkbox-container.share-ghost.display-inline
+      %h5 Share
+
+    .display-inline.text-left
+      .display-flex
+        %div
+          = f.radio_button :group_exclusive, false, id: 'resource_private_no', checked: params[resource].present? && params[resource]['group_exclusive'] == 'false' || !f.object.group_exclusive? && params[:ref] != 'group'
+        .padding-left-7
+          %b Public
+          %br
+          %small Anyone on ediofy
+
+    .display-inline.text-left
+      .display-flex
+        %div
+          = f.radio_button :group_exclusive, true, id: 'resource_private_yes', checked: params[resource].present? && params[resource]['group_exclusive'] == 'true' || f.object.group_exclusive? || params[:ref] == 'group'
+        .padding-left-7
+          %b Group
+          %br
+          %small Share to Group
+
+    .checkbox-container.share-ghost.text-left
+      - if params[:group_id]
+        - selected_group = current_user.groups.find(params[:group_id])
+      - elsif f.object.groups.any?
+        - selected_group = f.object.groups.first
+      = select_tag :group_id, options_for_select(current_user.groups&.pluck(:title, :id), selected_group&.id), class: 'form-control', disabled: params[resource].present? && params[resource]['group_exclusive'] == 'false' || !f.object.group_exclusive? && params[:ref] != 'group'
+      = hidden_field_tag :able_groups, current_user.groups.to_a.select { |gr| gr.able_edit?(current_user) }.map(&:id), disabled: true
+.row.post_as_page
+  .full-wid
+    .on-off-mode
+      .main-pub.col-md-12.text-right.display-inline
+        .checkbox-container.display-inline
+          %h6 Post As Page
+        %p.display-inline.margin-right-18px
+          shown as created by group
+          = image_tag 'ediofy/info.png'
+        .checkbox-container.display-inline
+          = f.check_box 'posted_as_group', { class: 'custom-switch', checked: params[resource].present? && params[resource]['posted_as_group'] == 'true' || f.object.posted_as_group? }, true, false

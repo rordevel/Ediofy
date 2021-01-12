@@ -1,0 +1,5 @@
+<% if user_signed_in? && !@user.blank? %>
+  window.location.href = "<%= @after_sign_path %>"
+<% else %>
+  $("#signInForm").html("<%= escape_javascript( render partial: 'sign_in_form' ) %>")
+<% end %>

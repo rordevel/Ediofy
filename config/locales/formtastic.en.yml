@@ -1,0 +1,113 @@
+en:
+  formtastic:
+    labels:
+      credit_card:
+        year: "Expiry Year"
+        month: "Expiry Month"
+        number: "Credit Card Number"
+        first_name: "Cardholder First Name"
+        last_name: "Cardholder Last Name"
+        type: "Credit Card Type"
+      question_explanation:
+        body: "Explanation"
+      user:
+        locale: "Preferred Language"
+      line_item:
+        duration_in_months: "Subscription"
+      setting:
+        question_reset: "Reset answer status"
+        privacy_friends: "Friends"
+        privacy_friends_1: "Open"
+        privacy_friends_2: "Medium"
+        privacy_friends_3: "Stealth"
+        privacy_public: "Public"
+        privacy_public_1: "Open"
+        privacy_public_2: "Medium"
+        privacy_public_3: "Stealth"
+      question_report:
+        reason_other: Other Reason
+      media:
+        tags_list: Tags
+        private: Visibility
+      media_collection:
+        tags_list: Tags
+        private: Visibility
+      media_report:
+        reason_other: Other Reason
+      user_collection:
+        private: Visibility
+    titles:
+      media_collection:
+        media: Media
+    prompt:
+      credit_card:
+        month: "Select A Month"
+        year: "Select A Year"
+      user_revision_exam:
+        tag:   "Select A Tag"
+        subject: "All subjects for the tag"
+    hints:
+      media:
+        tags_list: "Tags separated by commas descriptive of this media. Tags can also have values. Examples: cardio, patient:heartrate=80"
+        private: Private media gallery items can only be seen by you
+      media_collection:
+        tags_list: "Tags separated by commas descriptive of this media collection. Tags can also have values. Examples: cardio, patient:heartrate=80"
+        private: Private media gallery items can only be seen by you
+        media: More media can also be added later
+      user_collection:
+        private: "Private folders can only be seen by you"
+      user:
+        edit:
+          password_confirmation: "Leave the password fields blank to keep your existing password"
+      setting:
+        privacy_friends_1: "All of your activities and actions can be seen by your friends"
+        privacy_friends_2: "Only your point earnings are visible and you will take part in the leaderboard"
+        privacy_friends_3: "Hiding in the shadows, your friends can only see your profile page with your name on it"
+        privacy_public_1: "All of your activities and actions can be seen by everybody"
+        privacy_public_2: "Only your point earnings are visible and you will take part in the leaderboard"
+        privacy_public_3: "Hiding in the shadows, people can only see your profile page with your name on it"
+    actions:
+      add_to_cart: "Add To Cart"
+      update_cart: "Update Cart"
+      process_payment: "Process Payment"
+      educational_resource:
+        create: "Create Resource"
+        update: "Update Resource"
+      enquiry:
+        create: "Send Enquiry"
+      user:
+        change_password: "Change my password"
+        reset_password: "Send me retrieve password instructions"
+        sign_up: "Sign Up"
+        sign_in: "Sign In"
+        reset_password: "Send me retrieve password instructions"
+        change_password: "Change my password"
+        update_account: "Update Account Details"
+      user_collection:
+        create: "Create Folder"
+        update: "Update Folder"
+      media_collection:
+        create: "Create Clinical Scenario"
+        update: "Update Clinical Scenario"
+      admin:
+        sign_in: "Sign In"
+      user_revision_exam:
+        begin: "Begin"
+      user_exam_question:
+        finish: 'Finish'
+        next: 'Next'
+        not_sure: 'Not Sure'
+        skip: 'Skip'
+        show_translation: "Show Translation"
+        hide_translation: "Hide Translation"
+        submit: "Submit"
+      subscription:
+        get_free_access: "Get Free Access"
+      question_explanation:
+        create: "Submit"
+      question_report:
+        create: "Report Question"
+      media_report:
+        create: Report Media
+      comment:
+        create: "Submit Comment"

@@ -1,0 +1,4 @@
+require: rubocop-rails
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails

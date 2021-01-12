@@ -1,0 +1,8 @@
+.recentlyViewedTop
+  .container
+    .noRecentView.text-center
+      %p You have not joined any groups. Would you like to create one?
+      = link_to new_ediofy_group_path, data: { target: '#',toggle: 'modal'}, class: "btn button clearboth edit-me brd create-group-btn" do
+        %span.pluse-icon +
+        Create Group
+

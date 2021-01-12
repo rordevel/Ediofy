@@ -1,0 +1,13 @@
+- content_title = ""
+- if params[:q].present?
+  - if !params[:q][:content_title].blank?
+    - content_title = params[:q][:content_title]
+.panel_contents
+  %form#new_q.filter_form{"accept-charset" => "UTF-8", action: filter_path, method: "get"}
+    #q_content_title_input.string.input.optional.stringish.filter_form_field.filter_string.select_and_search
+      %label.label{for: "q_content_title"} Content Title
+      %input#q_content_title{maxlength: "50", name: "q[content_title]", type: "text", value: content_title}/
+    .buttons
+      %input{name: "commit", type: "submit", value: "Filter"}/
+      %a.clear_filters_btn{href: "#"} Clear Filters
+      %input#hidden_active_admin_order{name: "order", type: "hidden", value: "_desc"}/ 

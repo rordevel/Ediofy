@@ -1,0 +1,78 @@
+.pageContent
+  %section.upload-content.manageContentMargin
+    .container
+      = semantic_form_for [:ediofy, @link] do |f|
+        .share-a-con.shareAlink
+          %h1.exclr.h2
+            = @link.new_record? ? "Share a" : "Edit"
+            Link
+          .upload-filds.input-group
+            = f.inputs do
+              = f.input :title, label: false, placeholder: "Title", :input_html => { :class => 'form-control' }
+              = f.input :url, label: false, placeholder: "URL", :input_html => { autofocus: false, :class => 'form-control' }
+              %a.url-meta-tags
+                .close-img
+                  %span{:onclick => "window.clearMetaContents(this); return false"}
+                    %i.fa.fa-times-circle{"aria-hidden" => "true", style: 'font-size: 16px;'}
+                .best-image
+                .best-description
+                  %p
+                  %span
+            .res-mode.start-con
+              .row
+                .col-md-3.full-wid
+                  .pdt-bo
+                    %nav
+                      .extra-img-add-btn
+                        %button.btn.button.clearboth.edit-me.clrpink.brd{id: "upload-link-images-holder",:type => "button"}
+                          %i.fa.fa-picture-o{"aria-hidden" => "true"}>
+                          Custom thumbnail
+                        %span Max file size is 2 MB
+            .res-mode.start-con
+              #link_images_progress_bar{:style => "display: none"}
+                .upload.js-progress-bars
+                  .progress
+                    .bar
+              #link_images.multi-add-img.text-left
+                - @link.images.each_with_index do |image|
+                  = render partial: 'ediofy/shared/image', :locals => { resource: 'link', file_url: image.s3_file_url, file_name: image.s3_file_name, file_id: image.id, small_url: image.small_url, position: image.position }
+              %br
+              %label.normalFont Description
+              = f.input :description, label: false, placeholder: "Please add a description of your link here", input_html: { id: "ignored"}
+              = f.input :page_description, as: :hidden
+              = f.input :page_image, as: :hidden
+              .two-lab
+                %label.text-left.tagDisplay Tags
+                = f.input :tag_list, as: :tagger, label: false, input_html: { id: "ignored", class: 'form-control', data: { :'tagger-source' => ediofy_autocomplete_tags_url, :'tagger-hint' => 'Enter some tags', :'no-results' => 'No matching tags' } }
+                %label.text-left.instructionInfo These will help people search for your question
+            .res-mode.start-con
+              .row
+                .col-md-12.full-wid
+                  .on-off-mode.res-mode
+                    = render partial: 'ediofy/groups/share', locals: { resource: 'link', f: f }
+                    .row
+                      .main-pub.col-md-12.text-right
+                        .checkbox-container.share-ghost.display-inline
+                          %h6 Go Ghost
+                        %p.display-inline.margin-right-18px
+                          Your post will be anonymous.
+                          %a{href: 'javascript:void(0)', :'data-toggle' => "tooltip", :title => 'When you enter ghost mode, any posts and comments you make will be anonymous. Instead of appearing under your account name, they\'ll appear as "Ediofy Ghost". You can enable and disable ghost mode at any time in the user menu.'}
+                            = image_tag 'ediofy/info.png'
+                        .checkbox-container.share-ghost.display-inline
+                          = check_box 'link', 'private', {class: 'custom-switch', checked: @link.private }, 'true', 'false'
+              - unless @link.new_record?
+                =link_to 'Delete', "#", "data-request-url": ediofy_link_path(@link), "data-type": "Link", class: 'colorRed delete-content-btn'
+                |
+              = link_to 'Cancel', @link.new_record? ? ediofy_upload_path : ediofy_link_path(@link)
+              
+              = f.button @link.new_record? ? 'Upload' : 'Save', type: 'submit', class: 'btn button clearboth', id: 'link-submit-btn', disabled: true
+      .s3_upload_none
+        = s3_uploader_form callback_url: add_images_ediofy_links_path, callback_param: "link[images]", key_starts_with: "link/images/", id: "s3-uploader-link-images", max_file_size: 20.megabytes do
+          = file_field_tag :file, multiple: false, id: "upload-link-images", class: "image-dispaly", :accept => ".jpg, .jpeg, .png, .gif"
+:javascript
+  $(document).ready(function(){
+    var tag_observer = new MutationObserver(function() {
+        $('.token-input-list-facebook .token-input-input-token-facebook input').focus();
+    });
+    tag_observer.observe($('#link_tag_list_input ul').get(0), {childList: true });
+  });

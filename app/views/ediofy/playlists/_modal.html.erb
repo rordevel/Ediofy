@@ -1,0 +1,25 @@
+<div class="modal fade" id="form_modal" role="modal">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title">Modal Header</h4> -->
+        <h4 class="modal-title text-center"><%= action_name.capitalize %> playlist</h4>
+      </div>
+
+      <div class="modal-body plform">
+        <p>
+          <% if action_name  == "duplicate"%>
+            Duplicate this playlist and all of its content.
+          <% end %>
+        </p>
+        <% if action_name == "duplicate" %>
+          <%= render 'cform', locals: {playlist: @playlist} %>
+        <% else %>
+          <%= render 'form', locals: {playlist: @playlist} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
